@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --gray-500: #8a8a8a;
+    --violet-500: #9c89b8;
+    --gray-100: #f3f3f3;
+    --gray-300: #ccc;
+    --saffron-500: #facc69;
+
+    --font-base: var(--black);
+
+    --navbar-height: 66px;
+}
+
+@theme inline {
+    --color-background: var(--gray-100);
+    --color-font-base: var(--black);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    --spacing-navbar-height: var(--navbar-height);
+    --radius-4xl: 32px;
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-font-base);
+    font-family: Arial, Helvetica, sans-serif;
+}

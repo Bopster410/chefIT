@@ -1,0 +1,1 @@
+export { BACKEND } from './config';
