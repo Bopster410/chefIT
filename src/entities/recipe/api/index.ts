@@ -1,4 +1,6 @@
-const recipesMock = {
+import { RecipeDetailed } from './index.types';
+
+const detailedRecipeMock: RecipeDetailed = {
     img: 'https://opis-cdn.tinkoffjournal.ru/mercury/carbonara-19.mvotyhplpagn..jpg',
     name: 'Chicken-Tortilla Chip Soup',
     description:
@@ -81,173 +83,173 @@ const recipesMock = {
     ],
 };
 
-// export async function getRecipeData(id: number): Promise<{
-//     status: number;
-//     data: {
-//         name: string;
-//         description: string;
-//         img: string;
-//         steps: {
-//             number: number;
-//             step: string;
-//             length?: { number: number; unit: string };
-//         }[];
-//     }[];
-// }> {
-//     return (await fetch(BACKEND + RECIPES_API.getById + `${id}`)).json();
-// }
-export function getRecipeData(id: number) {
-    return recipesMock;
-}
-
 import { BACKEND } from '@/shared/api';
 import { RECIPES_API } from './constants';
+import { Recipe } from './index.types';
 
-const allRecipesMock = [
+export async function getRecipeData(id: number): Promise<{
+    status: number;
+    data: RecipeDetailed;
+}>{
+    return fetch(BACKEND + RECIPES_API.getById + `${id}}`)
+    .then((response)=>{return response.json()})
+    .catch(()=>{return {status:1, data: detailedRecipeMock}})
+}
+
+
+const allRecipesMock: {
+    status: number;
+    data: Recipe[];
+} = {
+    status: 1,
+    data: [
     {
         id: 1,
         name: 'Iced Baklava Cheesecake Latte',
         description:
             'Освежающий латте со вкусом баклавы и чизкейка, идеально подходит для любителей сладкого.',
-        image: 'https://www.instagram.com/p/DGRPdKipoMD/',
+        img: 'https://www.instagram.com/p/DGRPdKipoMD/',
     },
     {
         id: 2,
         name: 'Marshmallow Tanghulu',
         description:
             'Китайское лакомство с маршмеллоу, покрытое хрустящей карамельной корочкой.',
-        image: 'https://tasty.co/recipe/marshmallow-tanghulu',
+        img: 'https://tasty.co/recipe/marshmallow-tanghulu',
     },
     {
         id: 3,
         name: 'Shibuya Banana Pudding French Toast',
         description:
             'Французские тосты в стиле Сибуя с банановым пудингом — идеальный завтрак для гурманов.',
-        image: 'https://www.pinterest.com/pin/banana-pudding-stuffed-french-toast-happy-homeschool-nest-in-2023--654710864598029338/',
+        img: 'https://www.pinterest.com/pin/banana-pudding-stuffed-french-toast-happy-homeschool-nest-in-2023--654710864598029338/',
     },
     {
         id: 4,
         name: 'Lobster Pesto Pasta',
         description:
             'Паста с лобстером и песто — изысканное блюдо для особых случаев.',
-        image: 'https://gopesto.co.uk/blogs/pasta/lobster',
+        img: 'https://gopesto.co.uk/blogs/pasta/lobster',
     },
     {
         id: 5,
         name: 'Chicken Alfredo Soup',
         description:
             'Сливочный суп с курицей Альфредо — комфортная еда в холодные дни.',
-        image: 'https://www.staysnatched.com/chicken-alfredo-soup/',
+        img: 'https://www.staysnatched.com/chicken-alfredo-soup/',
     },
     {
         id: 6,
         name: 'Kiss Me I’m Hydrated Shake',
         description: 'Освежающий коктейль для поддержания гидратации.',
-        image: 'https://www.vecteezy.com/vector-art/7324773-kiss-me-i-m-irish-ish-vector-design',
+        img: 'https://www.vecteezy.com/vector-art/7324773-kiss-me-i-m-irish-ish-vector-design',
     },
     {
         id: 7,
         name: 'Vietnamese Garlic Noodles',
         description:
             'Вьетнамская лапша с чесноком — простое и ароматное блюдо для любителей азиатской кухни.',
-        image: 'https://takestwoeggs.com/vietnamese-garlic-noodles/',
+        img: 'https://takestwoeggs.com/vietnamese-garlic-noodles/',
     },
     {
         id: 8,
         name: 'Earl Grey Simple Syrup',
         description:
             'Простой сироп с ароматом Эрл Грей — идеальная добавка к напиткам и десертам.',
-        image: 'https://decoratedtreats.com/earl-grey-syrup-tea-flavored-simple-syrup.html',
+        img: 'https://decoratedtreats.com/earl-grey-syrup-tea-flavored-simple-syrup.html',
     },
     {
         id: 9,
         name: 'Onion Tarte Tatin',
         description:
             'Перевернутый луковый пирог — французская классика с карамелизированным луком.',
-        image: 'https://tasty.co/recipe/onion-tarte-tatin',
+        img: 'https://tasty.co/recipe/onion-tarte-tatin',
     },
     {
         id: 10,
         name: 'Shamrock Shake Latte',
         description:
             'Латте со вкусом мятного коктейля — праздничный напиток для Дня Святого Патрика.',
-        image: 'https://tasty.co/recipe/shamrock-shake-latte',
+        img: 'https://tasty.co/recipe/shamrock-shake-latte',
     },
     {
         id: 11,
         name: 'Strawberry Dubai Chocolate Bark',
         description:
             'Шоколадная корка с клубникой и фисташками — изысканный десерт с ближневосточным акцентом.',
-        image: 'https://tasty.co/recipe/strawberry-dubai-chocolate-bark',
+        img: 'https://tasty.co/recipe/strawberry-dubai-chocolate-bark',
     },
     {
         id: 12,
         name: 'Soba Noodles',
         description:
             'Традиционные японские гречневые лапша, подаваемые в холодном бульоне или с соусом.',
-        image: 'https://tasty.co/recipe/soba-noodles',
+        img: 'https://tasty.co/recipe/soba-noodles',
     },
     {
         id: 13,
         name: 'Cobb Salad In A Jar',
         description:
             'Классический салат Кобб, удобно упакованный в банку для легкого перекуса на ходу.',
-        image: 'https://tasty.co/recipe/cobb-salad-in-a-jar',
+        img: 'https://tasty.co/recipe/cobb-salad-in-a-jar',
     },
     {
         id: 14,
         name: 'Dr Pepper® Blackberry Pulled Pork Sandwiches',
         description:
             'Сочные сэндвичи с рваной свининой, приготовленной в соусе Dr Pepper® и ежевикой.',
-        image: 'https://tasty.co/recipe/dr-pepper-blackberry-pulled-pork-sandwiches',
+        img: 'https://tasty.co/recipe/dr-pepper-blackberry-pulled-pork-sandwiches',
     },
     {
         id: 15,
         name: 'Prosciutto & Goat Cheese Pizza With Balsamic Glaze',
         description:
             'Пицца с прошутто и козьим сыром, украшенная бальзамической глазурью.',
-        image: 'https://tasty.co/recipe/prosciutto-goat-cheese-pizza-with-balsamic-glaze',
+        img: 'https://tasty.co/recipe/prosciutto-goat-cheese-pizza-with-balsamic-glaze',
     },
     {
         id: 16,
         name: 'Creamy Pesto Eggs',
         description:
             'Сливочные яйца с песто — быстрый и вкусный завтрак или бранч.',
-        image: 'https://tasty.co/recipe/creamy-pesto-eggs',
+        img: 'https://tasty.co/recipe/creamy-pesto-eggs',
     },
     {
         id: 17,
         name: 'Matcha Latte Jelly',
         description:
             'Желе на основе матча латте — освежающий десерт для любителей зеленого чая.',
-        image: 'https://tasty.co/recipe/matcha-latte-jelly',
+        img: 'https://tasty.co/recipe/matcha-latte-jelly',
     },
     {
         id: 18,
         name: 'Air-Fried Bourbon Chicken Skewers',
         description:
             'Куриные шашлычки в бурбонском маринаде, приготовленные в аэрогриле для сочности и аромата.',
-        image: 'https://tasty.co/recipe/air-fried-bourbon-chicken-skewers',
+        img: 'https://tasty.co/recipe/air-fried-bourbon-chicken-skewers',
     },
     {
         id: 19,
         name: 'Sleepy Girl Gummies',
         description:
             'Жевательные конфеты с натуральными ингредиентами для улучшения сна.',
-        image: 'https://tasty.co/recipe/sleepy-girl-gummies',
+        img: 'https://tasty.co/recipe/sleepy-girl-gummies',
     },
     {
         id: 20,
         name: 'Creamy Pesto Pasta',
         description:
             'Сливочная паста с песто — быстрое и вкусное блюдо для будничного ужина.',
-        image: 'https://tasty.co/recipe/creamy-pesto-pasta',
+        img: 'https://tasty.co/recipe/creamy-pesto-pasta',
     },
-];
+    ]
+}
 
 export async function getRecipesFeed(num: number): Promise<{
     status: number;
-    Data: { id: number; name: string; description: string; img: string }[];
+    data: Recipe[];
 }> {
-    return (await fetch(BACKEND + RECIPES_API.getAll + `?num=${num}`)).json();
+    return fetch(BACKEND + RECIPES_API.getAll + `?num=${num}`)
+    .then((response)=>{return response.json()})
+    .catch(()=>allRecipesMock)
 }
