@@ -1,2 +1,2 @@
-export * from './index.ui';
+export * from './index.component';
 export * from './index.container';
