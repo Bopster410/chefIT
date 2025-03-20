@@ -1,5 +1,5 @@
 import { HomePage } from '@/pages/home/ui';
 
-export default function Home() {
+export default function Page() {
     return <HomePage />;
 }
