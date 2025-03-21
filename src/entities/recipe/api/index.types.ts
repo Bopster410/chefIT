@@ -3,34 +3,37 @@ export type Recipe = {
     name: string;
     description: string;
     img: string;
-}
+};
 
-export type Ingredient = {
+type Ingredient = {
     id: number;
     name: string;
-    measures: {
-        amount: number;
-        unit: string;
-    }
-}
+    image: string;
+    localizedName: string;
+    // measures: {
+    //     amount: number;
+    //     unit: string;
+    // };
+};
 
-export type Step = {
-    description: string;
+type Step = {
+    step: string;
     number: number;
-    time?: {
+    length?: {
         number: number;
         unit: string;
-    },
-}
+    };
+    ingredients: Ingredient[];
+};
 
 export type RecipeDetailed = {
+    description: string;
     img: string;
     name: string;
-    description: string;
-    healthScore: number;
-    cookingTime: number;
-    prepTime: number;
-    servingsNum: number;
+    // healthScore: number;
+    // cookingTime: number;
+    // prepTime: number;
+    // servingsNum: number;
     ingredients: Ingredient[];
     steps: Step[];
-}
+};

@@ -1,2 +1,2 @@
-export * from './index.component';
-export * from './index.container';
+export { RecipesFeed } from './index.component';
+export { RecipesFeedContainer } from './index.container';

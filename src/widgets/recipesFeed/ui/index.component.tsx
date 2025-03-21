@@ -1,8 +1,10 @@
-import { RecipeCard } from '@/entities/recipe';
-import { Recipe } from '@/entities/recipe/api/index.types';
+import { RecipeCard, Recipe } from '@/entities/recipe';
 import { FunctionComponent } from 'react';
 
-export const RecipesFeed: FunctionComponent<{recipes: Recipe[]}> = ({ recipes }) => {
+// TODO: separate recipe props from response json type
+export const RecipesFeed: FunctionComponent<{ recipes: Recipe[] }> = ({
+    recipes,
+}) => {
     return (
         <div className='flex flex-col space-y-2'>
             {recipes.map((recipe) => (
