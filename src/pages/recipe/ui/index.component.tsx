@@ -1,9 +1,12 @@
 import { FunctionComponent } from 'react';
-import { RecipeDetailed } from '@/entities/recipe/api/index.types';
+import { Props } from './index.types';
 
-export const RecipePage: FunctionComponent<{
-    recipe: RecipeDetailed;
-}> = ({ recipe }) => {
+export const RecipePage: FunctionComponent<Props> = ({
+    name,
+    description,
+    ingredients,
+    steps,
+}) => {
     return (
         <div className='bg-white rounded-t-4xl h-full pt-4 px-4'>
             {/* <Image
@@ -11,26 +14,24 @@ export const RecipePage: FunctionComponent<{
                 alt='recipe'
                 fill
             /> */}
-            <div className='text-[32px] font-bold'>{recipe.name}</div>
-            <div className='text-[16px]'>{recipe.description}</div>
+            <div className='text-[32px] font-bold'>{name}</div>
+            <div className='text-[16px]'>{description}</div>
             <div className='text-[20px] font-bold'>Подготовка</div>
-            {recipe.ingredients.map(
-                ({ id, name, measures: { amount, unit } }) => (
-                    <div
-                        key={id}
-                        className='flex justify-between'
-                    >
-                        <div>{name}</div>
-                        <div>{`${amount} ${unit}`}</div>
-                    </div>
-                )
-            )}
+            {ingredients.map(({ id, name, measures: { amount, unit } }) => (
+                <div
+                    key={id}
+                    className='flex justify-between'
+                >
+                    <div>{name}</div>
+                    <div>{`${amount} ${unit}`}</div>
+                </div>
+            ))}
             <div className='text-[20px] font-bold'>Приготовление</div>
-            {recipe.steps.map(({ number, description, time }) => (
+            {steps.map(({ number, step, length }) => (
                 <div key={number}>
                     <span className='me-8'>{number}</span>
-                    <span>{description}</span>
-                    {!!time && <div>{`${time.number} минут`}</div>}
+                    <span>{step}</span>
+                    {!!length && <div>{`${length.number} минут`}</div>}
                 </div>
             ))}
         </div>
