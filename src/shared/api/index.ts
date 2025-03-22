@@ -2,6 +2,7 @@ import { BACKEND, METHODS } from './config';
 import { QueryParams, RequestConfig, Response, SlugParam } from './index.types';
 
 export { BACKEND } from './config/index.constants';
+export { throttle } from './throttling';
 
 export async function ajax<T>({
     url,
