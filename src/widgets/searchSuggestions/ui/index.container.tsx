@@ -1,5 +1,10 @@
+import { FunctionComponent } from "react";
 import { Suggestions } from "./index.component";
+import { Props } from "./index.types";
 
-export function SuggestionsContainer(suggestions: string[]) {
-  return <Suggestions suggestions={suggestions} />;
-}
+export const SuggestionsContainer: FunctionComponent<Props> = ({
+  suggestions,
+  handleClick,
+}) => {
+  return <Suggestions handleClick={handleClick} suggestions={suggestions} />;
+};
