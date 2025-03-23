@@ -1,4 +1,4 @@
-import { HomePage } from '@/pages/home/ui';
+import { HomePage } from '@/pagesss/home/ui';
 
 export default function Page() {
     return <HomePage />;

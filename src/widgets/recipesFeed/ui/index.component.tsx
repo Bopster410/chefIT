@@ -7,7 +7,7 @@ export const RecipesFeed: FunctionComponent<{ recipes: Recipe[] }> = ({
 }) => {
     return (
         <div className='flex flex-col space-y-2'>
-            {recipes.map((recipe) => (
+            {recipes && recipes.map((recipe) => (
                 <RecipeCard
                     key={recipe.id}
                     {...recipe}
