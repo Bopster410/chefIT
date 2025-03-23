@@ -1,6 +1,6 @@
 import { getRecipeData } from '@/entities/recipe/api';
-import { ingredientsFromRecipe } from '@/pages/recipe/lib';
-import { RecipePage } from '@/pages/recipe/ui';
+import { ingredientsFromRecipe } from '@/pagesss/recipe/lib';
+import { RecipePage } from '@/pagesss/recipe/ui';
 
 export default async function Page({
     params,
