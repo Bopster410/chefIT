@@ -48,9 +48,7 @@ export const GlobalProvider: FunctionComponent<PropsWithChildren> = ({
         isLast,
     } = useStep();
 
-    const [timers, setTimers] = useState<
-        { number: number; description: string }[]
-    >([]);
+    const [timers] = useState<{ number: number; description: string }[]>([]);
 
     const init = async () => {
         const { Data, Status } = await getCurrentCookingRecipe();
@@ -75,6 +73,7 @@ export const GlobalProvider: FunctionComponent<PropsWithChildren> = ({
 
     useEffect(() => {
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const startCooking = async (

@@ -6,7 +6,7 @@ import Link from 'next/link';
 export const CookingProgressBar: FunctionComponent<Props> = ({
     id,
     name,
-    currentStep: { number, step, length },
+    currentStep: { number, step },
     nextStep,
     prevStep,
     totalSteps,
