@@ -1,3 +1,13 @@
 export { RecipeCard } from './ui';
-export { getRecipeData, getRecipesFeed } from './api';
+export {
+    getRecipeData,
+    getRecipesFeed,
+    getCurrentCookingRecipe,
+    getRecipesSearch,
+    getSearchSuggestions,
+    startRecipe,
+    endRecipe,
+    setNextStep,
+    setPrevStep,
+} from './api';
 export type { RecipeDetailed, Recipe } from './api';

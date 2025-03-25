@@ -1,7 +1,13 @@
 import { BACKEND, METHODS } from './config';
-import { QueryParams, RequestConfig, Response, SlugParam } from './index.types';
+import {
+    QueryParams,
+    RequestConfig,
+    Response,
+    SlugParam,
+    Body,
+} from './index.types';
 
-export { BACKEND } from './config/index.constants';
+export { BACKEND, STATUS } from './config/index.constants';
 export { throttle } from './throttling';
 
 export async function ajax<T>({
@@ -28,6 +34,8 @@ export async function ajax<T>({
         headers.set('Content-Type', 'application/json; charset=utf8');
     }
 
+    // console.log(fullUrl);
+
     return fetch(fullUrl, {
         method,
         credentials: 'include',
@@ -37,6 +45,7 @@ export async function ajax<T>({
             return response.json();
         })
         .then((data: Response<T>) => {
+            // console.log(data);
             return data;
         })
         .catch((error: Response<T>) => {

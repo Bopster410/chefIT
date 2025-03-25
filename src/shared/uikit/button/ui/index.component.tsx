@@ -3,7 +3,7 @@ import { Props } from './index.types';
 
 const COLORS = {
     white: 'bg-white',
-    gray: 'text-(gray-100)',
+    gray: 'bg-(--gray-100)',
 };
 
 export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
@@ -16,7 +16,7 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
         <button
             className={`hover:cursor-pointer ${COLORS[color]} ${
                 circle ? 'rounded-full' : 'rounded-lg'
-            } text-font-base`}
+            } text-font-base h-button-height px-4`}
             {...props}
         >
             {children}
