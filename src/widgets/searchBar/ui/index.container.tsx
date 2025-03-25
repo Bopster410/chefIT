@@ -6,18 +6,23 @@ import { throttle } from "@/shared/api";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { ROUTES } from "@/shared/routes/index.constants";
+import { SelectedFilters } from "@/entities/recipe/api/index.types";
 
 export function SearchBarContainer({
   handleSearch,
   haveSuggestions,
+  filters,
+  query,
+  handleQueryChange,
 }: {
-  handleSearch?: (query?: string) => void;
+  handleSearch?: (params?: { query?: string; filters?: SelectedFilters }) => void;
   haveSuggestions: boolean;
+  filters: SelectedFilters | undefined;
+  query: string;
+  handleQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [query, handleQueryChange] = useInput("");
-
   if (handleSearch) {
     const throttledSearch = useRef(throttle(handleSearch, 1000));
 
@@ -28,8 +33,8 @@ export function SearchBarContainer({
         firstRender.current = false;
         return;
       }
-      throttledSearch.current(query);
-    }, [query]);
+      throttledSearch.current({query,filters});
+    }, [query,filters]);
   }
 
   const handleFocus = () => {
@@ -38,11 +43,18 @@ export function SearchBarContainer({
     }
   };
 
+  const clearInput = () =>
+    handleQueryChange({
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>);
+
   return (
     <SearchBar
       haveSuggestions={haveSuggestions}
       onChange={handleQueryChange}
       onFocus={handleFocus}
+      onClear={clearInput}
+      value={query}
     />
   );
 }

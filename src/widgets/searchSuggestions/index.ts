@@ -1,1 +1,1 @@
-export { Suggestions, SuggestionsContainer } from "./ui";
+export { Suggestions } from "./ui";

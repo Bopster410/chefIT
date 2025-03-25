@@ -8,4 +8,5 @@ export const RECIPES_API = {
     endRecipe: 'recipe/end',
     nextStep: 'recipe/next',
     prevStep: 'recipe/prev',
+    getFilters: 'search/filters',
 };
