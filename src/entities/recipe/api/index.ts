@@ -1,6 +1,6 @@
 import { ajaxGet } from '@/shared/api';
 import { RECIPES_API } from './index.constants';
-import { RecipeDetailed, Recipe } from './index.types';
+import { RecipeDetailed, Recipe, RecipeFilters, SelectedFilters } from './index.types';
 
 export async function getRecipeData(id: number) {
     return await ajaxGet<RecipeDetailed>({
@@ -16,11 +16,26 @@ export async function getRecipesFeed(num: number) {
     });
 }
 
-export async function getRecipesSearch(query: string) {
-    return await ajaxGet<{recipes:Recipe[]}>({
+export async function getRecipesSearch(
+  query: string,
+  filters: SelectedFilters | null
+) {
+  if (filters === null) {
+    return await ajaxGet<{ recipes: Recipe[] }>({
         url: RECIPES_API.search,
         queryParams: { query: query },
     });
+  }
+  return await ajaxGet<{ recipes: Recipe[] }>({
+    url: RECIPES_API.search,
+    queryParams: {
+      query: query,
+      maxTime: filters.time,
+      minTime: 0,
+      dishType: filters.dishType,
+      diet: filters.diet
+    },
+  });
 }
 
 export async function getSearchSuggestions(query: string) {
@@ -30,7 +45,65 @@ export async function getSearchSuggestions(query: string) {
     });
 }
 
+export async function getSearchFilters() {
+    return await ajaxGet<RecipeFilters>({
+        url: RECIPES_API.getFilters,
+    });
+}
+
 export type { RecipeDetailed, Recipe };
+
+export const filtersMock: {
+    Status: number;
+    Data: RecipeFilters;
+} = {
+    Status: 200,
+    Data:{
+        diets:[
+            "dairy free",
+            "gluten free",
+            "vegan",
+            "primal",
+            "whole 30",
+            "pescatarian",
+            "fodmap friendly",
+            "lacto ovo vegetarian",
+            "paleolithic",
+            "ketogenic",
+        ],
+        dishTypes: [
+            "starter",
+            "side dish",
+            "brunch",
+            "condiment",
+            "dip",
+            "beverage",
+            "sauce",
+            "hor d'oeuvre",
+            "lunch",
+            "main dish",
+            "spread",
+            "bread",
+            "antipasti",
+            "snack",
+            "appetizer",
+            "main course",
+            "dinner",
+            "drink",
+            "fingerfood",
+            "antipasto",
+            "dessert",
+            "morning meal",
+            "breakfast",
+            "soup",
+            "salad"
+        ],
+        time: {
+            "min": 5,
+            "max": 400
+        }
+    }
+}
 
 const allRecipesMock: {
     Status: number;

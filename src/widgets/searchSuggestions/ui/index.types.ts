@@ -1,3 +1,6 @@
-export interface Props{
-    suggestions : string[];
+import { MouseEventHandler } from "react";
+
+export interface Props {
+  suggestions: string[];
+  handleClick: MouseEventHandler<HTMLDivElement>;
 }

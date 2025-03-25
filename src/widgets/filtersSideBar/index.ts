@@ -1,0 +1,1 @@
+export { FiltersSideBar } from './ui'
