@@ -6,3 +6,7 @@ export const METHODS: { [method: string]: AllowedMethods } = {
     GET: 'GET',
     POST: 'POST',
 };
+
+export const STATUS = {
+    SUCCESS: 200,
+};

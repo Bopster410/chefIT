@@ -1,16 +1,16 @@
 import { getRecipeData } from '@/entities/recipe/api';
 import { ingredientsFromRecipe } from '@/pagesss/recipe/lib';
-import { RecipePage } from '@/pagesss/recipe/ui';
+import { RecipePageContainer } from '@/pagesss/recipe';
 
 export default async function Page({
     params,
 }: {
-    params: Promise<{ id: number }>;
+    params: Promise<{ id: string }>;
 }) {
-    const { id } = await params;
+    const id = parseInt((await params).id);
     const recipe = (await getRecipeData(id)).Data;
     return (
-        <RecipePage
+        <RecipePageContainer
             id={id}
             img={recipe.img}
             name={recipe.name}

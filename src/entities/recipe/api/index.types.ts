@@ -16,13 +16,13 @@ type Ingredient = {
     // };
 };
 
-type Step = {
+export type Step = {
     step: string;
     number: number;
-    length?: {
+    length: {
         number: number;
         unit: string;
-    };
+    } | null;
     ingredients: Ingredient[];
 };
 

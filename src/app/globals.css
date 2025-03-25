@@ -12,6 +12,7 @@
     --font-base: var(--black);
 
     --navbar-height: 66px;
+    --button-height: 52px;
 }
 
 @theme inline {
@@ -21,7 +22,10 @@
     --font-mono: var(--font-geist-mono);
 
     --spacing-navbar-height: var(--navbar-height);
+    --spacing-button-height: var(--button-height);
     --radius-4xl: 32px;
+
+    --shadow-status-bar: 0 -4px 12px -8px rgba(0, 0, 0, 0.25);
 }
 
 body {
