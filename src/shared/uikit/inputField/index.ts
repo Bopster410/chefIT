@@ -1,1 +1,1 @@
-export { InputField, type InputFieldProps } from "./ui";
+export { InputField } from "./ui";
