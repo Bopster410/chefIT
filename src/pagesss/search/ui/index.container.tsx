@@ -7,10 +7,14 @@ import {
   Recipe,
 } from "@/entities/recipe/api";
 import { SearchPage } from "./index.component";
+import { SelectedFilters } from "@/entities/recipe/api/index.types";
+import useInput from "@/widgets/searchBar/api";
 
 export function SearchPageContainer() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [filters, setFilters] = useState<SelectedFilters>();
+  const [query, handleQueryChange] = useInput("");
 
   useEffect(() => {
     const input = document.querySelector<HTMLInputElement>("#search-input");
@@ -19,57 +23,64 @@ export function SearchPageContainer() {
     }
   }, []);
 
-  function searchRecipes(query?: string){
+  function searchRecipes(query?: string, filters?: SelectedFilters) {
     if (query === undefined || query === "") {
       getRecipesFeed(10).then((recipes) => {
         setRecipes(recipes.Data);
       });
     } else {
-      getRecipesSearch(query)
+      getRecipesSearch(query, filters ? filters : null)
         .then((recipes) => {
           setRecipes(recipes.Data.recipes);
         })
-        .catch(() => {});
+        .catch(()=>setRecipes([]));
     }
   }
 
-  function getSuggestions(query?: string){
+  function getSuggestions(query?: string) {
     if (query === undefined || query === "") {
       setSuggestions([]);
-    }
-    else{
+    } else {
       getSearchSuggestions(query)
-      .then((suggestions) => {
-        if (!suggestions.Data.suggestions) throw new Error("no suggestions");
-        setSuggestions(suggestions.Data.suggestions);
-      })
-      .catch(() => {
-        setSuggestions([]);
-      });
+        .then((suggestions) => {
+          if (!suggestions.Data.suggestions) throw new Error("no suggestions");
+          setSuggestions(suggestions.Data.suggestions);
+        })
+        .catch(() => {
+          setSuggestions([]);
+        });
     }
   }
 
-  function handleSearch(query?: string) {
-    searchRecipes(query);
-    getSuggestions(query);
+  function handleSearch(params?:{query?: string, filters?: SelectedFilters}) {
+    searchRecipes(params?.query, params?.filters);
+    getSuggestions(params?.query);
   }
 
-  function handleSuggestionClick(event:MouseEvent<HTMLDivElement>){
-    const input = document.querySelector<HTMLInputElement>("#search-input");
+  function handleSuggestionClick(event: MouseEvent<HTMLDivElement>) {
     const chosenSuggestion = event?.currentTarget.textContent;
-    if (input && chosenSuggestion) {
-      input.value = chosenSuggestion;
-      searchRecipes(chosenSuggestion);
+    if (chosenSuggestion) {
+      handleQueryChange({
+        target: { value: chosenSuggestion },
+      } as React.ChangeEvent<HTMLInputElement>);
       setSuggestions([]);
     }
+  }
+
+  function handleApplyFilters(selectedFilters: SelectedFilters | undefined) {
+    setFilters(selectedFilters);
   }
 
   return (
-    <SearchPage
-      suggestions={suggestions}
-      handleSearch={handleSearch}
-      recipes={recipes}
-      handleClick={handleSuggestionClick}
-    />
+      <SearchPage
+        filters={filters}
+        suggestions={suggestions}
+        handleSearch={handleSearch}
+        recipes={recipes}
+        handleClick={handleSuggestionClick}
+        onApplyFilters={handleApplyFilters}
+        query={query}
+        handleQueryChange={handleQueryChange}
+      />
   );
 }

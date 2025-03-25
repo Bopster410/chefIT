@@ -3,4 +3,5 @@ export const RECIPES_API = {
     getById: 'recipe',
     search: 'search',
     getSuggestions: 'search/suggest',
+    getFilters: 'search/filters',
 };

@@ -37,3 +37,18 @@ export type RecipeDetailed = {
     ingredients: Ingredient[];
     steps: Step[];
 };
+
+export interface RecipeFilters{
+    diets: string[];
+    dishTypes: string[];
+    time:{
+        min: number;
+        max: number;
+    }
+}
+
+export interface SelectedFilters {
+    diet: string;
+    dishType: string;
+    time: number;
+  }
