@@ -7,7 +7,7 @@ export const HomePage = () => {
         <div className=' bg-white rounded-t-4xl h-full px-4 py-8'>
             <Navbar />
             <div className='w-[200px] ml-auto mr-auto'>
-                <SearchBarContainer />
+                <SearchBarContainer haveSuggestions={false} filters={undefined} query=''  />
             </div>
             <RecipesFeedContainer />
         </div>

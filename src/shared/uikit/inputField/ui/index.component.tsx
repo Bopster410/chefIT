@@ -1,7 +1,6 @@
-import { FunctionComponent, PropsWithChildren } from "react";
-import { Props } from "./index.types";
+import { FunctionComponent, InputHTMLAttributes, PropsWithChildren } from "react";
 
-export const InputField: FunctionComponent<PropsWithChildren<Props>> = ({
+export const InputField: FunctionComponent<PropsWithChildren<InputHTMLAttributes<HTMLInputElement>>> = ({
   children,
   ...props
 }) => {

@@ -2,6 +2,6 @@ import { InputHTMLAttributes } from "react";
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
     onClear: () => void;
-    haveSuggestions: Boolean;
+    haveSuggestions: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

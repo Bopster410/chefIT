@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import useInput from "../api";
 import { SearchBar } from "./index.component";
 import { throttle } from "@/shared/api";
 import { useRouter } from "next/navigation";
@@ -19,23 +18,21 @@ export function SearchBarContainer({
   haveSuggestions: boolean;
   filters: SelectedFilters | undefined;
   query: string;
-  handleQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleQueryChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  if (handleSearch) {
-    const throttledSearch = useRef(throttle(handleSearch, 1000));
+  const throttledSearch = useRef(throttle(handleSearch || (()=>{}), 1000));
+  const firstRender = useRef(true);
 
-    // Для предотвращения двойного вызова при рендере используем флаг
-    const firstRender = useRef(true);
-    useEffect(() => {
-      if (firstRender.current) {
-        firstRender.current = false;
-        return;
-      }
-      throttledSearch.current({query,filters});
-    }, [query,filters]);
-  }
+  // Для предотвращения двойного вызова при рендере используем флаг
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    throttledSearch.current({query,filters});
+  }, [query,filters]);
 
   const handleFocus = () => {
     if (pathname === ROUTES.HOME) {
@@ -43,15 +40,17 @@ export function SearchBarContainer({
     }
   };
 
-  const clearInput = () =>
+  const clearInput = () =>{
+    if (!handleQueryChange) return;
     handleQueryChange({
       target: { value: "" },
     } as React.ChangeEvent<HTMLInputElement>);
+  }
 
   return (
     <SearchBar
       haveSuggestions={haveSuggestions}
-      onChange={handleQueryChange}
+      onChange={handleQueryChange ||(()=>{})}
       onFocus={handleFocus}
       onClear={clearInput}
       value={query}
