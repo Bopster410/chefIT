@@ -12,7 +12,7 @@ export default async function Page({
     return (
         <RecipePageContainer
             id={id}
-            img={recipe.img}
+            img={''}
             name={recipe.name}
             description={recipe.description}
             healthScore={80}

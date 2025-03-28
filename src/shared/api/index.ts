@@ -34,8 +34,6 @@ export async function ajax<T>({
         headers.set('Content-Type', 'application/json; charset=utf8');
     }
 
-    // console.log(fullUrl);
-
     return fetch(fullUrl, {
         method,
         credentials: 'include',
@@ -45,7 +43,6 @@ export async function ajax<T>({
             return response.json();
         })
         .then((data: Response<T>) => {
-            // console.log(data);
             return data;
         })
         .catch((error: Response<T>) => {

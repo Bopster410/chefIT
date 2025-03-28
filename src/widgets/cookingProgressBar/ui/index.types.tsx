@@ -4,10 +4,12 @@ export interface Props {
     currentStep: {
         number: number;
         step: string;
-        length: number | null;
+        length?: number;
     };
+    timerSecondsLeft?: number;
     totalSteps: number;
     nextStep: () => void;
     prevStep: () => void;
     endCooking: () => void;
+    addTimer: () => void;
 }

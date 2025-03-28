@@ -4,6 +4,7 @@ import { GlobalContext } from '@/app/providers/globalProvider';
 import { FunctionComponent, useContext } from 'react';
 import { ContainerProps } from './index.types';
 import { RecipePage } from './index.component';
+import { TimersContext } from '@/app/providers/timers';
 
 export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
     id,
@@ -21,6 +22,8 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
         recipeId,
     } = useContext(GlobalContext);
 
+    const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
+
     return (
         <RecipePage
             id={id}
@@ -37,8 +40,18 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
                 if (prevStep) prevStep();
             }}
             endCooking={() => {
-                if (endCooking) endCooking();
+                if (endCooking && clearTimersLocally) {
+                    endCooking();
+                    clearTimersLocally();
+                }
             }}
+            timerSecondsLeft={
+                currentStep?.number &&
+                timers &&
+                (currentStep?.number in timers
+                    ? timers[currentStep.number].number
+                    : undefined)
+            }
             currentStep={
                 !!currentStep
                     ? {
@@ -57,6 +70,21 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
                         : 'other'
                     : 'none'
             }
-        ></RecipePage>
+            addTimer={() => {
+                if (
+                    !currentStep?.number ||
+                    !currentStep.description ||
+                    !currentStep.time ||
+                    !addTimer
+                )
+                    return;
+
+                addTimer(
+                    currentStep.number,
+                    currentStep.description,
+                    currentStep.time
+                );
+            }}
+        />
     );
 };

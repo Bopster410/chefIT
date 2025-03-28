@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useStep() {
     const [number, setNumber] = useState<number | null>(null);
@@ -6,48 +6,49 @@ export function useStep() {
     const [time, setTime] = useState<number | null>(null);
     const [totalSteps, setTotalSteps] = useState<number | null>(null);
 
-    const setStep = (
-        stepNumber: number,
-        stepDescription: string,
-        stepTime?: number
-    ) => {
-        if (
-            stepNumber !== null &&
-            stepNumber > 0 &&
-            stepNumber <= (totalSteps ?? stepNumber)
-        )
-            setNumber(stepNumber);
+    const setStep = useCallback(
+        (stepNumber: number, stepDescription: string, stepTime?: number) => {
+            if (
+                stepNumber !== null &&
+                stepNumber > 0 &&
+                stepNumber <= (totalSteps ?? stepNumber)
+            )
+                setNumber(stepNumber);
 
-        if (stepDescription !== null) setDescription(stepDescription);
+            if (stepDescription !== null) setDescription(stepDescription);
 
-        if (stepTime) setTime(stepTime);
-        if (!stepTime) setTime(null);
-    };
+            if (stepTime) setTime(stepTime);
+            if (!stepTime) setTime(null);
+        },
+        [totalSteps]
+    );
 
-    const initStep = (
-        initDescription: string,
-        totalSteps: number,
-        initTime?: number
-    ) => {
-        if (totalSteps < 1) {
-            clear();
-            return;
-        }
-
-        setTotalSteps(totalSteps);
-        setStep(1, initDescription, initTime);
-    };
-
-    const clear = () => {
+    const clear = useCallback(() => {
         setTotalSteps(null);
         setNumber(null);
         setDescription(null);
         setTime(null);
-    };
+    }, []);
 
-    const isFrist = () => number === 1;
+    const initStep = useCallback(
+        (initDescription: string, totalSteps: number, initTime?: number) => {
+            if (totalSteps < 1) {
+                clear();
+                return;
+            }
 
-    const isLast = () => number === totalSteps;
+            setTotalSteps(totalSteps);
+            setStep(1, initDescription, initTime);
+        },
+        [clear, setStep]
+    );
+
+    const isFrist = useCallback(() => number === 1, [number]);
+
+    const isLast = useCallback(
+        () => number === totalSteps,
+        [number, totalSteps]
+    );
 
     return {
         number,

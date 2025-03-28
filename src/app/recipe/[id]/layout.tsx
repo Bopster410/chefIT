@@ -1,4 +1,5 @@
 import { BackButton } from '@/features/backButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function RecipeLayout({
     children,
@@ -12,7 +13,7 @@ export default function RecipeLayout({
                     circle
                     color='white'
                 >
-                    X
+                    <CloseIcon />
                 </BackButton>
             </div>
             {children}
