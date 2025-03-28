@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { GlobalProvider } from './providers/globalProvider';
+import { TimersProvider } from './providers/timers';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -29,7 +30,9 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen md:grid md:justify-center`}
             >
                 <div className='w-full h-full md:w-3xl'>
-                    <GlobalProvider>{children}</GlobalProvider>
+                    <GlobalProvider>
+                        <TimersProvider>{children}</TimersProvider>
+                    </GlobalProvider>
                 </div>
             </body>
         </html>

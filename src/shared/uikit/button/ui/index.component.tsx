@@ -10,13 +10,16 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
     children,
     color,
     circle,
+    size = 'lg',
     ...props
 }) => {
     return (
         <button
             className={`hover:cursor-pointer ${COLORS[color]} ${
                 circle ? 'rounded-full' : 'rounded-lg'
-            } text-font-base h-button-height px-4`}
+            } ${
+                size === 'lg' ? 'h-button-height' : 'h-button-height-sm'
+            } text-font-base text-base px-4`}
             {...props}
         >
             {children}

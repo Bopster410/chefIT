@@ -31,6 +31,7 @@ export interface Props {
     cookingTime: number;
     prepTime: number;
     servings: number;
+    timerSecondsLeft?: number | null;
     ingredients: Ingredient[];
     steps: Step[];
     cookingState: 'cooking' | 'other' | 'none';
@@ -39,4 +40,5 @@ export interface Props {
     endCooking: () => void;
     nextStep: () => void;
     prevStep: () => void;
+    addTimer: () => void;
 }

@@ -3,6 +3,7 @@
 import { GlobalContext } from '@/app/providers/globalProvider';
 import { useContext } from 'react';
 import { CookingProgressBar } from './index.compoent';
+import { TimersContext } from '@/app/providers/timers';
 
 export const CookingProgressBarContainer = () => {
     const {
@@ -16,6 +17,8 @@ export const CookingProgressBarContainer = () => {
         endCooking,
     } = useContext(GlobalContext);
 
+    const { timers, addTimer, clearTimersLocally } = useContext(TimersContext);
+
     if (
         !nextStep ||
         !prevStep ||
@@ -24,8 +27,11 @@ export const CookingProgressBarContainer = () => {
         !recipeName ||
         !totalSteps ||
         !currentStep.description ||
+        !currentStep.number ||
         !endCooking ||
-        !currentStep.number
+        !addTimer ||
+        !timers ||
+        !clearTimersLocally
     )
         return;
 
@@ -39,11 +45,33 @@ export const CookingProgressBarContainer = () => {
             currentStep={{
                 number: currentStep.number,
                 step: currentStep.description,
-                length: currentStep.time,
+                length: currentStep.time ?? undefined,
             }}
+            timerSecondsLeft={
+                currentStep.number in timers
+                    ? timers[currentStep.number].number
+                    : undefined
+            }
             nextStep={nextStep}
             prevStep={prevStep}
-            endCooking={endCooking}
+            endCooking={() => {
+                endCooking();
+                clearTimersLocally();
+            }}
+            addTimer={() => {
+                if (
+                    !currentStep.number ||
+                    !currentStep.description ||
+                    !currentStep.time
+                )
+                    return;
+
+                addTimer(
+                    currentStep.number,
+                    currentStep.description,
+                    currentStep.time
+                );
+            }}
         />
     );
 };

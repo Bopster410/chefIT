@@ -1,5 +1,4 @@
 export interface GlobalStore {
-    timers: { number: number; description: string }[];
     recipeId: number | null;
     recipeName: string | null;
     totalSteps: number | null;

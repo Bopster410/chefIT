@@ -13,6 +13,7 @@
 
     --navbar-height: 66px;
     --button-height: 52px;
+    --button-height-sm: 26px;
 }
 
 @theme inline {

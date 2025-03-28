@@ -58,8 +58,6 @@ export async function getSearchSuggestions(query: string) {
 }
 
 export async function startRecipe(id: number) {
-    console.log(id);
-    console.log({ id: id });
     return await ajaxPost<Step>({
         url: RECIPES_API.startRecipe,
         body: { id: id },
