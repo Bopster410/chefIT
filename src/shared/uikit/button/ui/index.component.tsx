@@ -18,8 +18,10 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
             className={`hover:cursor-pointer ${COLORS[color]} ${
                 circle ? 'rounded-full' : 'rounded-lg'
             } ${
-                size === 'lg' ? 'h-button-height' : 'h-button-height-sm'
-            } text-font-base text-base px-4`}
+                size === 'lg'
+                    ? 'h-button-height px-4'
+                    : 'h-button-height-sm px-1'
+            } text-font-base text-base`}
             {...props}
         >
             {children}

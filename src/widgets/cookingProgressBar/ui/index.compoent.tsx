@@ -2,11 +2,11 @@ import { FunctionComponent } from 'react';
 import { Props } from './index.types';
 import { Button } from '@/shared/uikit/button';
 import Link from 'next/link';
-import { Timer } from '@/entities/timer';
 import { formatSeconds } from '@/entities/timer/lib';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import { TimerContainer } from '@/entities/timer/ui/index.container';
 
 export const CookingProgressBar: FunctionComponent<Props> = ({
     id,
@@ -43,7 +43,8 @@ export const CookingProgressBar: FunctionComponent<Props> = ({
                         {name}
                     </Link>
                     {timerSecondsLeft ? (
-                        <Timer
+                        <TimerContainer
+                            stepNum={number}
                             secondsTotal={timerSecondsLeft}
                             description={step}
                             collapsed

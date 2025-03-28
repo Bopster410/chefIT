@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'react';
 import { Props } from './index.types';
 import { Button } from '@/shared/uikit/button';
-import { Timer } from '@/entities/timer';
 import { formatSeconds } from '@/entities/timer/lib';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import { TimerContainer } from '@/entities/timer/ui/index.container';
 
 export const RecipePage: FunctionComponent<Props> = ({
     name,
@@ -34,7 +34,8 @@ export const RecipePage: FunctionComponent<Props> = ({
                             </div>
                             <div className='w-full'>
                                 {timerSecondsLeft ? (
-                                    <Timer
+                                    <TimerContainer
+                                        stepNum={currentStep.number}
                                         secondsTotal={timerSecondsLeft}
                                         description={currentStep.step}
                                     />
