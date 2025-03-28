@@ -2,12 +2,15 @@ import { FunctionComponent } from 'react';
 import { Props } from './index.types';
 import { formatSeconds } from '../lib';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Button } from '@/shared/uikit/button';
 
 export const Timer: FunctionComponent<Props> = ({
     secondsTotal,
     secondsLeft,
     description,
     collapsed,
+    finishTimer,
 }) => {
     secondsLeft = secondsLeft ?? secondsTotal;
 
@@ -17,14 +20,23 @@ export const Timer: FunctionComponent<Props> = ({
                 {description}
             </div>
             <div className='font-bold flex-1 basis-12 flex-col flex items-end gap-0.5'>
-                {secondsLeft <= 0 ? (
-                    'готово!'
-                ) : (
-                    <>
-                        <AccessTimeFilledOutlinedIcon />
-                        {formatSeconds(secondsLeft)}
-                    </>
-                )}
+                <div className='flex gap-0.5 items-center'>
+                    {secondsLeft <= 0 ? (
+                        'готово!'
+                    ) : (
+                        <>
+                            <AccessTimeFilledOutlinedIcon />
+                            {formatSeconds(secondsLeft)}
+                        </>
+                    )}
+                </div>
+                <Button
+                    color='gray'
+                    size='sm'
+                    onClick={finishTimer}
+                >
+                    <DeleteOutlineOutlinedIcon />
+                </Button>
             </div>
         </div>
     );
