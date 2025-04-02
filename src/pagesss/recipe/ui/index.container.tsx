@@ -1,6 +1,6 @@
 'use client';
 
-import { GlobalContext } from '@/app/providers/globalProvider';
+import { StepsContext } from '@/app/providers/steps';
 import { FunctionComponent, useContext } from 'react';
 import { ContainerProps } from './index.types';
 import { RecipePage } from './index.component';
@@ -20,7 +20,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
         endCooking,
         isCooking,
         recipeId,
-    } = useContext(GlobalContext);
+    } = useContext(StepsContext);
 
     const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
 

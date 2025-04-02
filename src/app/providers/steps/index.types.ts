@@ -1,4 +1,4 @@
-export interface GlobalStore {
+export interface StepsStore {
     recipeId: number | null;
     recipeName: string | null;
     totalSteps: number | null;
