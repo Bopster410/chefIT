@@ -1,6 +1,6 @@
 'use client';
 
-import { GlobalContext } from '@/app/providers/globalProvider';
+import { StepsContext } from '@/app/providers/steps';
 import { useContext } from 'react';
 import { CookingProgressBar } from './index.compoent';
 import { TimersContext } from '@/app/providers/timers';
@@ -15,9 +15,10 @@ export const CookingProgressBarContainer = () => {
         currentStep,
         totalSteps,
         endCooking,
-    } = useContext(GlobalContext);
+    } = useContext(StepsContext);
 
-    const { timers, addTimer, clearTimersLocally } = useContext(TimersContext);
+    const { timers, addTimer, clearTimersLocally, finishTimer } =
+        useContext(TimersContext);
 
     if (
         !nextStep ||
@@ -31,7 +32,8 @@ export const CookingProgressBarContainer = () => {
         !endCooking ||
         !addTimer ||
         !timers ||
-        !clearTimersLocally
+        !clearTimersLocally ||
+        !finishTimer
     )
         return;
 

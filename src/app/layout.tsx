@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { GlobalProvider } from './providers/globalProvider';
-import { TimersProvider } from './providers/timers';
+import { StepsProvider } from '@/app/providers/steps';
+import { ModalProvider } from './providers/modalProvider';
+import { ModalContainer } from '@/shared/uikit/modal';
+import { TimersProviderWrapper } from './providers/timers/index.wrapper';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -30,9 +32,14 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen md:grid md:justify-center`}
             >
                 <div className='w-full h-full md:w-3xl'>
-                    <GlobalProvider>
-                        <TimersProvider>{children}</TimersProvider>
-                    </GlobalProvider>
+                    <ModalProvider>
+                        <TimersProviderWrapper>
+                            <StepsProvider>
+                                <ModalContainer />
+                                {children}
+                            </StepsProvider>
+                        </TimersProviderWrapper>
+                    </ModalProvider>
                 </div>
             </body>
         </html>
