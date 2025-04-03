@@ -1,6 +1,13 @@
-export interface ModalStore {
+import React from 'react';
+
+export type ModalState = {
+    isOpened: boolean;
+    contentDeque: { current: React.ReactNode[] };
+};
+
+export type ModalActions = {
     openModal: ((children: React.ReactNode) => void) | null;
     closeModal: (() => void) | null;
-    isOpened: boolean | null;
-    getCurrentContent: (() => React.ReactNode | null) | null;
-}
+};
+
+export type ModalStore = ModalState & ModalActions;

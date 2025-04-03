@@ -1,14 +1,15 @@
 'use client';
 
-import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-import { ModalContext } from '../modalProvider';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import { TimersProvider } from '.';
 import { TimerEndedMessage } from '@/entities/timer';
+import { useModalStore } from '../modalProvider/index.provider';
 
 export const TimersProviderWrapper: FunctionComponent<PropsWithChildren> = ({
     children,
 }) => {
-    const { openModal, closeModal } = useContext(ModalContext);
+    const openModal = useModalStore((state) => state.openModal);
+    const closeModal = useModalStore((state) => state.closeModal);
 
     return (
         <TimersProvider

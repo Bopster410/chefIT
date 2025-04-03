@@ -1,14 +1,15 @@
 'use client';
 
-import { ModalContext } from '@/app/providers/modalProvider';
-import { useContext } from 'react';
 import { Modal } from './index.component';
+import { useModalStore } from '@/app/providers/modalProvider/index.provider';
+import { selectCurrentModalContent } from '@/app/providers/modalProvider';
 
 export const ModalContainer = () => {
-    const { isOpened, getCurrentContent, closeModal } =
-        useContext(ModalContext);
+    const isOpened = useModalStore((state) => state.isOpened);
+    const currentContent = useModalStore(selectCurrentModalContent);
+    const closeModal = useModalStore((state) => state.closeModal);
 
-    if (isOpened === null || !getCurrentContent || !closeModal) return;
+    if (isOpened === null || !closeModal) return;
 
     return (
         <Modal
@@ -16,7 +17,7 @@ export const ModalContainer = () => {
             isOpened={isOpened}
             onClose={closeModal}
         >
-            {getCurrentContent()}
+            {currentContent}
         </Modal>
     );
 };

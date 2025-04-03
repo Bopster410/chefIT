@@ -15,7 +15,10 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
 
     useEffect(() => {
         const dialog = dialogRef.current;
-        if (!dialog) return;
+        if (!dialog) {
+            document.body.classList.remove('overflow-hidden');
+            return;
+        }
 
         if (isOpened) {
             // TODO как-то поменять эту штуку
