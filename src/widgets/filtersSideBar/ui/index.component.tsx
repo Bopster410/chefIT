@@ -15,9 +15,7 @@ export const FiltersSideBar: FunctionComponent<Props> = ({
   return (
     <aside
       className={`w-72 h-screen rounded-t-4xl rounded-r-2xl top-0 fixed z-50 overflow-y-auto
-         bg-white p-4 shadow-lg ${
-           isOpen ? "" : "hidden"
-         }`}
+         bg-white p-4 shadow-lg ${isOpen ? "" : "hidden"}`}
     >
       <div className="flex mb-4 justify-between">
         <h2 className="text-lg font-semibold">Фильтры</h2>
@@ -60,7 +58,10 @@ export const FiltersSideBar: FunctionComponent<Props> = ({
 
       {filters.time && (
         <div className="mb-4">
-          <label>Время приготовления {selectedFilters.time?`до ${selectedFilters.time} мин`:""}</label>
+          <label>
+            Время приготовления{" "}
+            {selectedFilters.time ? `до ${selectedFilters.time} мин` : ""}
+          </label>
           <input
             value={selectedFilters.time}
             onChange={onChangeRange}
@@ -75,19 +76,12 @@ export const FiltersSideBar: FunctionComponent<Props> = ({
           </div>
         </div>
       )}
-{/* TODO: Вынести кнопку в UI kit Button */}
-      <button
-        className=" hover:cursor-pointer bg-gray-200 p-2 rounded mb-2"
-        onClick={() => onApllySelect()}
-      >
+      <Button color="gray" className="mb-2" onClick={() => onApllySelect()}>
         Применить фильтры
-      </button>
-      <button
-        className="hover:cursor-pointer bg-gray-200 p-2 rounded mb-2"
-        onClick={() => onClear()}
-      >
+      </Button>
+      <Button color="gray" className="mb-2" onClick={() => onClear()}>
         Очистить фильтры
-      </button>
+      </Button>
     </aside>
   );
 };

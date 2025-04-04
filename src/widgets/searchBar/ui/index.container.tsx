@@ -6,23 +6,26 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { ROUTES } from "@/shared/routes/index.constants";
 import { SelectedFilters } from "@/entities/recipe/api/index.types";
+import { useSearchStore } from "@/app/providers/searchProvider/index.store";
 
 export function SearchBarContainer({
   handleSearch,
   haveSuggestions,
-  filters,
   query,
-  handleQueryChange,
 }: {
-  handleSearch?: (params?: { query?: string; filters?: SelectedFilters }) => void;
+  handleSearch?: (params?: {
+    query?: string;
+    filters?: SelectedFilters;
+  }) => void;
   haveSuggestions: boolean;
-  filters: SelectedFilters | undefined;
   query: string;
-  handleQueryChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
+  const setQuery = useSearchStore((state) => state.setQuery);
+  const clearQuery = useSearchStore((state) => state.clearQuery);
+  const filters = useSearchStore((state) => state.filters);
   const router = useRouter();
   const pathname = usePathname();
-  const throttledSearch = useRef(throttle(handleSearch || (()=>{}), 1000));
+  const throttledSearch = useRef(throttle(handleSearch || (() => {}), 1000));
   const firstRender = useRef(true);
 
   // Для предотвращения двойного вызова при рендере используем флаг
@@ -31,8 +34,8 @@ export function SearchBarContainer({
       firstRender.current = false;
       return;
     }
-    throttledSearch.current({query,filters});
-  }, [query,filters]);
+    throttledSearch.current({ query, filters });
+  }, [query, filters]);
 
   const handleFocus = () => {
     if (pathname === ROUTES.HOME) {
@@ -40,17 +43,16 @@ export function SearchBarContainer({
     }
   };
 
-  const clearInput = () =>{
-    if (!handleQueryChange) return;
-    handleQueryChange({
-      target: { value: "" },
-    } as React.ChangeEvent<HTMLInputElement>);
-  }
+  const clearInput = () => {
+    clearQuery();
+  };
 
   return (
     <SearchBar
       haveSuggestions={haveSuggestions}
-      onChange={handleQueryChange ||(()=>{})}
+      onChange={(e) => {
+        setQuery(e.currentTarget.value);
+      }}
       onFocus={handleFocus}
       onClear={clearInput}
       value={query}
