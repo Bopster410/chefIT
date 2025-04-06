@@ -29,7 +29,7 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen md:grid md:justify-center`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen grid justify-center`}
             >
                 <div className='w-full h-full md:w-3xl'>
                     <ModalStoreProvider>

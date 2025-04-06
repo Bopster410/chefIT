@@ -10,6 +10,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
     id,
     steps,
     name,
+    img,
     ...props
 }) => {
     const {
@@ -29,6 +30,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
             id={id}
             name={name}
             steps={steps}
+            img={img}
             {...props}
             startCooking={() => {
                 if (startCooking) startCooking(id, steps.length, name);

@@ -4,9 +4,11 @@ import { Button } from '@/shared/uikit/button';
 import { formatSeconds } from '@/entities/timer/lib';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
 import { TimerContainer } from '@/entities/timer/ui/index.container';
+import Image from 'next/image';
 
 export const RecipePage: FunctionComponent<Props> = ({
     name,
+    img,
     description,
     ingredients,
     steps,
@@ -105,11 +107,14 @@ export const RecipePage: FunctionComponent<Props> = ({
                 </>
             ) : (
                 <>
-                    {/* <Image
-                src={img}
-                alt='recipe'
-                fill
-            /> */}
+                    <div className="relative w-full h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh]">
+                    <Image 
+                        src={img}
+                        alt="recipe"
+                        fill
+                        className="object-cover"
+                    />
+                    </div>
                     <div className='text-[32px] font-bold'>{name}</div>
                     <div className='text-[16px]'>{description}</div>
                     <div className='text-[20px] font-bold mt-4 mb-2'>
