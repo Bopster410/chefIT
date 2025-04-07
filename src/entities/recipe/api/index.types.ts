@@ -5,15 +5,13 @@ export type Recipe = {
     img: string;
 };
 
-type Ingredient = {
+export type Ingredient = {
     id: number;
     name: string;
     image: string;
     localizedName: string;
-    // measures: {
-    //     amount: number;
-    //     unit: string;
-    // };
+    amount: number;
+    unit: string;
 };
 
 export type Step = {
