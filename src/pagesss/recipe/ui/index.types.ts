@@ -1,4 +1,4 @@
-import { Ingredient } from '../lib';
+import { Ingredient } from "@/entities/recipe";
 
 type Step = {
     step: string;

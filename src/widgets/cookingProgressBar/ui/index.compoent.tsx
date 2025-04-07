@@ -20,7 +20,7 @@ export const CookingProgressBar: FunctionComponent<Props> = ({
     addTimer,
 }) => {
     return (
-        <div className='fixed bottom-0 w-[inherit] p-4 bg-white shadow-status-bar flex gap-8 items-center'>
+        <div className='fixed bottom-0 w-[inherit] p-4 bg-white shadow-status-bar flex gap-2 sm:gap-8 items-center'>
             {number > 1 && (
                 <Button
                     color='gray'
@@ -29,9 +29,9 @@ export const CookingProgressBar: FunctionComponent<Props> = ({
                     <ArrowBackIosNewIcon />
                 </Button>
             )}
-            <div className='flex gap-2 w-full'>
+            <div className='flex gap-2 w-full flex-col sm:flex-row'>
                 <div>
-                    <div className='font-bold border-2 rounded-full size-8 flex justify-center items-center text-xl'>
+                    <div className='font-bold border-2 rounded-full size-6 sm:size-8 flex justify-center items-center text-xl'>
                         {number}
                     </div>
                 </div>

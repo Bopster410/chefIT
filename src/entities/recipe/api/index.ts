@@ -1,6 +1,7 @@
 import { ajaxGet, ajaxPost } from '@/shared/api';
 import { RECIPES_API } from './index.constants';
 import {
+    Ingredient,
     RecipeDetailed,
     Recipe,
     RecipeFilters,
@@ -76,7 +77,7 @@ export async function setPrevStep() {
     return await ajaxPost<Step>({ url: RECIPES_API.prevStep });
 }
 
-export type { RecipeDetailed, Recipe };
+export type { RecipeDetailed, Recipe, Ingredient };
 
 export async function getSearchFilters() {
     return await ajaxGet<RecipeFilters>({
