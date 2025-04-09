@@ -31,7 +31,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen grid justify-center`}
             >
-                <div className='w-full h-full md:w-3xl'>
+                <div className='w- h-full md:w-3xl'>
                     <ModalStoreProvider>
                         <TimersProviderWrapper>
                             <StepsProvider>

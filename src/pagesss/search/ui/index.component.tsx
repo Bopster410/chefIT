@@ -6,6 +6,7 @@ import { Suggestions } from "@/widgets/searchSuggestions";
 import { Navbar } from "@/widgets/navbar";
 import { FiltersSideBarContainer } from "@/widgets/filtersSideBar/ui/index.container";
 import { Button } from "@/shared/uikit/button";
+import { CurrentFiltersChipsContainer } from "@/widgets/currentFiltersChips/ui/index.container";
 
 export const SearchPage: FunctionComponent<Props> = ({
   handleSearch,
@@ -37,6 +38,7 @@ export const SearchPage: FunctionComponent<Props> = ({
         >
           Открыть фильтры
         </Button>
+        <CurrentFiltersChipsContainer />
         <SearchBarContainer
           haveSuggestions={suggestions.length !== 0}
           handleSearch={handleSearch}

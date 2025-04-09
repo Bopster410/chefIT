@@ -9,7 +9,6 @@ export const HomePage = () => {
             <div className='w-full'>
                 <SearchBarContainer
                     haveSuggestions={false}
-                    filters={undefined}
                     query=''
                 />
             </div>
