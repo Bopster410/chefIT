@@ -19,6 +19,9 @@
 @theme inline {
     --color-background: var(--gray-100);
     --color-font-base: var(--black);
+    
+    --color-saffron-500: var(--saffron-500);
+
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
 
@@ -27,6 +30,12 @@
     --radius-4xl: 32px;
 
     --shadow-status-bar: 0 -4px 12px -8px rgba(0, 0, 0, 0.25);
+}
+
+@layer utilities {
+    .drop-shadow-white {
+        filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
+    }
 }
 
 body {

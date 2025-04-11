@@ -10,7 +10,8 @@ import {
 } from '@/entities/recipe';
 import { useStep } from '@/features/recipeSteps';
 import { STATUS } from '@/shared/api';
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { createContext } from 'use-context-selector';
 import { FunctionComponent, PropsWithChildren } from 'react';
 import { timeToSeconds } from '@/entities/timer';
 import { StepsStore } from './index.types';
