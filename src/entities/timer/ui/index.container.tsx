@@ -1,6 +1,7 @@
 import { TimersContext } from '@/app/providers/timers';
 import { ContainerProps } from './index.types';
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent } from 'react';
+import { useContext } from 'use-context-selector';
 import { Timer } from './index.component';
 
 export const TimerContainer: FunctionComponent<ContainerProps> = ({

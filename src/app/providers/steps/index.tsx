@@ -10,12 +10,13 @@ import {
 } from '@/entities/recipe';
 import { useStep } from '@/features/recipeSteps';
 import { STATUS } from '@/shared/api';
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { createContext } from 'use-context-selector';
 import { FunctionComponent, PropsWithChildren } from 'react';
-import { GlobalStore } from './index.types';
 import { timeToSeconds } from '@/entities/timer';
+import { StepsStore } from './index.types';
 
-const GlobalContext = createContext<GlobalStore>({
+const StepsContext = createContext<StepsStore>({
     currentStep: null,
     nextStep: null,
     prevStep: null,
@@ -29,7 +30,7 @@ const GlobalContext = createContext<GlobalStore>({
     isLastStep: null,
 });
 
-export const GlobalProvider: FunctionComponent<PropsWithChildren> = ({
+export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
     children,
 }) => {
     const [id, setId] = useState<number | null>(null);
@@ -136,7 +137,7 @@ export const GlobalProvider: FunctionComponent<PropsWithChildren> = ({
     const isCooking = useCallback(() => number !== null, [number]);
 
     return (
-        <GlobalContext.Provider
+        <StepsContext.Provider
             value={{
                 currentStep: {
                     number,
@@ -156,8 +157,8 @@ export const GlobalProvider: FunctionComponent<PropsWithChildren> = ({
             }}
         >
             {children}
-        </GlobalContext.Provider>
+        </StepsContext.Provider>
     );
 };
 
-export { GlobalContext };
+export { StepsContext };

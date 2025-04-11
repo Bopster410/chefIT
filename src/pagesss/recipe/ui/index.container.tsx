@@ -1,7 +1,8 @@
 'use client';
 
-import { GlobalContext } from '@/app/providers/globalProvider';
-import { FunctionComponent, useContext } from 'react';
+import { StepsContext } from '@/app/providers/steps';
+import { FunctionComponent } from 'react';
+import { useContext } from 'use-context-selector';
 import { ContainerProps } from './index.types';
 import { RecipePage } from './index.component';
 import { TimersContext } from '@/app/providers/timers';
@@ -10,6 +11,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
     id,
     steps,
     name,
+    img,
     ...props
 }) => {
     const {
@@ -20,7 +22,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
         endCooking,
         isCooking,
         recipeId,
-    } = useContext(GlobalContext);
+    } = useContext(StepsContext);
 
     const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
 
@@ -29,6 +31,7 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
             id={id}
             name={name}
             steps={steps}
+            img={img}
             {...props}
             startCooking={() => {
                 if (startCooking) startCooking(id, steps.length, name);

@@ -7,16 +7,16 @@ import {
   RecipeFilters,
   SelectedFilters,
 } from "@/entities/recipe/api/index.types";
+import { useSearchStore } from "@/app/providers/searchProvider/index.store";
 
 export function FiltersSideBarContainer({
   isOpen,
   onClose,
-  onApplyFilters,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onApplyFilters: (selectedFilters: SelectedFilters | undefined) => void;
 }) {
+  const onApplyFilters = useSearchStore((state) => state.setFilters);
   const [filters, setFilters] = useState<RecipeFilters>(filtersMock.Data);
   const [selectedFilters, setSelectedFilters] = useState<
     SelectedFilters | undefined
@@ -40,12 +40,12 @@ export function FiltersSideBarContainer({
       time: Number(event.target.value),
     }));
   }
-  function handleApplySelect(clear?:boolean) {
-    onApplyFilters(clear?undefined:selectedFilters);
+  function handleApplySelect(clear?: boolean) {
+    onApplyFilters(clear ? undefined : selectedFilters);
   }
 
   function handleClear() {
-    setSelectedFilters(undefined)
+    setSelectedFilters(undefined);
     handleApplySelect(true);
   }
 

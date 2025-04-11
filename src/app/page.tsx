@@ -4,7 +4,7 @@ import { CookingProgressBarContainer } from '@/widgets/cookingProgressBar/ui/ind
 export default function Page() {
     return (
         <>
-            <HomePage />;
+            <HomePage />
             <CookingProgressBarContainer />
         </>
     );

@@ -4,9 +4,11 @@ import { Button } from '@/shared/uikit/button';
 import { formatSeconds } from '@/entities/timer/lib';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
 import { TimerContainer } from '@/entities/timer/ui/index.container';
+import Image from 'next/image';
 
 export const RecipePage: FunctionComponent<Props> = ({
     name,
+    img,
     description,
     ingredients,
     steps,
@@ -26,7 +28,7 @@ export const RecipePage: FunctionComponent<Props> = ({
             {cookingState === 'cooking' && currentStep ? (
                 <>
                     <div className='flex w-full gap-2 mt-6'>
-                        <div className='flex gap-4 w-full pe-16'>
+                        <div className='flex gap-4 w-full flex-col sm:flex-row'>
                             <div>
                                 <div className='font-bold border-2 rounded-full size-16 flex justify-center items-center text-4xl'>
                                     {currentStep.number}
@@ -66,7 +68,7 @@ export const RecipePage: FunctionComponent<Props> = ({
                                     </>
                                 )}
 
-                                <div className='flex w-full justify-between gap-2 mt-6'>
+                                <div className='flex w-full justify-between gap-10 mt-6 flex-col-reverse sm:flex-row'>
                                     {currentStep.number !== totalSteps && (
                                         <Button
                                             onClick={endCooking}
@@ -75,11 +77,12 @@ export const RecipePage: FunctionComponent<Props> = ({
                                             завершить
                                         </Button>
                                     )}
-                                    <div className='flex gap-4 w-full justify-end'>
+                                    <div className='flex gap-4 w-full sm:justify-end'>
                                         {currentStep.number !== 1 && (
                                             <Button
                                                 onClick={prevStep}
                                                 color='gray'
+                                                className='w-full sm:w-auto'
                                             >
                                                 назад
                                             </Button>
@@ -92,6 +95,7 @@ export const RecipePage: FunctionComponent<Props> = ({
                                                     : nextStep
                                             }
                                             color='gray'
+                                            className={`w-full sm:w-auto`}
                                         >
                                             {currentStep.number === totalSteps
                                                 ? 'завершить'
@@ -105,18 +109,21 @@ export const RecipePage: FunctionComponent<Props> = ({
                 </>
             ) : (
                 <>
-                    {/* <Image
-                src={img}
-                alt='recipe'
-                fill
-            /> */}
+                    <div className="relative w-full h-[30vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh]">
+                    <Image 
+                        src={img}
+                        alt="recipe"
+                        fill
+                        className="object-cover"
+                    />
+                    </div>
                     <div className='text-[32px] font-bold'>{name}</div>
                     <div className='text-[16px]'>{description}</div>
                     <div className='text-[20px] font-bold mt-4 mb-2'>
                         Подготовка
                     </div>
                     {ingredients.map(
-                        ({ id, name, measures: { amount, unit } }) => (
+                        ({ id, name, amount, unit }) => (
                             <div
                                 key={id}
                                 className='flex justify-between relative'

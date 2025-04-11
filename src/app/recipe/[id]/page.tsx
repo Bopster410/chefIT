@@ -1,5 +1,4 @@
 import { getRecipeData } from '@/entities/recipe/api';
-import { ingredientsFromRecipe } from '@/pagesss/recipe/lib';
 import { RecipePageContainer } from '@/pagesss/recipe';
 
 export default async function Page({
@@ -12,14 +11,14 @@ export default async function Page({
     return (
         <RecipePageContainer
             id={id}
-            img={''}
+            img={recipe.img}
             name={recipe.name}
             description={recipe.description}
             healthScore={80}
             cookingTime={40}
             prepTime={10}
             servings={4}
-            ingredients={ingredientsFromRecipe(recipe)}
+            ingredients={recipe.ingredients}
             steps={recipe.steps}
         />
     );

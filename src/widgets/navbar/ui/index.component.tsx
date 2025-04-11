@@ -5,7 +5,8 @@ import { BottomSheet } from '@/shared/uikit/bottomSheet';
 import { Button } from '@/shared/uikit/button';
 import Link from 'next/link';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useContext } from 'use-context-selector';
 import { TimerContainer } from '@/entities/timer/ui/index.container';
 
 export const Navbar = () => {

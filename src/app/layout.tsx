@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { GlobalProvider } from './providers/globalProvider';
-import { TimersProvider } from './providers/timers';
+import { StepsProvider } from '@/app/providers/steps';
+import { ModalContainer } from '@/shared/uikit/modal';
+import { ModalStoreProvider } from '@/app/providers/modalProvider';
+import { TimersProviderWrapper } from './providers/timers/index.wrapper';
+import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionProvider';
+import { SpeechListener } from '@/features/speechListener';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -27,12 +31,20 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen md:grid md:justify-center`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen flex justify-center`}
             >
-                <div className='w-full h-full md:w-3xl'>
-                    <GlobalProvider>
-                        <TimersProvider>{children}</TimersProvider>
-                    </GlobalProvider>
+                <div className='w-full min-h-screen md:w-3xl'>
+                    <ModalStoreProvider>
+                        <TimersProviderWrapper>
+                            <StepsProvider>
+                                <SpeechRecognitionStoreProvider>
+                                    <SpeechListener />
+                                    {children}
+                                </SpeechRecognitionStoreProvider>
+                                <ModalContainer />
+                            </StepsProvider>
+                        </TimersProviderWrapper>
+                    </ModalStoreProvider>
                 </div>
             </body>
         </html>
