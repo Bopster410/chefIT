@@ -9,12 +9,9 @@ export const HomePage = () => {
             <div className='w-full'>
                 <SearchBarContainer
                     haveSuggestions={false}
-<<<<<<< HEAD
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     filters={undefined}
-=======
->>>>>>> ac90e4fe047067697a2ade3a4c57649c0d8dbc91
                     query=''
                 />
             </div>
