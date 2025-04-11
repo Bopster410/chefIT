@@ -1,7 +1,8 @@
 'use client';
 
 import { StepsContext } from '@/app/providers/steps';
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent } from 'react';
+import { useContext } from 'use-context-selector';
 import { ContainerProps } from './index.types';
 import { RecipePage } from './index.component';
 import { TimersContext } from '@/app/providers/timers';

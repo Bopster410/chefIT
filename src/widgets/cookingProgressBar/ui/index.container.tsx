@@ -1,7 +1,7 @@
 'use client';
 
 import { StepsContext } from '@/app/providers/steps';
-import { useContext } from 'react';
+import { useContext } from 'use-context-selector';
 import { CookingProgressBar } from './index.compoent';
 import { TimersContext } from '@/app/providers/timers';
 

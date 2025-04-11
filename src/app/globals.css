@@ -32,6 +32,12 @@
     --shadow-status-bar: 0 -4px 12px -8px rgba(0, 0, 0, 0.25);
 }
 
+@layer utilities {
+    .drop-shadow-white {
+        filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
+    }
+}
+
 body {
     background: var(--color-background);
     color: var(--color-font-base);

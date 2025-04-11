@@ -1,10 +1,11 @@
 'use client';
 
-import { createContext, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { OnTimeoutCallback, TimersStore } from './index.types';
 import { FunctionComponent, PropsWithChildren } from 'react';
 import { useImmer } from 'use-immer';
 import { addTimer, finishTimer, getAllTimers } from '@/entities/timer';
+import { createContext } from 'use-context-selector';
 import { STATUS } from '@/shared/api';
 
 export const TimersContext = createContext<TimersStore>({

@@ -12,8 +12,10 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
     children,
 }) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    console.log(isOpened);
 
     useEffect(() => {
+        console.log('effect 1');
         const dialog = dialogRef.current;
         if (!dialog) {
             document.body.classList.remove('overflow-hidden');
@@ -21,10 +23,12 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
         }
 
         if (isOpened) {
+            console.log('opened');
             // TODO как-то поменять эту штуку
             document.body.classList.add('overflow-hidden');
             dialog.showModal();
         } else {
+            console.log('closed');
             document.body.classList.remove('overflow-hidden');
             dialog.close();
         }
@@ -57,18 +61,20 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
     }, [isOpened, onClose]);
     return (
         <dialog
-            className='fixed w-screen max-w-none md:max-w-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-4xl flex flex-col'
+            className='fixed w-screen max-w-none md:max-w-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-4xl'
             ref={dialogRef}
         >
-            <div className='pe-2 pt-2 md:pe-4 md:pt-4 self-end'>
-                <Button
-                    color='white'
-                    onClick={close}
-                >
-                    <CloseIcon />
-                </Button>
+            <div className='flex flex-col'>
+                <div className='pe-2 pt-2 md:pe-4 md:pt-4 self-end'>
+                    <Button
+                        color='white'
+                        onClick={close}
+                    >
+                        <CloseIcon />
+                    </Button>
+                </div>
+                <div className='px-10 pb-10 md:px-14 md:pb-14'>{children}</div>
             </div>
-            <div className='px-10 pb-10 md:px-14 md:pb-14'>{children}</div>
         </dialog>
     );
 };
