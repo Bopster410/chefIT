@@ -18,12 +18,6 @@ export const SearchPage: FunctionComponent<Props> = ({
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div
-        className={`fixed inset-0 bg-[#00000030] z-50 ${
-          isOpen ? `` : `hidden`
-        }`}
-        onClick={() => setIsOpen(false)}
-      ></div>
       <FiltersSideBarContainer
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
