@@ -12,10 +12,8 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
     children,
 }) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
-    console.log(isOpened);
 
     useEffect(() => {
-        console.log('effect 1');
         const dialog = dialogRef.current;
         if (!dialog) {
             document.body.classList.remove('overflow-hidden');
@@ -23,12 +21,10 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
         }
 
         if (isOpened) {
-            console.log('opened');
             // TODO как-то поменять эту штуку
             document.body.classList.add('overflow-hidden');
             dialog.showModal();
         } else {
-            console.log('closed');
             document.body.classList.remove('overflow-hidden');
             dialog.close();
         }

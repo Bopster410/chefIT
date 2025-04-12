@@ -1,13 +1,4 @@
-import { Ingredient } from "@/entities/recipe";
-
-type Step = {
-    step: string;
-    number: number;
-    length: {
-        number: number;
-        unit: string;
-    } | null;
-};
+import { Ingredient, Step } from '@/entities/recipe';
 
 export interface ContainerProps {
     id: number;

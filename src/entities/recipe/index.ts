@@ -10,4 +10,4 @@ export {
     setNextStep,
     setPrevStep,
 } from './api';
-export type { RecipeDetailed, Recipe, Ingredient } from './api';
+export type { RecipeDetailed, Recipe, Ingredient, Step } from './api';
