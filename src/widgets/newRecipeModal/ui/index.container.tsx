@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { NewRecipeModal } from "./index.component";
 import useInput from "@/shared/uikit/inputField/api";
+import { useModalStore } from "@/app/providers/modalProvider/index.provider";
 
 export const NewRecipeModalContainer = () => {
   const router = useRouter();
@@ -9,6 +10,7 @@ export const NewRecipeModalContainer = () => {
   const [input, setInput] = useInput("");
   const [query, setQuery] = useInput("");
   const [loading, setLoading] = useState(false);
+  const closeModal = useModalStore((state) => state.closeModal);
 
   const addIngredient = () => {
     if (ingredients.includes(input)) {
@@ -26,6 +28,7 @@ export const NewRecipeModalContainer = () => {
   const createRecept = () => {
     setLoading(true);
     setTimeout(() => {
+      if(closeModal) closeModal();
       router.push(`/chefbook/1`);
     }, 2000);
   };
