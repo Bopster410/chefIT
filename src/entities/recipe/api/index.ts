@@ -88,8 +88,10 @@ export async function getUserRecipes() {
     return useRecipesMock
 }
 
-export async function generateRecipe(query: string, ingredients: string[]) {
+export async function generateRecipe(query: string, ingredients: string[]){
     return generatedRecipeMock
+}
+
     //return await ajaxPost<{ query: string, ingredients: string[] }>({
         //url: RECIPES_API.generateNewRecipe,
         //body:{

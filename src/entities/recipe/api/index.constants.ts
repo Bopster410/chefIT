@@ -11,7 +11,7 @@ export const RECIPES_API = {
     getFilters: 'search/filters',
 
     getUserRecipes: 'generate/all',
-    generateNewRecipe: 'generate/make'
+    generateNewRecipe: 'generate/make',
 
     chefbookHistory: 'generate', // + '[id]/history'
     chefbookUpdate: 'generate', // + '[id]/modern/[versionID]
