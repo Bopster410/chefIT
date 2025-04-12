@@ -13,11 +13,11 @@ export const BottomSheet: FunctionComponent<PropsWithChildren<Props>> = ({
                     if (onOuterClick && opened) onOuterClick();
                 }}
                 className={
-                    opened ? 'fixed inset-0 bg-[#00000030]' : 'bg-transparent'
+                    opened ? 'fixed inset-0 bg-[#00000030] z-50' : 'bg-transparent'
                 }
             ></div>
             {opened && (
-                <div className='fixed w-screen h-8/10 left-0 bottom-0 p-8 bg-white rounded-t-4xl'>
+                <div className='fixed w-screen h-8/10 left-0 bottom-0 p-8 bg-white rounded-t-4xl z-50'>
                     {children}
                 </div>
             )}
