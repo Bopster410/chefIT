@@ -60,6 +60,8 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
                     ? {
                           number: currentStep.number ?? 0,
                           step: currentStep.description ?? '',
+                          ingredients:
+                              steps[(currentStep.number ?? 1) - 1].ingredients,
                           length: !!currentStep.time
                               ? { number: currentStep.time, unit: 's' }
                               : null,

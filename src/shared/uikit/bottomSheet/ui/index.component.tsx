@@ -7,7 +7,7 @@ export const BottomSheet: FunctionComponent<PropsWithChildren<Props>> = ({
     onOuterClick,
 }) => {
     return (
-        <div className='z-50'>
+        <div className='z-50 relative'>
             <div
                 onClick={() => {
                     if (onOuterClick && opened) onOuterClick();
