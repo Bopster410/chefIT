@@ -38,7 +38,7 @@ export default function RootLayout({
                         <TimersProviderWrapper>
                             <StepsProvider>
                                 <SpeechRecognitionStoreProvider>
-                                    {/*<SpeechListener /> */}
+                                    {/* <SpeechListener /> */}
                                     {children}
                                 </SpeechRecognitionStoreProvider>
                                 <ModalContainer />

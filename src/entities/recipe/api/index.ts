@@ -7,6 +7,7 @@ import {
     RecipeFilters,
     SelectedFilters,
     Step,
+    RecipeDetailedChefbook,
 } from './index.types';
 
 export async function getRecipeData(id: number) {
@@ -77,8 +78,6 @@ export async function setPrevStep() {
     return await ajaxPost<Step>({ url: RECIPES_API.prevStep });
 }
 
-export type { RecipeDetailed, Recipe, Ingredient };
-
 export async function getSearchFilters() {
     return await ajaxGet<RecipeFilters>({
         url: RECIPES_API.getFilters,
@@ -98,6 +97,309 @@ export async function generateRecipe(query: string, ingredients: string[]) {
             //ingredients: ingredients,
         //},
     //})
+
+const chefbookResponse = {
+    Status: 200,
+    Data: {
+        neededIngredients: ['cabbage', 'leek'],
+        initialQuery: 'asdasdasd',
+        recipe: {
+            versionId: 1,
+            name: 'Шоколадные овсяные хлопья на ночь с клубникой',
+            description:
+                'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
+            servingsNum: 1,
+            dishTypes: ['утренний прием пищи', 'поздний завтрак', 'завтрак'],
+            diets: ['без глютена'],
+            healthScore: 15,
+            cookingTime: 100,
+            prepTime: 40,
+
+            ingredients: [
+                {
+                    id: 19165,
+                    name: 'какао-порошок',
+                    image: 'cocoa-powder.png',
+                    amount: 1,
+                    unit: 'ст. л.',
+                    localizedName: '',
+                },
+                {
+                    id: 19166,
+                    name: 'какао-порошок',
+                    image: 'cocoa-powder.png',
+                    amount: 1,
+                    localizedName: '',
+                    unit: 'ст. л.',
+                },
+                {
+                    id: 19162,
+                    localizedName: '',
+                    name: 'какао-порошок',
+                    image: 'cocoa-powder.png',
+                    amount: 1,
+                    unit: 'ст. л.',
+                },
+            ],
+            steps: [
+                {
+                    number: 1,
+                    step: 'Смешайте все ингредиенты, кроме клубники.',
+                    ingredients: [
+                        {
+                            id: 19160,
+                            name: 'какао-порошок',
+                            image: 'cocoa-powder.png',
+                            amount: 1,
+                            unit: 'ст. л.',
+                            localizedName: '',
+                        },
+                        {
+                            localizedName: '',
+                            id: 19163,
+                            name: 'какао-порошок',
+                            image: 'cocoa-powder.png',
+                            amount: 1,
+                            unit: 'ст. л.',
+                        },
+                    ],
+                    equipment: [],
+                    length: null,
+                },
+            ],
+        },
+    },
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function getChefbookRecipe(id: number) {
+    // return await ajaxGet<RecipeDetailedChefbook>({
+    //     url: `${RECIPES_API.chefbookItem}/${id}`,
+    // });
+    return chefbookResponse;
+}
+
+const chefbookResponse2: {
+    Status: number;
+    Data: { versions: RecipeDetailedChefbook[] };
+} = {
+    Status: 200,
+    Data: {
+        versions: [
+            {
+                versionId: 1,
+                name: 'Шоколадные овсяные хлопья на ночь с клубникой 1',
+                description:
+                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
+                servingsNum: 1,
+                cookingTime: 100,
+                prepTime: 40,
+                ingredients: [
+                    {
+                        id: 19165,
+                        name: 'шоколад',
+                        image: 'cocoa-powder.png',
+                        amount: 100,
+                        unit: 'г',
+                        localizedName: '',
+                    },
+                    {
+                        id: 19166,
+                        name: 'какао-порошок',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        localizedName: '',
+                        unit: 'ст. л.',
+                    },
+                    {
+                        id: 19162,
+                        localizedName: '',
+                        name: 'какао-порошок',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        unit: 'ст. л.',
+                    },
+                ],
+                steps: [
+                    {
+                        number: 1,
+                        step: 'Смешайте все ингредиенты, кроме клубники.',
+                        ingredients: [
+                            {
+                                id: 19160,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                                localizedName: '',
+                            },
+                            {
+                                localizedName: '',
+                                id: 19163,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                            },
+                        ],
+                        length: null,
+                    },
+                ],
+            },
+            {
+                versionId: 2,
+                name: 'Шоколадные овсяные хлопья на ночь с клубникой',
+                description:
+                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
+                servingsNum: 1,
+                cookingTime: 100,
+                prepTime: 40,
+                ingredients: [
+                    {
+                        id: 19165,
+                        name: 'какао-порошок',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        unit: 'ст. л.',
+                        localizedName: '',
+                    },
+                    {
+                        id: 19166,
+                        name: 'какао-порошок',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        localizedName: '',
+                        unit: 'ст. л.',
+                    },
+                    {
+                        id: 19162,
+                        localizedName: '',
+                        name: 'какао-порошок',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        unit: 'ст. л.',
+                    },
+                ],
+                steps: [
+                    {
+                        number: 1,
+                        step: 'Смешайте все ингредиенты, кроме клубники.',
+                        ingredients: [
+                            {
+                                id: 19160,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                                localizedName: '',
+                            },
+                            {
+                                localizedName: '',
+                                id: 19163,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                            },
+                        ],
+                        length: null,
+                    },
+                ],
+            },
+            {
+                versionId: 3,
+                name: 'Шоколадные овсяные хлопья на ночь с клубникой 3',
+                description:
+                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
+                servingsNum: 1,
+                cookingTime: 100,
+                prepTime: 40,
+                ingredients: [
+                    {
+                        id: 19165,
+                        name: 'шоколад',
+                        image: 'cocoa-powder.png',
+                        amount: 200,
+                        unit: 'г',
+                        localizedName: '',
+                    },
+                    {
+                        id: 19166,
+                        name: 'молоко',
+                        image: 'cocoa-powder.png',
+                        amount: 1,
+                        localizedName: '',
+                        unit: 'л',
+                    },
+                    {
+                        id: 19162,
+                        localizedName: '',
+                        name: 'клубника',
+                        image: 'cocoa-powder.png',
+                        amount: 150,
+                        unit: 'г',
+                    },
+                ],
+                steps: [
+                    {
+                        number: 1,
+                        step: 'Смешайте все ингредиенты, кроме клубники.',
+                        ingredients: [
+                            {
+                                id: 19160,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                                localizedName: '',
+                            },
+                            {
+                                localizedName: '',
+                                id: 19163,
+                                name: 'какао-порошок',
+                                image: 'cocoa-powder.png',
+                                amount: 1,
+                                unit: 'ст. л.',
+                            },
+                        ],
+                        length: null,
+                    },
+                ],
+            },
+        ],
+    },
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function getChefbookRecipeHistory(id: number) {
+    // return await ajaxGet<{
+    //     neededIngredients: Ingredient;
+    //     initialQuery: string;
+    //     versions: RecipeDetailedChefbook[];
+    // }>({
+    //     url: `${RECIPES_API.chefbookHistory}/${id}/history`,
+    // });
+    return chefbookResponse2;
+}
+
+export async function updateChefbookRecipeWithQuery(
+    id: number,
+    versionId: number,
+    query: string
+) {
+    return await ajaxPost<RecipeDetailedChefbook>({
+        url: `${RECIPES_API.chefbookUpdate}/${id}/modern/${versionId}`,
+        body: {
+            query,
+        },
+    });
+}
+
+export async function setChefbookRecipeMain(id: number, versionId: number) {
+    return await ajaxPost<RecipeDetailedChefbook>({
+        url: `${RECIPES_API.chefbookSetMain}/${id}/main/${versionId}`,
+    });
+
 }
 
 export const filtersMock: {
@@ -365,3 +667,5 @@ export const useRecipesMock = {
 //         },
 //     ],
 // };
+
+export type { RecipeDetailed, Recipe, Ingredient, Step };
