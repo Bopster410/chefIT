@@ -84,6 +84,20 @@ export async function getSearchFilters() {
     });
 }
 
+export async function getUserRecipes() {
+    return useRecipesMock
+}
+
+export async function generateRecipe(query: string, ingredients: string[]) {
+    return generatedRecipeMock
+    //return await ajaxPost<{ query: string, ingredients: string[] }>({
+        //url: RECIPES_API.generateNewRecipe,
+        //body:{
+            //query: query,
+            //ingredients: ingredients,
+        //},
+    //})
+
 const chefbookResponse = {
     Status: 200,
     Data: {
@@ -385,6 +399,7 @@ export async function setChefbookRecipeMain(id: number, versionId: number) {
     return await ajaxPost<RecipeDetailedChefbook>({
         url: `${RECIPES_API.chefbookSetMain}/${id}/main/${versionId}`,
     });
+
 }
 
 export const filtersMock: {
@@ -438,6 +453,72 @@ export const filtersMock: {
         },
     },
 };
+
+export const useRecipesMock = {
+    Status: 200,
+    Data: [
+      { id: 1, name: "Спагетти Болоньезе", time: 45 },
+      { id: 2, name: "Цезарь с курицей", time: 20 },
+      { id: 3, name: "Овощное рагу", time: 35 },
+      { id: 4, name: "Борщ украинский", time: 60 },
+      { id: 5, name: "Плов с бараниной", time: 70 },
+      { id: 6, name: "Куриные котлеты", time: 30 },
+      { id: 7, name: "Салат оливье", time: 25 },
+      { id: 8, name: "Запечённая семга", time: 40 },
+      { id: 9, name: "Гречка с грибами", time: 25 },
+      { id: 10, name: "Сырники с изюмом", time: 20 },
+    ],
+  };
+  
+  export const generatedRecipeMock = {
+    Status: 200,
+    Data: {
+      id: 1,
+      description: "Простой и вкусный рецепт традиционного итальянского пицца Маргарита с томатами и базиликом. Отличный выбор для ужина с семьей или друзьями.",
+      name: "Пицца Маргарита",
+      ingredients: [
+        { name: "Тесто для пиццы", quantity: 1, unit: "порция" },
+        { name: "Помидоры", quantity: 3, unit: "шт" },
+        { name: "Моцарелла", quantity: 200, unit: "г" },
+        { name: "Оливковое масло", quantity: 2, unit: "ст. ложка" },
+        { name: "Базилик", quantity: 10, unit: "шт" },
+        { name: "Соль", quantity: 1, unit: "щепотка" },
+        { name: "Перец черный", quantity: 1, unit: "щепотка" }
+      ],
+      steps: [
+        {
+          step: 1,
+          description: "Разогрейте духовку до 220°C."
+        },
+        {
+          step: 2,
+          description: "Раскатайте тесто для пиццы на плоской поверхности до нужного размера."
+        },
+        {
+          step: 3,
+          description: "На тесто равномерно распределите нарезанные помидоры, посыпьте солью и перцем."
+        },
+        {
+          step: 4,
+          description: "Нарежьте моцареллу и выложите на пиццу сверху."
+        },
+        {
+          step: 5,
+          description: "Полейте пиццу оливковым маслом и запекайте в духовке 10-15 минут, пока тесто не станет золотистым и хрустящим."
+        },
+        {
+          step: 6,
+          description: "После готовности украсьте пиццу свежими листьями базилика."
+        },
+        {
+          step: 7,
+          description: "Подавайте горячей с любимым напитком!"
+        }
+      ]
+    }
+  };
+  
+  
 
 // const allRecipesMock: {
 //     Status: number;

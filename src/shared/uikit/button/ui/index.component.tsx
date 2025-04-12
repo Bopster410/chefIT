@@ -4,6 +4,8 @@ import { Props } from './index.types';
 const COLORS = {
     white: 'bg-white',
     gray: 'bg-(--gray-100)',
+    saffron: 'bg-saffron-500 text-white',
+    violet: 'bg-violet-500 text-white',
 };
 
 export const Button: FunctionComponent<PropsWithChildren<Props>> = ({

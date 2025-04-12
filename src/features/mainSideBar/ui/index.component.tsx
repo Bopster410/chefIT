@@ -12,7 +12,7 @@ export const MainSideBar: FunctionComponent<Props> = ({
       <div className="flex flex-col gap-4">
         <nav className="flex flex-col gap-2 mt-4">
           <Link
-            href="/"
+            href="/chefbook"
             className="text-base text-gray-600 hover:text-primary transition-colors"
           >
             Мои рецепты
