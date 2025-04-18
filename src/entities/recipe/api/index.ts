@@ -8,6 +8,7 @@ import {
     SelectedFilters,
     Step,
     RecipeDetailedChefbook,
+    UserRecipe,
 } from './index.types';
 
 export async function getRecipeData(id: number) {
@@ -85,11 +86,20 @@ export async function getSearchFilters() {
 }
 
 export async function getUserRecipes() {
-    return useRecipesMock
+    return await ajaxGet<UserRecipe[]>({
+        url: RECIPES_API.getUserRecipes,
+        queryParams: {num: 10},
+    })
 }
 
 export async function generateRecipe(query: string, ingredients: string[]){
-    return generatedRecipeMock
+    return await ajaxPost<UserRecipe>({
+        url: RECIPES_API.generateNewRecipe,
+        body: {
+            query: query,
+            ingredients: ingredients,
+        }
+    })
 }
 
     //return await ajaxPost<{ query: string, ingredients: string[] }>({
@@ -670,4 +680,4 @@ export const useRecipesMock = {
 //     ],
 // };
 
-export type { RecipeDetailed, Recipe, Ingredient, Step };
+export type { RecipeDetailed, Recipe, Ingredient, Step, UserRecipe };

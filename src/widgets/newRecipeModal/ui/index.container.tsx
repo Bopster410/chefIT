@@ -1,8 +1,10 @@
+"use client"
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { NewRecipeModal } from "./index.component";
 import useInput from "@/shared/uikit/inputField/api";
 import { useModalStore } from "@/app/providers/modalProvider/index.provider";
+import { generateRecipe } from "@/entities/recipe/api";
 
 export const NewRecipeModalContainer = () => {
   const router = useRouter();
@@ -27,10 +29,10 @@ export const NewRecipeModalContainer = () => {
 
   const createRecept = () => {
     setLoading(true);
-    setTimeout(() => {
+    generateRecipe(query,ingredients).then((recipe)=>{
       if(closeModal) closeModal();
-      router.push(`/chefbook/1`);
-    }, 2000);
+      router.push(`/chefbook/${recipe.Data.id.toString()}`);
+    })
   };
 
   return (
