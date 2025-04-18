@@ -22,7 +22,7 @@ export const ChefBookPage: FunctionComponent<Props> = ({ recipes, openModal }) =
                 <h3 className="text-lg font-semibold mb-2">{recipe.name}</h3>
                 <div className="flex items-center text-sm text-gray-500">
                   <AccessTimeIcon fontSize="small" className="mr-1" />
-                  {recipe.time} мин
+                  {recipe.cookingTime} мин
                 </div>
               </div>
 

@@ -62,3 +62,10 @@ export interface SelectedFilters {
     dishType: string;
     time: number;
 }
+
+export interface UserRecipe {
+    id: number;
+    name: string;
+    description: string;
+    cookingTime: number;
+}

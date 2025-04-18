@@ -1,8 +1,4 @@
-export interface UserRecipe{
-    id: number,
-    name: string,
-    time: number,
-}
+import { UserRecipe } from "@/entities/recipe/api";
 
 export interface Props{
     recipes?: UserRecipe[],
