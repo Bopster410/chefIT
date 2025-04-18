@@ -93,7 +93,7 @@ export async function getUserRecipes() {
 }
 
 export async function generateRecipe(query: string, ingredients: string[]){
-    return await ajaxGet<UserRecipe>({
+    return await ajaxPost<UserRecipe>({
         url: RECIPES_API.generateNewRecipe,
         body: {
             query: query,

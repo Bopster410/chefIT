@@ -16,7 +16,7 @@ export const ChefBookPageContainer = () => {
 
   useEffect(()=>{
     getUserRecipes().then((data)=>setRecipes(data.Data))
-  })
+  },[])
 
   return (
     <ChefBookPage openModal={handleOpenModal} recipes={recipes} />

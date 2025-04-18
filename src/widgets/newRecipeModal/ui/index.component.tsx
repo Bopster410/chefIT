@@ -1,3 +1,4 @@
+"use client"
 import { InputField } from "@/shared/uikit/inputField";
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";

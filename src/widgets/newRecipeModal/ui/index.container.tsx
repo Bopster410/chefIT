@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { NewRecipeModal } from "./index.component";
@@ -29,12 +30,9 @@ export const NewRecipeModalContainer = () => {
   const createRecept = () => {
     setLoading(true);
     generateRecipe(query,ingredients).then((recipe)=>{
-      router.push(recipe.Data.id.toString())
-    })
-    setTimeout(() => {
       if(closeModal) closeModal();
-      router.push(`/chefbook/1`);
-    }, 2000);
+      router.push(`/chefbook/${recipe.Data.id.toString()}`);
+    })
   };
 
   return (
