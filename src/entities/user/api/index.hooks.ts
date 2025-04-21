@@ -1,0 +1,32 @@
+import { useLogin, useUser } from "@/app/providers/userProvider";
+import { useEffect, useState } from "react";
+import { getUser } from ".";
+import {
+  useChangeRequired,
+  useLoginRequired,
+} from "@/app/providers/userProvider/index.store";
+
+export const useUserWithFetch = () => {
+  const user = useUser();
+  const login = useLogin();
+  const required = useLoginRequired();
+  const changeRequired = useChangeRequired();
+
+  useEffect(() => {
+    if (required) return;
+    if (!user) {
+      getUser()
+        .then((res) => {
+          if (res.Status == 200) {
+            login(res.Data);
+          }
+        })
+        .catch((err) => {
+          console.error("Ошибка при получении профиля:", err);
+        });
+        changeRequired();
+    }
+  }, [user, required]);
+
+  return user;
+};

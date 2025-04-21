@@ -9,8 +9,7 @@ import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import { useState } from "react";
 import { useContext } from "use-context-selector";
 import { TimerContainer } from "@/entities/timer/ui/index.container";
-import { SideBar } from "@/shared/uikit/sideBar";
-import { MainSideBar } from "@/features/mainSideBar/ui/index.component";
+import { MainSideBarContainer } from "@/features/mainSideBar";
 
 export const Navbar = () => {
   const [timersOpened, setTimersOpened] = useState(false);
@@ -20,10 +19,10 @@ export const Navbar = () => {
 
   return (
     <>
-      <MainSideBar
+      <MainSideBarContainer
         sideBarOpened={sideBarOpened}
         OnCloseSideBar={() => setSideBarOpened(false)}
-      ></MainSideBar>
+      ></MainSideBarContainer>
       <BottomSheet
         onOuterClick={() => setTimersOpened(false)}
         opened={timersOpened}
