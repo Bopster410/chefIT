@@ -8,4 +8,6 @@ export interface Props{
     setLogin: (e: React.ChangeEvent<HTMLInputElement>) => void;
     setPassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleRegistration: (e: React.FormEvent) => void;
+
+    error?: string;
 }

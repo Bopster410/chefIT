@@ -14,6 +14,7 @@ export const RegistrationPage: FunctionComponent<Props> = ({
   setLogin,
   setPassword,
   handleRegistration,
+  error,
 }) => {
   return (
     <div className="bg-white rounded-t-4xl h-full px-4 py-8">
@@ -88,10 +89,19 @@ export const RegistrationPage: FunctionComponent<Props> = ({
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           />
-        </div>
+          {error !== "" && (
+            <div
+              className="bg-red-100 border mt-5 border-red-400 text-red-700 px-4 py-3 rounded"
+              role="alert"
+            >
+              <span className="font-bold">Ошибка:</span>
+              <span className="block sm:inline ml-2">
+                Возникла проблема при регистрации.
+              </span>
+            </div>
+          )}
 
-        <div>
-          <Button type="submit" color="gray" className="w-full">
+          <Button type="submit" color="gray" className="w-full mt-5">
             Зарегистрироваться
           </Button>
         </div>

@@ -26,10 +26,17 @@ export async function userSignUp(
   name: string,
   surname: string
 ) {
-  return await ajaxPost({
+  return await ajaxPost<string>({
     url: USER_API.signUp,
     body: { login: login, password: password, name: name, surname: surname },
   });
+}
+
+export const MockUser: User = {
+  name: "Admin",
+  surname: "Admin",
+  login: "Admin",
+  isVKUser: false,
 }
 
 export { useUserWithFetch } from "./index.hooks";
