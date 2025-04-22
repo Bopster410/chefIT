@@ -7,8 +7,7 @@ const useUserStore = create<UserStates>()((set) => ({
 
   login: (user) => set(() => ({ user: user })),
   logout: () => set(() => ({ user: undefined })),
-  changeRequired: () =>
-    set((state) => ({ loginRequired: !state.loginRequired })),
+  changeRequired: (isRequired) => set(() => ({ loginRequired: isRequired })),
 }));
 
 export const useLoginRequired = () =>

@@ -6,5 +6,5 @@ export interface UserStates {
 
   login: (user: User) => void;
   logout: () => void;
-  changeRequired: () => void;
+  changeRequired: (isRequired:boolean) => void;
 }

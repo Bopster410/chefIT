@@ -8,7 +8,10 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
 
   useEffect(() => {
     initVKSDK();
+
     if (containerRef.current) {
+      containerRef.current.innerHTML = "";
+
       const oauthList = new VKID.OAuthList();
       const oauthListNames = [
         VKID.OAuthName.VK,
@@ -29,6 +32,12 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
         })
         .on(VKID.WidgetEvents.ERROR, handleError);
     }
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
+    };
   }, []);
 
   function handleError(error: any) {

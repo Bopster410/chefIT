@@ -19,12 +19,14 @@ export const useUserWithFetch = () => {
         .then((res) => {
           if (res.Status == 200) {
             login(res.Data);
+            changeRequired(false);
           }
+          else changeRequired(true);
         })
         .catch((err) => {
           console.error("Ошибка при получении профиля:", err);
         });
-        changeRequired();
+        changeRequired(true);
     }
   }, [user, required]);
 
