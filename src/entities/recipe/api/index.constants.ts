@@ -9,4 +9,13 @@ export const RECIPES_API = {
     nextStep: 'recipe/next',
     prevStep: 'recipe/prev',
     getFilters: 'search/filters',
+
+    getUserRecipes: 'generate/all',
+    generateNewRecipe: 'generate/make',
+
+    chefbookHistory: 'generate', // + '[id]/history'
+    chefbookUpdate: 'generate', // + '[id]/modern/[versionID]
+    chefbookSetMain: 'generate', // + '[id]/main/[versionID]
+    chefbookItem: 'generate', // + '[id]'
+
 };

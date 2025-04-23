@@ -1,0 +1,1 @@
+export { RegistrationPageContainer } from "./ui"

@@ -4,7 +4,9 @@
     --white: #fff;
     --black: #000;
     --gray-500: #8a8a8a;
+    --violet-700: #6d568f;
     --violet-500: #9c89b8;
+    --violet-300: #bcafcf;
     --gray-100: #f3f3f3;
     --gray-300: #ccc;
     --saffron-500: #facc69;
@@ -19,8 +21,11 @@
 @theme inline {
     --color-background: var(--gray-100);
     --color-font-base: var(--black);
-    
+
     --color-saffron-500: var(--saffron-500);
+    --color-violet-700: var(--violet-700);
+    --color-violet-500: var(--violet-500);
+    --color-violet-300: var(--violet-300);
 
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
@@ -30,11 +35,31 @@
     --radius-4xl: 32px;
 
     --shadow-status-bar: 0 -4px 12px -8px rgba(0, 0, 0, 0.25);
+
+    --breakpoint-mobile: 40rem;
 }
 
 @layer utilities {
     .drop-shadow-white {
         filter: drop-shadow(0 0 50px rgba(255, 255, 255, 1));
+    }
+
+    .recipe-clamp {
+        font-size: clamp(0.875rem, 0.714rem + 0.714vw, 1rem);
+    }
+
+    .recipe-clamp-sm {
+        font-size: clamp(0.75rem, 0.589rem + 0.714vw, 0.875rem);
+    }
+
+    .overlay-black {
+        @apply fixed inset-0 bg-[#00000030];
+    }
+}
+
+@layer components {
+    .drawer {
+        @apply bg-white flex flex-col outline-none fixed;
     }
 }
 
@@ -42,4 +67,53 @@ body {
     background: var(--color-background);
     color: var(--color-font-base);
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.text {
+    font-family: var(--font-base);
+    color: var(--color-font-base);
+    font-weight: 400;
+}
+
+h6 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 600;
+    font-size: var(--text-2xl);
+}
+
+h5 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.5rem;
+}
+
+h4 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+h2 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 700;
+    font-size: 4rem;
+}
+
+h1 {
+    font-family: var(--font-header);
+    color: var(--color-font-base);
+    font-weight: 800;
+    font-size: 5rem;
 }

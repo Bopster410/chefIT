@@ -4,6 +4,8 @@ import { Props } from './index.types';
 const COLORS = {
     white: 'bg-white',
     gray: 'bg-(--gray-100)',
+    saffron: 'bg-saffron-500 text-white',
+    violet: 'bg-violet-500 text-white',
 };
 
 export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
@@ -22,7 +24,7 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
                 size === 'lg'
                     ? 'h-button-height px-4'
                     : 'h-button-height-sm px-1'
-            } text-font-base text-base ${className}`}
+            } text-font-base text-base font-bold ${className}`}
             {...props}
         >
             {children}

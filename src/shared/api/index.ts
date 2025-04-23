@@ -10,6 +10,8 @@ import {
 export { BACKEND, STATUS } from './config/index.constants';
 export { throttle } from './throttling';
 
+export * from "./crypto"
+
 export async function ajax<T>({
     url,
     method,
@@ -33,7 +35,6 @@ export async function ajax<T>({
     if (body) {
         headers.set('Content-Type', 'application/json; charset=utf8');
     }
-    console.log(body);
 
     return fetch(fullUrl, {
         method,
@@ -41,15 +42,12 @@ export async function ajax<T>({
         body: body == null ? null : JSON.stringify(body),
     })
         .then((response) => {
-            console.log(response);
             return response.json();
         })
         .then((data: Response<T>) => {
-            console.log(data);
             return data;
         })
         .catch((error: Response<T>) => {
-            console.log(error);
             return error;
         });
 }

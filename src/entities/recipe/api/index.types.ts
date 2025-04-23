@@ -28,25 +28,44 @@ export type RecipeDetailed = {
     description: string;
     img: string;
     name: string;
-    // healthScore: number;
+    healthScore: number;
     // cookingTime: number;
     // prepTime: number;
-    // servingsNum: number;
+    servingsNum: number;
     ingredients: Ingredient[];
     steps: Step[];
 };
 
-export interface RecipeFilters{
+export type RecipeDetailedChefbook = {
+    versionId: number;
+    description: string;
+    name: string;
+    // healthScore: number;
+    cookingTime: number;
+    prepTime: number;
+    servingsNum: number;
+    ingredients: Ingredient[];
+    steps: Step[];
+};
+
+export interface RecipeFilters {
     diets: string[];
     dishTypes: string[];
-    time:{
+    time: {
         min: number;
         max: number;
-    }
+    };
 }
 
 export interface SelectedFilters {
     diet: string;
     dishType: string;
     time: number;
-  }
+}
+
+export interface UserRecipe {
+    id: number;
+    name: string;
+    description: string;
+    cookingTime: number;
+}
