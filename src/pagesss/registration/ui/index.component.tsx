@@ -2,7 +2,6 @@
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";
 import { Button } from "@/shared/uikit/button";
-import { InputField } from "@/shared/uikit/inputField";
 import { UserInfoField } from "@/entities/user";
 
 export const RegistrationPage: FunctionComponent<Props> = ({

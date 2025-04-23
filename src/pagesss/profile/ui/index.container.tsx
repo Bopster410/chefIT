@@ -13,7 +13,7 @@ export function ProfilePageContainer() {
       router.back();
       return;
     }
-  }, [user]);
+  }, [user, router]);
 
   if (!user) return;
   return <ProfilePage user={user} />;

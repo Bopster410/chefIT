@@ -108,7 +108,7 @@ export function ProfileEditPageContainer() {
       router.back();
       return;
     }
-  }, [user]);
+  }, [user,router]);
 
   if (!user) return;
 
