@@ -16,6 +16,7 @@
         "@mui/material": "^6.4.8",
         "@react-spring/web": "^9.7.5",
         "@types/dom-speech-recognition": "^0.0.6",
+        "clsx": "^2.1.1",
         "immer": "^10.1.1",
         "kute.js": "^1.5.93",
         "next": "15.2.2",
@@ -25,6 +26,7 @@
         "scheduler": "^0.26.0",
         "use-context-selector": "^2.0.0",
         "use-immer": "^0.11.0",
+        "vaul": "^1.1.2",
         "zustand": "^5.0.3"
     },
     "devDependencies": {

@@ -7,17 +7,19 @@ export default async function Page({
     params: Promise<{ id: string }>;
 }) {
     const id = parseInt((await params).id);
-    const recipe = (await getRecipeData(id)).Data;
+    const r = await getRecipeData(id);
+    console.log(r);
+    const recipe = r.Data;
     return (
         <RecipePageContainer
             id={id}
             img={recipe.img}
             name={recipe.name}
             description={recipe.description}
-            healthScore={80}
+            healthScore={recipe.healthScore}
             cookingTime={40}
             prepTime={10}
-            servings={4}
+            servings={recipe.servingsNum}
             ingredients={recipe.ingredients}
             steps={recipe.steps}
         />
