@@ -1,11 +1,13 @@
 "use client";
 import { FunctionComponent, useState } from "react";
 import { RegistrationPage } from "./index.component";
-import { userSignUp } from "@/entities/user";
+import { getUser, userSignUp } from "@/entities/user";
 import { useRouter } from "next/navigation";
+import { useLogin } from "@/app/providers/userProvider";
 
 export const RegistrationPageContainer: FunctionComponent = () => {
   const [error, setError] = useState("");
+  const setUser = useLogin();
   const router = useRouter();
 
   const handleRegistration = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,7 +20,10 @@ export const RegistrationPageContainer: FunctionComponent = () => {
     userSignUp(login, password, name, surname)
       .then((res) => {
         if (res.Status !== 200) throw new Error("Ошибка при регистрации");
-        router.push("/login");
+        getUser().then((data) => {
+          setUser(data.Data);
+          router.push("./");
+        });
       })
       .catch(() => {
         setError("Ошибка при регистрации");
@@ -26,9 +31,6 @@ export const RegistrationPageContainer: FunctionComponent = () => {
   };
 
   return (
-    <RegistrationPage
-      handleRegistration={handleRegistration}
-      error={error}
-    />
+    <RegistrationPage handleRegistration={handleRegistration} error={error} />
   );
 };
