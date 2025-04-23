@@ -7,7 +7,7 @@ import { Button } from "@/shared/uikit/button";
 export const ProfilePage: FunctionComponent<Props> = ({ user }) => {
   return (
     <div className="bg-white rounded-t-4xl h-full px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Профиль пользователя</h1>
+      <h3 className="text-2xl font-bold mb-6">Профиль пользователя</h3>
       <div className="space-y-4 mb-8">
         <div className="flex flex-col">
           <span className="text-sm text-gray-500">Имя</span>

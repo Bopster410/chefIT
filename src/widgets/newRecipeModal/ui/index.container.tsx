@@ -31,7 +31,7 @@ export const NewRecipeModalContainer = () => {
     setLoading(true);
     generateRecipe(query,ingredients).then((recipe)=>{
       if(closeModal) closeModal();
-      router.push(`/chefbook/${recipe.Data.id.toString()}`);
+      router.push(`/chefbook`);
     })
   };
 
