@@ -59,4 +59,19 @@ export async function userEditPassword(
   });
 }
 
+export async function userLoginVK(
+  code: string,
+  deviceId: string,
+  state: string
+) {
+  return await ajaxPost({
+    url: USER_API.loginVK,
+    body: {
+      code: code,
+      deviceId: deviceId,
+      state: state,
+    },
+  });
+}
+
 export { useUserWithFetch } from "./index.hooks";
