@@ -1,1 +1,1 @@
-export { MainSideBarContainer } from "./ui";
+export { MainSideBar } from './ui';

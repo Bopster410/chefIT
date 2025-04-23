@@ -24,7 +24,7 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
                 size === 'lg'
                     ? 'h-button-height px-4'
                     : 'h-button-height-sm px-1'
-            } text-font-base text-base ${className}`}
+            } text-font-base text-base font-bold ${className}`}
             {...props}
         >
             {children}

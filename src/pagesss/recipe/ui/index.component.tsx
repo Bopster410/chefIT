@@ -28,10 +28,10 @@ export const RecipePage: FunctionComponent<Props> = ({
     const totalSteps = steps.length;
 
     return (
-        <div className='bg-white rounded-t-4xl h-full pt-10 px-8'>
+        <div className='bg-white h-full '>
             {cookingState === 'cooking' && currentStep ? (
                 <div className='flex w-full gap-2 mt-6'>
-                    <div className='flex gap-4 w-full flex-col sm:flex-row'>
+                    <div className='flex gap-4 w-full flex-col mobile:flex-row'>
                         <div>
                             <div className='font-bold border-2 rounded-full size-16 flex justify-center items-center text-4xl'>
                                 {currentStep.number}
@@ -70,7 +70,7 @@ export const RecipePage: FunctionComponent<Props> = ({
                                 </>
                             )}
 
-                            <div className='flex w-full justify-between gap-10 mt-6 flex-col-reverse sm:flex-row'>
+                            <div className='flex w-full justify-between gap-10 mt-6 flex-col-reverse mobile:flex-row'>
                                 {currentStep.number !== totalSteps && (
                                     <Button
                                         onClick={endCooking}
@@ -79,12 +79,12 @@ export const RecipePage: FunctionComponent<Props> = ({
                                         завершить
                                     </Button>
                                 )}
-                                <div className='flex gap-4 w-full sm:justify-end'>
+                                <div className='flex gap-4 w-full mobile:justify-end'>
                                     {currentStep.number !== 1 && (
                                         <Button
                                             onClick={prevStep}
                                             color='gray'
-                                            className='w-full sm:w-auto'
+                                            className='w-full mobile:w-auto'
                                         >
                                             назад
                                         </Button>
@@ -96,7 +96,7 @@ export const RecipePage: FunctionComponent<Props> = ({
                                                 : nextStep
                                         }
                                         color='gray'
-                                        className={`w-full sm:w-auto`}
+                                        className={`w-full mobile:w-auto`}
                                     >
                                         {currentStep.number === totalSteps
                                             ? 'завершить'
@@ -121,10 +121,11 @@ export const RecipePage: FunctionComponent<Props> = ({
                         steps={steps}
                     />
                     {cookingState === 'none' && (
-                        <div className='bg-white shadow w-full flex justify-center items-center py-4'>
+                        <div className='bg-white w-full px-4 py-6 sticky bottom-0 z-10'>
                             <Button
                                 onClick={startCooking}
-                                color='gray'
+                                color='saffron'
+                                className='w-full'
                             >
                                 Готовить
                             </Button>

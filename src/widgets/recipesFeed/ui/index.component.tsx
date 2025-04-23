@@ -6,13 +6,17 @@ export const RecipesFeed: FunctionComponent<{ recipes: Recipe[] }> = ({
     recipes,
 }) => {
     return (
-        <div className='flex flex-col space-y-2'>
-            {recipes && recipes.map((recipe) => (
-                <RecipeCard
-                    key={recipe.id}
-                    {...recipe}
-                />
-            ))}
+        <div className='grid grid-cols-2 mobile:grid-cols-3 gap-3'>
+            {recipes &&
+                recipes.map(({ id, name, description, img }) => (
+                    <RecipeCard
+                        key={id}
+                        id={id}
+                        name={name}
+                        description={description}
+                        image={img}
+                    />
+                ))}
         </div>
     );
 };

@@ -1,1 +1,1 @@
-export { MainSideBarContainer } from "./index.container";
+export { MainSideBar } from './index.component';
