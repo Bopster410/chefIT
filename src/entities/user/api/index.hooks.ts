@@ -1,5 +1,5 @@
 import { useLogin, useUser } from "@/app/providers/userProvider";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUser } from ".";
 import {
   useChangeRequired,
@@ -28,7 +28,7 @@ export const useUserWithFetch = () => {
         });
         changeRequired(true);
     }
-  }, [user, required]);
+  }, [user, required, changeRequired, login]);
 
   return user;
 };

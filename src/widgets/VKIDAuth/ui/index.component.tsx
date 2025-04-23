@@ -30,19 +30,8 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
             borderRadius: 8,
           },
         })
-        .on(VKID.WidgetEvents.ERROR, handleError);
     }
-
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
-    };
   }, []);
-
-  function handleError(error: any) {
-    console.log('VKID OAuth widget error:', error);
-  }
 
   return <div id="VkIdSdkOAuthList" ref={containerRef} />;
 };

@@ -29,7 +29,7 @@ export const NewRecipeModalContainer = () => {
 
   const createRecept = () => {
     setLoading(true);
-    generateRecipe(query,ingredients).then((recipe)=>{
+    generateRecipe(query,ingredients).then(()=>{
       if(closeModal) closeModal();
       router.push(`/chefbook`);
     })
