@@ -1,4 +1,3 @@
 export interface Props {
-  isOpen: boolean;
-  onClose: () => void;
+    side: 'right' | 'left';
 }

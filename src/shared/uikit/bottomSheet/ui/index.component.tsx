@@ -1,26 +1,52 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { FunctionComponent } from 'react';
+import { ContentProps, DialogProps, Drawer } from 'vaul';
 import { Props } from './index.types';
 
-export const BottomSheet: FunctionComponent<PropsWithChildren<Props>> = ({
+const Root: FunctionComponent<DialogProps> = ({ children, ...props }) => {
+    return <Drawer.Root {...props}>{children}</Drawer.Root>;
+};
+
+const Overlay: FunctionComponent<
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+> = ({ className, ...props }) => (
+    <Drawer.Overlay
+        className={className ?? 'overlay-black'}
+        {...props}
+    />
+);
+
+const Content: FunctionComponent<ContentProps & Props> = ({
     children,
-    opened,
-    onOuterClick,
-}) => {
-    return (
-        <div className='z-50 relative'>
-            <div
-                onClick={() => {
-                    if (onOuterClick && opened) onOuterClick();
-                }}
-                className={
-                    opened ? 'fixed inset-0 bg-[#00000030] z-50' : 'bg-transparent'
-                }
-            ></div>
-            {opened && (
-                <div className='fixed w-screen h-8/10 left-0 bottom-0 p-8 bg-white rounded-t-4xl z-50'>
-                    {children}
-                </div>
-            )}
-        </div>
-    );
+    className,
+    withHandle = true,
+    ...props
+}) => (
+    <Drawer.Content
+        className={[
+            `left-0 right-0 bottom-0 mt-24 rounded-t-xl drawer${
+                withHandle && ' pt-5'
+            }`,
+            className ?? '',
+        ].join(' ')}
+        {...props}
+    >
+        {withHandle && (
+            <Drawer.Handle className='mx-auto w-12 h-1.5 flex-shrink-0 mb-6' />
+        )}
+        {children}
+    </Drawer.Content>
+);
+
+export const BottomSheet = {
+    Root,
+    NestedRoot: Drawer.NestedRoot,
+    Content,
+    Overlay,
+    Trigger: DialogPrimitive.Trigger,
+    Portal: Drawer.Portal,
+    Handle: Drawer.Handle,
+    Close: DialogPrimitive.Close,
+    Title: DialogPrimitive.Title,
+    Description: DialogPrimitive.Description,
 };

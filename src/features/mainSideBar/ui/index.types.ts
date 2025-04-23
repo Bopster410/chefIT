@@ -1,4 +1,4 @@
-export interface Props{
+export interface Props {
     sideBarOpened: boolean;
-    OnCloseSideBar: () => void;
+    onCloseSideBar: () => void;
 }

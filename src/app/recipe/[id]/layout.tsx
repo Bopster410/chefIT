@@ -12,6 +12,7 @@ export default function RecipeLayout({
                 <BackButton
                     circle
                     color='white'
+                    className='shadow-2xl shadow-black'
                 >
                     <CloseIcon />
                 </BackButton>

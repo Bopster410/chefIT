@@ -28,10 +28,10 @@ export type RecipeDetailed = {
     description: string;
     img: string;
     name: string;
-    // healthScore: number;
+    healthScore: number;
     // cookingTime: number;
     // prepTime: number;
-    // servingsNum: number;
+    servingsNum: number;
     ingredients: Ingredient[];
     steps: Step[];
 };
