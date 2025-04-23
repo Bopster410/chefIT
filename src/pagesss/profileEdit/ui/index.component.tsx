@@ -16,7 +16,7 @@ export const ProfileEditPage: FunctionComponent<Props> = ({
 
   return (
     <div className="bg-white rounded-t-4xl h-full px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Профиль пользователя</h1>
+      <h3 className="text-2xl font-bold mb-6">Профиль пользователя</h3>
       <form onSubmit={handleChange} className="space-y-4 mb-8">
         <UserInfoField
           type="name"
