@@ -1,40 +1,32 @@
 "use client";
 import { FunctionComponent, useState } from "react";
-import useInput from "@/shared/uikit/inputField/api";
 import { RegistrationPage } from "./index.component";
 import { userSignUp } from "@/entities/user";
 import { useRouter } from "next/navigation";
 
 export const RegistrationPageContainer: FunctionComponent = () => {
-  const [login, setLogin] = useInput("");
-  const [password, setPassword] = useInput("");
-  const [surname, setSurname] = useInput("");
-  const [name, setName] = useInput("");
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleRegistration = (e: React.FormEvent) => {
+  const handleRegistration = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const login = formData.get("login") as string;
+    const password = formData.get("password") as string;
+    const surname = formData.get("surname") as string;
+    const name = formData.get("name") as string;
     userSignUp(login, password, name, surname)
       .then((res) => {
         if (res.Status !== 200) throw new Error("Ошибка при регистрации");
         router.push("/login");
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Ошибка при регистрации");
       });
   };
 
   return (
     <RegistrationPage
-      name={name}
-      surname={surname}
-      login={login}
-      password={password}
-      setName={setName}
-      setSurname={setSurname}
-      setLogin={setLogin}
-      setPassword={setPassword}
       handleRegistration={handleRegistration}
       error={error}
     />

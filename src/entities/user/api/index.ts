@@ -31,12 +31,32 @@ export async function userSignUp(
     body: { login: login, password: password, name: name, surname: surname },
   });
 }
-
-export const MockUser: User = {
-  name: "Admin",
-  surname: "Admin",
-  login: "Admin",
-  isVKUser: false,
+export async function userEditLogin(newLogin: string) {
+  return await ajaxPost({
+    url: USER_API.editLogin,
+    body: { newLogin: newLogin },
+  });
+}
+export async function userEditName(newName: string) {
+  return await ajaxPost({
+    url: USER_API.editName,
+    body: { newName: newName },
+  });
+}
+export async function userEditSurname(newSurname: string) {
+  return await ajaxPost({
+    url: USER_API.editSurname,
+    body: { newSurname: newSurname },
+  });
+}
+export async function userEditPassword(
+  oldPassword: string,
+  newPassword: string
+) {
+  return await ajaxPost({
+    url: USER_API.editPassword,
+    body: { newPassword: newPassword, password: oldPassword },
+  });
 }
 
 export { useUserWithFetch } from "./index.hooks";

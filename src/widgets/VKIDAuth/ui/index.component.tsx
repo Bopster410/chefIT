@@ -41,7 +41,7 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
   }, []);
 
   function handleError(error: any) {
-    console.error('VKID OAuth widget error:', error);
+    console.log('VKID OAuth widget error:', error);
   }
 
   return <div id="VkIdSdkOAuthList" ref={containerRef} />;

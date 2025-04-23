@@ -9,12 +9,11 @@ export async function initVKSDK() {
 
   sessionStorage.setItem("pkce_code_verifier", codeVerifier);
   sessionStorage.setItem("pkce_state", state);
-
   Config.init({
     app: CLIENT_ID,
     redirectUrl: "/",
-    state,
-    codeChallenge,
+    state: state,
+    codeChallenge: codeChallenge,
     scope: "email",
   });
 }

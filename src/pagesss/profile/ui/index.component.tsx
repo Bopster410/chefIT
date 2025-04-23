@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";
 import Link from "next/link";
@@ -22,11 +22,13 @@ export const ProfilePage: FunctionComponent<Props> = ({ user }) => {
           <span className="text-lg font-medium">{user.login}</span>
         </div>
       </div>
-      <Link href="/profile/edit">
-        <Button>
-          Изменить информацию
-        </Button>
-      </Link>
+      {user.isVKUser ? (
+        <></>
+      ) : (
+        <Link href="/profile/edit">
+          <Button>Изменить информацию</Button>
+        </Link>
+      )}
     </div>
   );
 };
