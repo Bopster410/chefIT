@@ -19,11 +19,11 @@ export const Button: FunctionComponent<PropsWithChildren<Props>> = ({
     return (
         <button
             className={`hover:cursor-pointer ${COLORS[color ?? 'gray']} ${
-                circle ? 'rounded-full' : 'rounded-lg'
+                circle ? 'rounded-full aspect-square' : 'rounded-lg'
             } ${
                 size === 'lg'
-                    ? 'h-button-height px-4'
-                    : 'h-button-height-sm px-1'
+                    ? `h-button-height ${circle ? 'px-0' : 'px-4'}`
+                    : `h-button-height-sm  ${circle ? 'px-0' : 'px-1'}`
             } text-font-base text-base font-bold ${className}`}
             {...props}
         >

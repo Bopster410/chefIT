@@ -36,6 +36,7 @@
 
     --shadow-status-bar: 0 -4px 12px -8px rgba(0, 0, 0, 0.25);
 
+    /* TODO rename to 'desktop' */
     --breakpoint-mobile: 40rem;
 }
 
