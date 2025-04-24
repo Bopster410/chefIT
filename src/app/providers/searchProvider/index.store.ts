@@ -13,7 +13,7 @@ export const useSearchStore = create<SearchStates>()((set) => ({
     if (!filters) return { filters: undefined };
   
     const hasAnyValue = Object.entries(filters).some(
-      ([_, value]) => typeof value === "number" ? value !== 0 : value !== ""
+      ([, value]) => typeof value === "number" ? value !== 0 : value !== ""
     );
   
     return { filters: hasAnyValue ? filters : undefined };

@@ -4,7 +4,6 @@ import { ModalContainer } from '@/shared/uikit/modal';
 import { ModalStoreProvider } from '@/app/providers/modalProvider';
 import { TimersProviderWrapper } from './providers/timers/index.wrapper';
 import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionProvider';
-import { SpeechListener } from '@/features/speechListener';
 import { inter, manrope } from '@/shared/fonts';
 import './globals.css';
 
