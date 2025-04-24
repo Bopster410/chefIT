@@ -69,7 +69,9 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                         <CloseIcon />
                     </Button>
                 </div>
-                <div className='px-10 pb-10 md:px-14 md:pb-14'>{children}</div>
+                <div className='px-5 mobile:px-10 pb-5 mobile:pb-10 md:px-14 md:pb-14'>
+                    {children}
+                </div>
             </div>
         </dialog>
     );
