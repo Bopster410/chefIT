@@ -35,7 +35,7 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
             borderRadius: 8,
           },
         })
-        .on(VKID.OAuthListInternalEvents.LOGIN_SUCCESS, function (payload) {
+        .on(VKID.OAuthListInternalEvents.LOGIN_SUCCESS, function (payload: { code: string; device_id: string; }) {
           const code = payload.code;
           const deviceId = payload.device_id;
           const state = sessionStorage.getItem("pkce_state");
@@ -53,7 +53,7 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
           })
       });
     }
-  }, []);
+  }, [changeRequired,router]);
 
   return <div id="VkIdSdkOAuthList" ref={containerRef} />;
 };
