@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef } from 'react';
 import {
+    // createDefaultSpeechRecognitionStore,
     createSpeechRecognitionStore,
     initSpeechRecognitionStore,
 } from './index.store';
@@ -21,13 +22,22 @@ export const SpeechRecognitionStoreProvider: FunctionComponent<
     PropsWithChildren
 > = ({ children }) => {
     const storeRef = useRef<SpeechRecognitionStoreApi | null>(null);
-    if (storeRef.current === null || typeof window !== 'undefined')
+
+    const needsInit =
+        storeRef.current === null || typeof window !== 'undefined';
+    if (needsInit)
         storeRef.current = createSpeechRecognitionStore(
             initSpeechRecognitionStore()
         );
 
+    // if (!needsInit) {
+    //     storeRef.current = createDefaultSpeechRecognitionStore();
+    // }
+
     return (
-        <SpeechRecognitionStoreContext.Provider value={storeRef.current}>
+        <SpeechRecognitionStoreContext.Provider
+            value={storeRef.current ?? undefined}
+        >
             <SpeechRecognitionWrapper>{children}</SpeechRecognitionWrapper>
         </SpeechRecognitionStoreContext.Provider>
     );
@@ -51,19 +61,23 @@ export const SpeechRecognitionWrapper: FunctionComponent<PropsWithChildren> = ({
     }, [recognition, setRecognizedSpeech]);
 
     useEffect(() => {
-        recognition.current?.addEventListener('end', (event) => {
+        const currentRecognition = recognition.current;
+        const handleEnd = (event: Event) => {
             event.preventDefault();
             setRecognizedSpeech();
             start();
-        });
-    }, [recognition, setRecognizedSpeech, start]);
+        };
 
-    useEffect(() => {
-        recognition.current?.addEventListener('speechend', (event) => {
-            event.preventDefault();
-            setRecognizedSpeech();
-            start();
-        });
+        currentRecognition?.addEventListener('end', handleEnd);
+
+        // recognition.current?.addEventListener('speechend', (event) => {
+        //     event.preventDefault();
+        //     setRecognizedSpeech();
+        //     start();
+        // });
+        return () => {
+            currentRecognition?.removeEventListener('end', handleEnd);
+        };
     }, [recognition, setRecognizedSpeech, start]);
 
     return <>{children}</>;
