@@ -79,10 +79,7 @@ export function validateUserField(
   type: "name" | "surname" | "password" | "login"
 ): string | null {
   const trimmedInput = input.trim();
-
-  if (!trimmedInput) {
-    return "Поле не может быть пустым";
-  }
+  if (trimmedInput == "") return null;
 
   if (type === "name" || type === "surname") {
     const nameRegex = /^[A-Za-zА-Яа-яЁё]+$/;
@@ -96,15 +93,9 @@ export function validateUserField(
     if (!loginRegex.test(trimmedInput)) {
       return "Логин может содержать буквы, цифры, а также символы _ и -";
     }
-    if (trimmedInput.length < 3) {
-      return "Логин должен содержать минимум 3 символа";
-    }
   }
 
   if (type === "password") {
-    if (trimmedInput.length < 8) {
-      return "Пароль должен содержать минимум 8 символов";
-    }
     if (!/[A-Za-zА-Яа-яЁё]/.test(trimmedInput) || !/\d/.test(trimmedInput)) {
       return "Пароль должен содержать хотя бы одну букву и одну цифру";
     }

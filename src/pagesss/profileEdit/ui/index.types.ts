@@ -1,7 +1,7 @@
 import { User } from "@/entities/user";
 
 export interface EditError{
-    type: "name"|"surname"|"login"|"password";
+    type: "name"|"surname"|"login"|"password"|"oldPassword"|"passwordApproval";
     msg: string;
 }
 

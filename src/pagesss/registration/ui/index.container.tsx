@@ -20,6 +20,8 @@ export const RegistrationPageContainer: FunctionComponent = () => {
     const name = formData.get("name") as string;
     const passwordApproval = formData.get("password-approval") as string;
 
+    setError("");
+
     let error = validateUserField(name, "name");
     if (error) {
       setError(error);

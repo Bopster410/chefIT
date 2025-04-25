@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";
 import Link from "next/link";
@@ -17,10 +17,12 @@ export const ProfilePage: FunctionComponent<Props> = ({ user }) => {
           <span className="text-sm text-gray-500">Фамилия</span>
           <span className="text-lg font-medium">{user.surname}</span>
         </div>
-        <div className="flex flex-col">
-          <span className="text-sm text-gray-500">Логин</span>
-          <span className="text-lg font-medium">{user.login}</span>
-        </div>
+        {!user.isVKUser && (
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-500">Логин</span>
+            <span className="text-lg font-medium">{user.login}</span>
+          </div>
+        )}
       </div>
       {user.isVKUser ? (
         <></>
