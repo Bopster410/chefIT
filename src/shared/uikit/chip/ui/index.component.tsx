@@ -12,23 +12,30 @@ export const Chip: FunctionComponent<PropsWithChildren<Props>> = ({
   color,
   onClick,
   className,
+  withClear,
 }) => {
   return (
     <div
       className={`inline-flex items-center ${
         COLORS[color ?? "gray"]
       } text-sm font-medium px-3 py-1 rounded-full 
-      ${className}`}
+      ${className} ${!withClear ? "cursor-pointer" : ""}`}
+      {...(!withClear ? { onClick } : {})}
     >
       {children}
-      <button
-        type="button"
-        className="ml-2 cursor-pointer"
-        aria-label="Удалить"
-        onClick={onClick}
-      >
-        &times;
-      </button>
+      {withClear && (
+        <button
+          type="button"
+          className="ml-2 cursor-pointer"
+          aria-label="Удалить"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick?.(e as any);
+          }}
+        >
+          &times;
+        </button>
+      )}
     </div>
   );
 };

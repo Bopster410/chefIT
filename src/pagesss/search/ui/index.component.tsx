@@ -7,6 +7,7 @@ import { Navbar } from '@/widgets/navbar';
 import { FiltersSideBarContainer } from '@/widgets/filtersSideBar/ui/index.container';
 import { Button } from '@/shared/uikit/button';
 import { CurrentFiltersChipsContainer } from '@/widgets/currentFiltersChips/ui/index.container';
+import { RecipesFeed } from '@/widgets/recipesFeed';
 
 export const SearchPage: FunctionComponent<Props> = ({
     handleSearch,
@@ -34,7 +35,6 @@ export const SearchPage: FunctionComponent<Props> = ({
                 </Button>
                 <CurrentFiltersChipsContainer />
                 <SearchBarContainer
-                    haveSuggestions={suggestions.length !== 0}
                     handleSearch={handleSearch}
                     query={query}
                 />
@@ -44,15 +44,7 @@ export const SearchPage: FunctionComponent<Props> = ({
                         suggestions={suggestions}
                     />
                 )}
-                <div className='flex flex-col space-y-2'>
-                    {recipes &&
-                        recipes.map((recipe) => (
-                            <RecipeCard
-                                key={recipe.id}
-                                {...recipe}
-                            />
-                        ))}
-                </div>
+                <RecipesFeed recipes={recipes} />
             </div>
         </>
     );
