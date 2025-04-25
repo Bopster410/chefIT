@@ -64,7 +64,7 @@ export const SpeechListener = () => {
     useEffect(() => {
         if (
             recognizedSpeech &&
-            recognizedSpeech.trim() === 'шеф' &&
+            recognizedSpeech.trim().replace(/[\s.,%]/g, '') === 'шеф' &&
             !isOpened
         ) {
             setIsOpened(true);
@@ -73,7 +73,7 @@ export const SpeechListener = () => {
         }
 
         if (isOpened && recognizedSpeech && !isPending) {
-            switch (recognizedSpeech.trim().toLocaleLowerCase()) {
+            switch (recognizedSpeech.trim().replace(/[\s.,%]/g, '').toLocaleLowerCase()) {
                 case 'вперёд':
                     if (nextStep) nextStep();
                     setIsOpened(false);
