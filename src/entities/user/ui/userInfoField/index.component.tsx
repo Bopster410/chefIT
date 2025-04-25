@@ -29,7 +29,7 @@ export const UserInfoField: FunctionComponent<Props> = ({
           name={name || type}
           {...(required ? { required } : {})}
           {...(isPassword ? { minLength: 8 } : {})}
-          maxLength={20}
+          maxLength={32}
           className={`mt-1 block w-full px-3 py-2 border rounded-md ${
             error ? "border-red-500 focus:ring-red-500" : "border-gray-300"
           }`}

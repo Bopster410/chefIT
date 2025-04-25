@@ -1,35 +1,47 @@
 "use client";
-import { FunctionComponent } from "react";
-import useInput from "@/shared/uikit/inputField/api";
+import { FunctionComponent, useState } from "react";
 import { LoginPage } from "./index.component";
 import { getUser, userLogin } from "@/entities/user";
 import { useRouter } from "next/navigation";
 import { useLogin } from "@/app/providers/userProvider";
+import { validateUserField } from "@/entities/user/api";
 
 export const LoginPageContainer: FunctionComponent = () => {
-  const [login, setLogin] = useInput("");
-  const [password, setPassword] = useInput("");
   const setUser = useLogin();
   const router = useRouter();
+  const [error, setError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    userLogin(login, password).then((res)=>{
-      if(res.Status !== 200) return;
-      getUser().then((data)=>{
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const login = formData.get("login") as string;
+    const password = formData.get("password") as string;
+
+    let error = validateUserField(login, "login");
+    if (error) {
+      setError(error);
+      return;
+    }
+
+    error = validateUserField(password, "password");
+    if (error) {
+      setError(error);
+      return;
+    }
+
+    userLogin(login, password).then((res) => {
+      if (res.Status !== 200) {
+        setError("Неправильный логин или пароль");
+        return;
+      }
+      getUser().then((data) => {
         setUser(data.Data);
         router.push("./");
-      })
-    })
+      });
+    });
   };
 
-  return (
-    <LoginPage
-      login={login}
-      password={password}
-      setLogin={setLogin}
-      setPassword={setPassword}
-      handleLogin={handleLogin}
-    />
-  );
+  return <LoginPage error={error} handleLogin={handleLogin} />;
 };
