@@ -1,4 +1,4 @@
-import { Config } from "@vkid/sdk";
+import { Config, ConfigResponseMode } from "@vkid/sdk";
 import { CLIENT_ID } from "./index.constants";
 import { generateCodeChallenge, generateRandomString } from "@/shared/api";
 
@@ -12,5 +12,6 @@ export async function initVKSDK() {
     redirectUrl: "http://localhost",
     state: state,
     codeChallenge: codeChallenge,
+    responseMode: ConfigResponseMode.Callback,
   });
 }
