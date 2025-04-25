@@ -1,6 +1,6 @@
 import { Config, ConfigResponseMode } from "@vkid/sdk";
 import { CLIENT_ID } from "./index.constants";
-import { generateCodeChallenge, generateRandomString } from "@/shared/api";
+import { generateRandomString } from "@/shared/api";
 
 export async function initVKSDK() {
   const codeChallenge = "DkaKPL9Mzlp5n6SYrOkkgBoBbK2JahDgQlg4nqQVfx0"
@@ -9,7 +9,7 @@ export async function initVKSDK() {
   sessionStorage.setItem("pkce_state", state);
   Config.init({
     app: CLIENT_ID,
-    redirectUrl: "http://localhost",
+    redirectUrl: "https://www.chef-it.online",
     state: state,
     codeChallenge: codeChallenge,
     responseMode: ConfigResponseMode.Callback,
