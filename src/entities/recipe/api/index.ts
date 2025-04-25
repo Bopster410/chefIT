@@ -88,310 +88,31 @@ export async function getSearchFilters() {
 export async function getUserRecipes() {
     return await ajaxGet<UserRecipe[]>({
         url: RECIPES_API.getUserRecipes,
-        queryParams: {num: 10},
-    })
+        queryParams: { num: 10 },
+    });
 }
 
-export async function generateRecipe(query: string, ingredients: string[]){
+export async function generateRecipe(query: string, ingredients: string[]) {
     return await ajaxPost<UserRecipe>({
         url: RECIPES_API.generateNewRecipe,
         body: {
             query: query,
             ingredients: ingredients,
-        }
-    })
-}
-
-    //return await ajaxPost<{ query: string, ingredients: string[] }>({
-        //url: RECIPES_API.generateNewRecipe,
-        //body:{
-            //query: query,
-            //ingredients: ingredients,
-        //},
-    //})
-
-const chefbookResponse = {
-    Status: 200,
-    Data: {
-        neededIngredients: ['cabbage', 'leek'],
-        initialQuery: 'asdasdasd',
-        recipe: {
-            versionId: 1,
-            name: 'Шоколадные овсяные хлопья на ночь с клубникой',
-            description:
-                'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
-            servingsNum: 1,
-            dishTypes: ['утренний прием пищи', 'поздний завтрак', 'завтрак'],
-            diets: ['без глютена'],
-            healthScore: 15,
-            cookingTime: 100,
-            prepTime: 40,
-
-            ingredients: [
-                {
-                    id: 19165,
-                    name: 'какао-порошок',
-                    image: 'cocoa-powder.png',
-                    amount: 1,
-                    unit: 'ст. л.',
-                    localizedName: '',
-                },
-                {
-                    id: 19166,
-                    name: 'какао-порошок',
-                    image: 'cocoa-powder.png',
-                    amount: 1,
-                    localizedName: '',
-                    unit: 'ст. л.',
-                },
-                {
-                    id: 19162,
-                    localizedName: '',
-                    name: 'какао-порошок',
-                    image: 'cocoa-powder.png',
-                    amount: 1,
-                    unit: 'ст. л.',
-                },
-            ],
-            steps: [
-                {
-                    number: 1,
-                    step: 'Смешайте все ингредиенты, кроме клубники.',
-                    ingredients: [
-                        {
-                            id: 19160,
-                            name: 'какао-порошок',
-                            image: 'cocoa-powder.png',
-                            amount: 1,
-                            unit: 'ст. л.',
-                            localizedName: '',
-                        },
-                        {
-                            localizedName: '',
-                            id: 19163,
-                            name: 'какао-порошок',
-                            image: 'cocoa-powder.png',
-                            amount: 1,
-                            unit: 'ст. л.',
-                        },
-                    ],
-                    equipment: [],
-                    length: null,
-                },
-            ],
         },
-    },
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getChefbookRecipe(id: number) {
-    // return await ajaxGet<RecipeDetailedChefbook>({
-    //     url: `${RECIPES_API.chefbookItem}/${id}`,
-    // });
-    return chefbookResponse;
+    });
 }
 
-const chefbookResponse2: {
-    Status: number;
-    Data: { versions: RecipeDetailedChefbook[] };
-} = {
-    Status: 200,
-    Data: {
-        versions: [
-            {
-                versionId: 1,
-                name: 'Шоколадные овсяные хлопья на ночь с клубникой 1',
-                description:
-                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
-                servingsNum: 1,
-                cookingTime: 100,
-                prepTime: 40,
-                ingredients: [
-                    {
-                        id: 19165,
-                        name: 'шоколад',
-                        image: 'cocoa-powder.png',
-                        amount: 100,
-                        unit: 'г',
-                        localizedName: '',
-                    },
-                    {
-                        id: 19166,
-                        name: 'какао-порошок',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        localizedName: '',
-                        unit: 'ст. л.',
-                    },
-                    {
-                        id: 19162,
-                        localizedName: '',
-                        name: 'какао-порошок',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        unit: 'ст. л.',
-                    },
-                ],
-                steps: [
-                    {
-                        number: 1,
-                        step: 'Смешайте все ингредиенты, кроме клубники.',
-                        ingredients: [
-                            {
-                                id: 19160,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                                localizedName: '',
-                            },
-                            {
-                                localizedName: '',
-                                id: 19163,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                            },
-                        ],
-                        length: null,
-                    },
-                ],
-            },
-            {
-                versionId: 2,
-                name: 'Шоколадные овсяные хлопья на ночь с клубникой',
-                description:
-                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
-                servingsNum: 1,
-                cookingTime: 100,
-                prepTime: 40,
-                ingredients: [
-                    {
-                        id: 19165,
-                        name: 'какао-порошок',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        unit: 'ст. л.',
-                        localizedName: '',
-                    },
-                    {
-                        id: 19166,
-                        name: 'какао-порошок',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        localizedName: '',
-                        unit: 'ст. л.',
-                    },
-                    {
-                        id: 19162,
-                        localizedName: '',
-                        name: 'какао-порошок',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        unit: 'ст. л.',
-                    },
-                ],
-                steps: [
-                    {
-                        number: 1,
-                        step: 'Смешайте все ингредиенты, кроме клубники.',
-                        ingredients: [
-                            {
-                                id: 19160,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                                localizedName: '',
-                            },
-                            {
-                                localizedName: '',
-                                id: 19163,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                            },
-                        ],
-                        length: null,
-                    },
-                ],
-            },
-            {
-                versionId: 3,
-                name: 'Шоколадные овсяные хлопья на ночь с клубникой 3',
-                description:
-                    'Шоколадные овсяные хлопья на ночь с клубникой требуют примерно 45 минут от начала до готовности. Этот завтрак содержит 217 калорий, 15 г белка и 5 г жира на порцию. Рецепт рассчитан на 1 порцию и стоит 200 рублей за порцию. Для этого рецепта от ChefIT понадобятся сироп агавы, овсяные хлопья, клубника и обезжиренный греческий йогурт. Несколько человек приготовили этот рецепт, и 22 сказали, что он им понравился. Это хороший вариант, если вы придерживаетесь безглютеновой диеты. В целом, этот рецепт получает хорошую оценку команды ChefIT — 71%. Похожие рецепты включают шоколадные овсяные хлопья на ночь с клубникой.',
-                servingsNum: 1,
-                cookingTime: 100,
-                prepTime: 40,
-                ingredients: [
-                    {
-                        id: 19165,
-                        name: 'шоколад',
-                        image: 'cocoa-powder.png',
-                        amount: 200,
-                        unit: 'г',
-                        localizedName: '',
-                    },
-                    {
-                        id: 19166,
-                        name: 'молоко',
-                        image: 'cocoa-powder.png',
-                        amount: 1,
-                        localizedName: '',
-                        unit: 'л',
-                    },
-                    {
-                        id: 19162,
-                        localizedName: '',
-                        name: 'клубника',
-                        image: 'cocoa-powder.png',
-                        amount: 150,
-                        unit: 'г',
-                    },
-                ],
-                steps: [
-                    {
-                        number: 1,
-                        step: 'Смешайте все ингредиенты, кроме клубники.',
-                        ingredients: [
-                            {
-                                id: 19160,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                                localizedName: '',
-                            },
-                            {
-                                localizedName: '',
-                                id: 19163,
-                                name: 'какао-порошок',
-                                image: 'cocoa-powder.png',
-                                amount: 1,
-                                unit: 'ст. л.',
-                            },
-                        ],
-                        length: null,
-                    },
-                ],
-            },
-        ],
-    },
-};
+export async function getChefbookRecipe(id: number) {
+    return await ajaxGet<RecipeDetailedChefbook>({
+        url: `${RECIPES_API.chefbookItem}/${id}`,
+    });
+    // return chefbookResponse;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getChefbookRecipeHistory(id: number) {
-    // return await ajaxGet<{
-    //     neededIngredients: Ingredient;
-    //     initialQuery: string;
-    //     versions: RecipeDetailedChefbook[];
-    // }>({
-    //     url: `${RECIPES_API.chefbookHistory}/${id}/history`,
-    // });
-    return chefbookResponse2;
+export async function getChefbookRecipeHistory(id: number) {
+    return await ajaxGet<RecipeDetailedChefbook[]>({
+        url: `${RECIPES_API.chefbookHistory}/${id}/history`,
+    });
 }
 
 export async function updateChefbookRecipeWithQuery(
@@ -411,7 +132,6 @@ export async function setChefbookRecipeMain(id: number, versionId: number) {
     return await ajaxPost<RecipeDetailedChefbook>({
         url: `${RECIPES_API.chefbookSetMain}/${id}/main/${versionId}`,
     });
-
 }
 
 export const filtersMock: {
@@ -469,68 +189,71 @@ export const filtersMock: {
 export const useRecipesMock = {
     Status: 200,
     Data: [
-      { id: 1, name: "Спагетти Болоньезе", time: 45 },
-      { id: 2, name: "Цезарь с курицей", time: 20 },
-      { id: 3, name: "Овощное рагу", time: 35 },
-      { id: 4, name: "Борщ украинский", time: 60 },
-      { id: 5, name: "Плов с бараниной", time: 70 },
-      { id: 6, name: "Куриные котлеты", time: 30 },
-      { id: 7, name: "Салат оливье", time: 25 },
-      { id: 8, name: "Запечённая семга", time: 40 },
-      { id: 9, name: "Гречка с грибами", time: 25 },
-      { id: 10, name: "Сырники с изюмом", time: 20 },
+        { id: 1, name: 'Спагетти Болоньезе', time: 45 },
+        { id: 2, name: 'Цезарь с курицей', time: 20 },
+        { id: 3, name: 'Овощное рагу', time: 35 },
+        { id: 4, name: 'Борщ украинский', time: 60 },
+        { id: 5, name: 'Плов с бараниной', time: 70 },
+        { id: 6, name: 'Куриные котлеты', time: 30 },
+        { id: 7, name: 'Салат оливье', time: 25 },
+        { id: 8, name: 'Запечённая семга', time: 40 },
+        { id: 9, name: 'Гречка с грибами', time: 25 },
+        { id: 10, name: 'Сырники с изюмом', time: 20 },
     ],
-  };
-  
-  export const generatedRecipeMock = {
+};
+
+export const generatedRecipeMock = {
     Status: 200,
     Data: {
-      id: 1,
-      description: "Простой и вкусный рецепт традиционного итальянского пицца Маргарита с томатами и базиликом. Отличный выбор для ужина с семьей или друзьями.",
-      name: "Пицца Маргарита",
-      ingredients: [
-        { name: "Тесто для пиццы", quantity: 1, unit: "порция" },
-        { name: "Помидоры", quantity: 3, unit: "шт" },
-        { name: "Моцарелла", quantity: 200, unit: "г" },
-        { name: "Оливковое масло", quantity: 2, unit: "ст. ложка" },
-        { name: "Базилик", quantity: 10, unit: "шт" },
-        { name: "Соль", quantity: 1, unit: "щепотка" },
-        { name: "Перец черный", quantity: 1, unit: "щепотка" }
-      ],
-      steps: [
-        {
-          step: 1,
-          description: "Разогрейте духовку до 220°C."
-        },
-        {
-          step: 2,
-          description: "Раскатайте тесто для пиццы на плоской поверхности до нужного размера."
-        },
-        {
-          step: 3,
-          description: "На тесто равномерно распределите нарезанные помидоры, посыпьте солью и перцем."
-        },
-        {
-          step: 4,
-          description: "Нарежьте моцареллу и выложите на пиццу сверху."
-        },
-        {
-          step: 5,
-          description: "Полейте пиццу оливковым маслом и запекайте в духовке 10-15 минут, пока тесто не станет золотистым и хрустящим."
-        },
-        {
-          step: 6,
-          description: "После готовности украсьте пиццу свежими листьями базилика."
-        },
-        {
-          step: 7,
-          description: "Подавайте горячей с любимым напитком!"
-        }
-      ]
-    }
-  };
-  
-  
+        id: 1,
+        description:
+            'Простой и вкусный рецепт традиционного итальянского пицца Маргарита с томатами и базиликом. Отличный выбор для ужина с семьей или друзьями.',
+        name: 'Пицца Маргарита',
+        ingredients: [
+            { name: 'Тесто для пиццы', quantity: 1, unit: 'порция' },
+            { name: 'Помидоры', quantity: 3, unit: 'шт' },
+            { name: 'Моцарелла', quantity: 200, unit: 'г' },
+            { name: 'Оливковое масло', quantity: 2, unit: 'ст. ложка' },
+            { name: 'Базилик', quantity: 10, unit: 'шт' },
+            { name: 'Соль', quantity: 1, unit: 'щепотка' },
+            { name: 'Перец черный', quantity: 1, unit: 'щепотка' },
+        ],
+        steps: [
+            {
+                step: 1,
+                description: 'Разогрейте духовку до 220°C.',
+            },
+            {
+                step: 2,
+                description:
+                    'Раскатайте тесто для пиццы на плоской поверхности до нужного размера.',
+            },
+            {
+                step: 3,
+                description:
+                    'На тесто равномерно распределите нарезанные помидоры, посыпьте солью и перцем.',
+            },
+            {
+                step: 4,
+                description: 'Нарежьте моцареллу и выложите на пиццу сверху.',
+            },
+            {
+                step: 5,
+                description:
+                    'Полейте пиццу оливковым маслом и запекайте в духовке 10-15 минут, пока тесто не станет золотистым и хрустящим.',
+            },
+            {
+                step: 6,
+                description:
+                    'После готовности украсьте пиццу свежими листьями базилика.',
+            },
+            {
+                step: 7,
+                description: 'Подавайте горячей с любимым напитком!',
+            },
+        ],
+    },
+};
 
 // const allRecipesMock: {
 //     Status: number;
