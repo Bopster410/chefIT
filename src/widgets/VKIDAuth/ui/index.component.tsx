@@ -2,9 +2,14 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import * as VKID from '@vkid/sdk';
 import { initVKSDK } from '../api';
+import { userLoginVK } from '@/entities/user/api';
+import { useRouter } from 'next/navigation';
+import { useChangeRequired } from '@/app/providers/userProvider/index.store';
 
 export const VKIDOAuthWidget: FunctionComponent = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+  const changeRequired = useChangeRequired();
 
   useEffect(() => {
     initVKSDK();
@@ -30,6 +35,23 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
             borderRadius: 8,
           },
         })
+        .on(VKID.OAuthListInternalEvents.LOGIN_SUCCESS, function (payload) {
+          const code = payload.code;
+          const deviceId = payload.device_id;
+          const state = sessionStorage.getItem("pkce_state");
+          console.log("Login success")
+          if(!state){
+            console.log("Ошибка приема state");
+            return;
+          }
+          userLoginVK(code,deviceId, state).then((res)=>{
+            if(res.Status !== 200) return;
+            changeRequired(false);
+            console.log(res);
+
+            router.push("./");
+          })
+      });
     }
   }, []);
 
