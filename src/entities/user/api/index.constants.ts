@@ -7,4 +7,6 @@ export const USER_API = {
   editName: "auth/profile/edit/name",
   editSurname: "auth/profile/edit/surname",
   editPassword: "auth/profile/edit/password",
+
+  loginVK: "auth/login/vk"
 };

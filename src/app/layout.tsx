@@ -6,6 +6,7 @@ import { TimersProviderWrapper } from './providers/timers/index.wrapper';
 import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionProvider';
 import { inter, manrope } from '@/shared/fonts';
 import './globals.css';
+import { SpeechListener } from '@/features/speechListener';
 
 const baseFont = inter;
 const headerFont = manrope;
@@ -30,7 +31,7 @@ export default function RootLayout({
                         <TimersProviderWrapper>
                             <StepsProvider>
                                 <SpeechRecognitionStoreProvider>
-                                    {/* <SpeechListener /> */}
+                                    <SpeechListener />
                                     {children}
                                 </SpeechRecognitionStoreProvider>
                                 <ModalContainer />
