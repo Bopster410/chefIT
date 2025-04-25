@@ -11,11 +11,9 @@ export type SpeechRecognitionState = {
 export type SpeechRecognitionActions = {
     start: () => void;
     stop: () => void;
-    addGrammar: (grammar: string, weight?: number) => void;
     setRecognizedSpeech: (
         recognitionResult?: SpeechRecognitionResultList | string
     ) => void;
-    clearGrammar: () => void;
     // setGrammar: (grammar: string, weight?: number) => void;
 };
 
