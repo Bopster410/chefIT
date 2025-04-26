@@ -1,7 +1,6 @@
 import { InputField } from "@/shared/uikit/inputField";
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";
-import { Button } from "@/shared/uikit/button";
 import CloseIcon from "@mui/icons-material/Close";
 
 export const SearchBar: FunctionComponent<Props> = ({

@@ -57,7 +57,7 @@ export const VKIDOAuthWidget: FunctionComponent<Props> = (
       })
       .on(VKID.WidgetEvents.ERROR, handleError);
     }
-  }, [changeRequired,router]);
+  }, [changeRequired,router,handleError]);
 
   return <div id="VkIdSdkOAuthList" ref={containerRef} />;
 };
