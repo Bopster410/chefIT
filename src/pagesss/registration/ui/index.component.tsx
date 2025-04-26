@@ -15,6 +15,7 @@ export const RegistrationPage: FunctionComponent<Props> = ({
         <UserInfoField required type="surname"/>
         <UserInfoField required type="login"/>
         <UserInfoField required type="password"/>
+        <UserInfoField required type="password" name="password-approval" label="Подтверждение пароля"/>
         <div>
           {error !== "" && (
             <div
@@ -23,7 +24,7 @@ export const RegistrationPage: FunctionComponent<Props> = ({
             >
               <span className="font-bold">Ошибка:</span>
               <span className="block sm:inline ml-2">
-                Возникла проблема при регистрации.
+                {error}
               </span>
             </div>
           )}

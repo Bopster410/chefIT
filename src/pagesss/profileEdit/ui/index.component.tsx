@@ -10,9 +10,9 @@ export const ProfileEditPage: FunctionComponent<Props> = ({
   errors,
 }) => {
   const errorMap = errors?.reduce((acc, e) => {
-    acc[e.type] = true;
+    acc[e.type] = e.msg;
     return acc;
-  }, {} as Record<EditError["type"], boolean>);
+  }, {} as Record<EditError["type"], string>);
 
   return (
     <div className="bg-white rounded-t-4xl h-full px-4 py-8">
@@ -21,29 +21,41 @@ export const ProfileEditPage: FunctionComponent<Props> = ({
         <UserInfoField
           type="name"
           defaultValue={user.name}
-          error={errorMap?.name}
+          error={!!errorMap?.name}
+          msgError={errorMap?.name}
         />
         <UserInfoField
           type="surname"
           defaultValue={user.surname}
-          error={errorMap?.surname}
+          error={!!errorMap?.surname}
+          msgError={errorMap?.surname}
         />
         <UserInfoField
           type="login"
           defaultValue={user.login}
-          error={errorMap?.login}
+          error={!!errorMap?.login}
+          msgError={errorMap?.login}
         />
         <UserInfoField
           type="password"
           name="old-password"
           label="Текущий пароль"
           placeholder="Старый пароль"
-          error={errorMap?.password}
+          error={!!errorMap?.oldPassword}
+          msgError={errorMap?.oldPassword}
         />
         <UserInfoField
           type="password"
           placeholder="Новый пароль"
-          error={errorMap?.password}
+          error={!!errorMap?.password}
+          msgError={errorMap?.password}
+        />
+        <UserInfoField
+          type="password"
+          name="password-approval"
+          placeholder="Подтверждение пароля"
+          error={!!errorMap?.passwordApproval}
+          msgError={errorMap?.passwordApproval}
         />
         {errors && errors.length > 0 && (
           <div

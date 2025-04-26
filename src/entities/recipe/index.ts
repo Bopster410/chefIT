@@ -9,5 +9,6 @@ export {
     endRecipe,
     setNextStep,
     setPrevStep,
+    searchMock,
 } from './api';
 export type { RecipeDetailed, Recipe, Ingredient, Step } from './api';
