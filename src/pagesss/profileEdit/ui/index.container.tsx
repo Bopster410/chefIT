@@ -8,6 +8,7 @@ import {
   userEditName,
   userEditPassword,
   userEditSurname,
+  validateUserField,
 } from "@/entities/user/api";
 import { EditError } from "./index.types";
 import { useLogin, useLogout } from "@/app/providers/userProvider";
@@ -26,15 +27,42 @@ export function ProfileEditPageContainer() {
   const handleChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return;
-
+  
     const formData = new FormData(e.currentTarget);
     const login = formData.get("login") as string;
     const password = formData.get("password") as string;
     const oldPassword = formData.get("old-password") as string;
+    const passwordApproval = formData.get("password-approval") as string;
     const surname = formData.get("surname") as string;
     const name = formData.get("name") as string;
-
-    setErrors([]);
+  
+    const newErrors: EditError[] = [];
+  
+    let error = validateUserField(name, "name");
+    if (error) newErrors.push({ type: "name", msg: error });
+  
+    error = validateUserField(surname, "surname");
+    if (error) newErrors.push({ type: "surname", msg: error });
+  
+    error = validateUserField(login, "login");
+    if (error) newErrors.push({ type: "login", msg: error });
+  
+    error = validateUserField(oldPassword, "password");
+    if (error) newErrors.push({ type: "oldPassword", msg: error });
+  
+    error = validateUserField(password, "password");
+    if (error) newErrors.push({ type: "password", msg: error });
+  
+    if (password !== passwordApproval) {
+      newErrors.push({ type: "passwordApproval", msg: "Пароли не совпадают" });
+    }
+  
+    if (newErrors.length > 0) {
+      setErrors(newErrors);
+      return;
+    } else {
+      setErrors([]);
+    }
 
     const updatedFields: Partial<typeof user> = {};
     const requests: Promise<void>[] = [];
@@ -88,7 +116,7 @@ export function ProfileEditPageContainer() {
             if (res.Status !== 200)
               throw new Error("Ошибка при изменении пароля");
             logout();
-            router.push("/login")
+            router.push("/login");
           })
           .catch((err) => {
             addError({ type: "password", msg: err });
@@ -108,7 +136,7 @@ export function ProfileEditPageContainer() {
       router.back();
       return;
     }
-  }, [user,router]);
+  }, [user, router]);
 
   if (!user) return;
 

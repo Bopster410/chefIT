@@ -10,14 +10,12 @@ import { useSearchStore } from "@/app/providers/searchProvider/index.store";
 
 export function SearchBarContainer({
   handleSearch,
-  haveSuggestions,
   query,
 }: {
   handleSearch?: (params?: {
     query?: string;
     filters?: SelectedFilters;
   }) => void;
-  haveSuggestions: boolean;
   query: string;
 }) {
   const setQuery = useSearchStore((state) => state.setQuery);
@@ -49,7 +47,6 @@ export function SearchBarContainer({
 
   return (
     <SearchBar
-      haveSuggestions={haveSuggestions}
       onChange={(e) => {
         setQuery(e.currentTarget.value);
       }}

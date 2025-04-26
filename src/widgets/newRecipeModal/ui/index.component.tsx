@@ -48,7 +48,7 @@ export const NewRecipeModal: FunctionComponent<Props> = ({
                         {ingredients.map((ingredient, index) => (
                             <Chip
                                 key={index}
-                                onClick={() => {
+                                onButtonClick={() => {
                                     onDeleteIngredient(ingredient);
                                 }}
                             >
