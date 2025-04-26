@@ -134,6 +134,12 @@ export async function setChefbookRecipeMain(id: number, versionId: number) {
     });
 }
 
+export async function startChefbookRecipe(id: number) {
+    return await ajaxPost<Step>({
+        url: RECIPES_API.startChefbookRecipe + `${id}/start`,
+    });
+}
+
 export const filtersMock: {
     Status: number;
     Data: RecipeFilters;
@@ -403,4 +409,11 @@ export const generatedRecipeMock = {
 //     ],
 // };
 
-export type { RecipeDetailed, Recipe, Ingredient, Step, UserRecipe };
+export type {
+    RecipeDetailed,
+    Recipe,
+    Ingredient,
+    Step,
+    UserRecipe,
+    RecipeDetailedChefbook,
+};
