@@ -5,8 +5,11 @@ import { initVKSDK } from '../api';
 import { userLoginVK } from '@/entities/user/api';
 import { useRouter } from 'next/navigation';
 import { useChangeRequired } from '@/app/providers/userProvider/index.store';
+import { Props } from './index.types';
 
-export const VKIDOAuthWidget: FunctionComponent = () => {
+export const VKIDOAuthWidget: FunctionComponent<Props> = (
+  {handleError}
+) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const changeRequired = useChangeRequired();
@@ -51,7 +54,8 @@ export const VKIDOAuthWidget: FunctionComponent = () => {
 
             router.push("./");
           })
-      });
+      })
+      .on(VKID.WidgetEvents.ERROR, handleError);
     }
   }, [changeRequired,router]);
 

@@ -11,6 +11,10 @@ export const LoginPageContainer: FunctionComponent = () => {
   const router = useRouter();
   const [error, setError] = useState("");
 
+  const handleError = () => {
+    setError("Произошла ошибка при авторизации. Пожалуйста, перезагрузите страницу и попробуйте еще раз.")
+  }
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -43,5 +47,5 @@ export const LoginPageContainer: FunctionComponent = () => {
     });
   };
 
-  return <LoginPage error={error} handleLogin={handleLogin} />;
+  return <LoginPage handleError={handleError} error={error} handleLogin={handleLogin} />;
 };

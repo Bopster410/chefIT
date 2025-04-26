@@ -6,9 +6,9 @@ export const CurrentFiltersChips: FunctionComponent<Props> = ({ filters, clearFi
   if(!filters) return;
   return (
     <div className="flex mb-2 mt-4">
-      {filters?.diet && <Chip withClear className="mr-2" onClick={()=> clearFilter("diet")}>{filters.diet}</Chip>}
-      {filters?.dishType && <Chip withClear className="mr-2" onClick={()=> clearFilter("dishType")}>{filters.dishType}</Chip>}
-      {filters.time > 0 && <Chip withClear onClick={()=> clearFilter("time")}>до {filters.time} мин</Chip>}
+      {filters?.diet && <Chip withClear className="mr-2" onButtonClick={()=> clearFilter("diet")}>{filters.diet}</Chip>}
+      {filters?.dishType && <Chip withClear className="mr-2" onButtonClick={()=> clearFilter("dishType")}>{filters.dishType}</Chip>}
+      {filters.time > 0 && <Chip withClear onButtonClick={()=> clearFilter("time")}>до {filters.time} мин</Chip>}
     </div>
   );
 };

@@ -11,6 +11,7 @@ export const Chip: FunctionComponent<PropsWithChildren<Props>> = ({
   children,
   color,
   onClick,
+  onButtonClick,
   className,
   withClear,
 }) => {
@@ -28,10 +29,7 @@ export const Chip: FunctionComponent<PropsWithChildren<Props>> = ({
           type="button"
           className="ml-2 cursor-pointer"
           aria-label="Удалить"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick?.(e as any);
-          }}
+          onClick={onButtonClick}
         >
           &times;
         </button>

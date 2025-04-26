@@ -1,8 +1,9 @@
-import { MouseEvent } from "react";
+import { MouseEventHandler } from "react";
 
 export interface Props{
     color?: 'saffron' | 'violet' | 'gray';
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onClick?: MouseEventHandler<HTMLDivElement>;
+    onButtonClick?: () => void;
     className?: string;
     withClear?: boolean;
 }

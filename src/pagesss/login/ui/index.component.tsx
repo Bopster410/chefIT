@@ -5,7 +5,11 @@ import { Props } from "./index.types";
 import { Button } from "@/shared/uikit/button";
 import { UserInfoField } from "@/entities/user";
 
-export const LoginPage: FunctionComponent<Props> = ({ handleLogin, error }) => {
+export const LoginPage: FunctionComponent<Props> = ({
+  handleLogin,
+  error,
+  handleError,
+}) => {
   return (
     <div className="bg-white rounded-t-4xl h-full px-4 py-8">
       <form onSubmit={handleLogin} className="space-y-4 mt-20">
@@ -41,7 +45,7 @@ export const LoginPage: FunctionComponent<Props> = ({ handleLogin, error }) => {
         </div>
       </form>
 
-      <VKIDOAuthWidget />
+      <VKIDOAuthWidget handleError={handleError} />
     </div>
   );
 };

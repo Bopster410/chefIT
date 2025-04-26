@@ -1,4 +1,3 @@
-import { RecipeCard } from '@/entities/recipe';
 import { SearchBarContainer } from '@/widgets/searchBar';
 import { Props } from './index.types';
 import { FunctionComponent, useState } from 'react';
