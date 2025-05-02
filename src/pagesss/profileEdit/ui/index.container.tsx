@@ -8,13 +8,14 @@ import {
   userEditName,
   userEditPassword,
   userEditSurname,
+  useUserOrToLogin,
   validateUserField,
 } from "@/entities/user/api";
 import { EditError } from "./index.types";
 import { useLogin, useLogout } from "@/app/providers/userProvider";
 
 export function ProfileEditPageContainer() {
-  const user = useUserWithFetch();
+  const user = useUserOrToLogin();
   const changeUser = useLogin();
   const logout = useLogout();
   const router = useRouter();
@@ -27,7 +28,7 @@ export function ProfileEditPageContainer() {
   const handleChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return;
-  
+
     const formData = new FormData(e.currentTarget);
     const login = formData.get("login") as string;
     const password = formData.get("password") as string;
@@ -35,28 +36,28 @@ export function ProfileEditPageContainer() {
     const passwordApproval = formData.get("password-approval") as string;
     const surname = formData.get("surname") as string;
     const name = formData.get("name") as string;
-  
+
     const newErrors: EditError[] = [];
-  
+
     let error = validateUserField(name, "name");
     if (error) newErrors.push({ type: "name", msg: error });
-  
+
     error = validateUserField(surname, "surname");
     if (error) newErrors.push({ type: "surname", msg: error });
-  
+
     error = validateUserField(login, "login");
     if (error) newErrors.push({ type: "login", msg: error });
-  
+
     error = validateUserField(oldPassword, "password");
     if (error) newErrors.push({ type: "oldPassword", msg: error });
-  
+
     error = validateUserField(password, "password");
     if (error) newErrors.push({ type: "password", msg: error });
-  
+
     if (password !== passwordApproval) {
       newErrors.push({ type: "passwordApproval", msg: "Пароли не совпадают" });
     }
-  
+
     if (newErrors.length > 0) {
       setErrors(newErrors);
       return;
@@ -71,12 +72,11 @@ export function ProfileEditPageContainer() {
       requests.push(
         userEditLogin(login)
           .then((res) => {
-            if (res.Status !== 200)
-              throw new Error("Ошибка при изменении логина");
+            if (res.Status !== 200) throw new Error(res.MsgRus);
             updatedFields.login = login;
           })
-          .catch((err) => {
-            addError({ type: "login", msg: err });
+          .catch((err: Error) => {
+            addError({ type: "login", msg: err.message });
           })
       );
     }
@@ -85,12 +85,11 @@ export function ProfileEditPageContainer() {
       requests.push(
         userEditName(name)
           .then((res) => {
-            if (res.Status !== 200)
-              throw new Error("Ошибка при изменении имени");
+            if (res.Status !== 200) throw new Error(res.MsgRus);
             updatedFields.name = name;
           })
-          .catch((err) => {
-            addError({ type: "name", msg: err });
+          .catch((err: Error) => {
+            addError({ type: "name", msg: err.message });
           })
       );
     }
@@ -99,12 +98,11 @@ export function ProfileEditPageContainer() {
       requests.push(
         userEditSurname(surname)
           .then((res) => {
-            if (res.Status !== 200)
-              throw new Error("Ошибка при изменении фамилии");
+            if (res.Status !== 200) throw new Error(res.MsgRus);
             updatedFields.surname = surname;
           })
-          .catch((err) => {
-            addError({ type: "surname", msg: err });
+          .catch((err: Error) => {
+            addError({ type: "surname", msg: err.message });
           })
       );
     }
@@ -113,13 +111,12 @@ export function ProfileEditPageContainer() {
       requests.push(
         userEditPassword(oldPassword, password)
           .then((res) => {
-            if (res.Status !== 200)
-              throw new Error("Ошибка при изменении пароля");
+            if (res.Status !== 200) throw new Error(res.MsgRus);
             logout();
-            router.push("/login");
+            router.replace("/login");
           })
-          .catch((err) => {
-            addError({ type: "password", msg: err });
+          .catch((err: Error) => {
+            addError({ type: "password", msg: err.message });
           })
       );
     }
@@ -130,13 +127,6 @@ export function ProfileEditPageContainer() {
       changeUser({ ...user, ...updatedFields });
     }
   };
-
-  useEffect(() => {
-    if (!user) {
-      router.back();
-      return;
-    }
-  }, [user, router]);
 
   if (!user) return;
 
