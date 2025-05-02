@@ -1,6 +1,8 @@
 import { AllowedMethods } from './index.types';
 
 export const BACKEND = 'https://www.chef-it.online/api/';
+export const BACKEND_DEV =
+    'https://a2a0ac5a-379a-42e7-a424-aa7c799f4b20.mock.pstmn.io/api/';
 
 export const METHODS: { [method: string]: AllowedMethods } = {
     GET: 'GET',
@@ -10,3 +12,6 @@ export const METHODS: { [method: string]: AllowedMethods } = {
 export const STATUS = {
     SUCCESS: 200,
 };
+
+export const MODE = process.env.NODE_ENV;
+console.log(MODE);

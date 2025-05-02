@@ -91,17 +91,24 @@ export function validateUserField(
   if (type === "login") {
     const loginRegex = /^[A-Za-z0-9_-]+$/;
     if (!loginRegex.test(trimmedInput)) {
-      return "Логин может содержать буквы, цифры, а также символы _ и -";
+      return "Логин может содержать латинские буквы, цифры, а также символы _ и -";
     }
   }
 
   if (type === "password") {
+    const specialChars = /[!@#$&*]/g;
+    const specialMatches = trimmedInput.match(specialChars) || [];
+  
     if (!/[A-Za-zА-Яа-яЁё]/.test(trimmedInput) || !/\d/.test(trimmedInput)) {
       return "Пароль должен содержать хотя бы одну букву и одну цифру";
+    }
+  
+    if (specialMatches.length < 2) {
+      return "Пароль должен содержать не менее двух спецсимволов (!@#$&*)";
     }
   }
 
   return null;
 }
 
-export { useUserWithFetch } from "./index.hooks";
+export { useUserWithFetch, useUserOrToLogin } from "./index.hooks";

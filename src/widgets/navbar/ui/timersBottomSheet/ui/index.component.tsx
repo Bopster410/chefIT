@@ -29,7 +29,7 @@ export const TimersBottomSheet: FunctionComponent<{
         >
             <BottomSheet.Portal>
                 <BottomSheet.Overlay />
-                <BottomSheet.Content className='h-full max-h-[98%] px-4'>
+                <BottomSheet.Content className='h-full px-4'>
                     <BottomSheet.Title asChild>
                         <h5 className='mb-8'>Таймеры</h5>
                     </BottomSheet.Title>

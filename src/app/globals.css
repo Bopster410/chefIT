@@ -10,6 +10,8 @@
     --gray-100: #f3f3f3;
     --gray-300: #ccc;
     --saffron-500: #facc69;
+    --saffron-400: #fbd584;
+    --saffron-300: #fde6b5;
 
     --font-base: var(--black);
 
@@ -23,6 +25,8 @@
     --color-font-base: var(--black);
 
     --color-saffron-500: var(--saffron-500);
+    --color-saffron-400: var(--saffron-400);
+    --color-saffron-300: var(--saffron-300);
     --color-violet-700: var(--violet-700);
     --color-violet-500: var(--violet-500);
     --color-violet-300: var(--violet-300);

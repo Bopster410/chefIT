@@ -6,30 +6,28 @@ export const ChefbookRecipeContainer: FunctionComponent<{
 }> = async ({ id }) => {
     const response = await getChefbookRecipe(id);
     const {
-        initialQuery,
-        neededIngredients,
-        recipe: {
-            versionId,
-            name,
-            description,
-            cookingTime,
-            prepTime,
-            servingsNum,
-            ingredients,
-            steps,
-        },
+        version,
+        name,
+        description,
+        cookingTimeMinutes,
+        servingsNum,
+        // dishTypes,
+        ingredients,
+        steps,
+        query,
+        userIngredients,
     } = response.Data;
 
     return (
         <ChefbookRecipe
-            versionId={versionId}
-            neededIngredients={neededIngredients}
-            query={initialQuery}
+            recipeId={id}
+            version={version}
+            userIngredients={userIngredients}
+            query={query}
             recipe={{
                 description: description,
                 name: name,
-                cookingTime: cookingTime,
-                prepTime: prepTime,
+                cookingTime: cookingTimeMinutes,
                 servingsNum: servingsNum,
                 ingredients: ingredients,
                 steps: steps,

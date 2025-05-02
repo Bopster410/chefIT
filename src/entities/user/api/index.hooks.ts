@@ -5,6 +5,7 @@ import {
   useChangeRequired,
   useLoginRequired,
 } from "@/app/providers/userProvider/index.store";
+import { useRouter } from "next/navigation";
 
 export const useUserWithFetch = () => {
   const user = useUser();
@@ -32,3 +33,17 @@ export const useUserWithFetch = () => {
 
   return user;
 };
+
+export const useUserOrToLogin = () => {
+    const user = useUserWithFetch();
+    const router = useRouter();
+  
+    useEffect(() => {
+      if (!user) {
+        router.replace("/login");
+        return;
+      }
+    }, [user, router]);
+
+    return user;
+}
