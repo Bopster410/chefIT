@@ -7,7 +7,7 @@ import { FiltersSideBarContainer } from '@/widgets/filtersSideBar/ui/index.conta
 import { Button } from '@/shared/uikit/button';
 import { CurrentFiltersChipsContainer } from '@/widgets/currentFiltersChips/ui/index.container';
 import Link from 'next/link';
-import { RecipesFeed } from '@/widgets/recipesFeed';
+import { RecipeCard } from '@/entities/recipe';
 
 export const SearchPage: FunctionComponent<Props> = ({
     handleSearch,
