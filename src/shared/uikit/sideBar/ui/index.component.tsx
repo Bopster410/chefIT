@@ -1,10 +1,17 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import { ContentProps, DialogProps, Drawer } from 'vaul';
 import { Props } from './index.types';
 
 const Root: FunctionComponent<DialogProps> = ({ children, ...props }) => {
-    return <Drawer.Root {...props}>{children}</Drawer.Root>;
+    return (
+        <Drawer.Root
+            {...props}
+            handleOnly
+        >
+            {children}
+        </Drawer.Root>
+    );
 };
 
 const Overlay: FunctionComponent<
@@ -39,13 +46,19 @@ const Content: FunctionComponent<ContentProps & Props> = ({
     );
 };
 
+const Portal: FunctionComponent<PropsWithChildren> = ({ children }) => (
+    <Drawer.Portal>
+        <div className='z-50'>{children}</div>
+    </Drawer.Portal>
+);
+
 export const SideBar = {
     Root,
     NestedRoot: Drawer.NestedRoot,
     Content,
     Overlay,
     Trigger: DialogPrimitive.Trigger,
-    Portal: Drawer.Portal,
+    Portal: Portal,
     Handle: Drawer.Handle,
     Close: DialogPrimitive.Close,
     Title: DialogPrimitive.Title,

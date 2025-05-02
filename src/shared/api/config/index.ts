@@ -1,2 +1,2 @@
-export { BACKEND, METHODS, STATUS } from './index.constants';
+export { BACKEND, METHODS, STATUS, MODE, BACKEND_DEV } from './index.constants';
 export { type AllowedMethods } from './index.types';

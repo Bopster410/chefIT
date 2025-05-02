@@ -11,7 +11,7 @@ const Overlay: FunctionComponent<
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 > = ({ className, ...props }) => (
     <Drawer.Overlay
-        className={className ?? 'overlay-black'}
+        className={className ?? 'overlay-black z-50'}
         {...props}
     />
 );
@@ -24,7 +24,7 @@ const Content: FunctionComponent<ContentProps & Props> = ({
 }) => (
     <Drawer.Content
         className={[
-            `left-0 right-0 bottom-0 mt-24 rounded-t-xl drawer${
+            `left-0 right-0 bottom-0 mt-24 rounded-t-xl max-h-[98%] z-50 drawer${
                 withHandle && ' pt-5'
             }`,
             className ?? '',

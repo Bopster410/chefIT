@@ -86,10 +86,11 @@ export async function getSearchFilters() {
 }
 
 export async function getUserRecipes() {
-    return await ajaxGet<UserRecipe[]>({
+    const result = await ajaxGet<UserRecipe[]>({
         url: RECIPES_API.getUserRecipes,
         queryParams: { num: 10 },
     });
+    return result;
 }
 
 export async function generateRecipe(query: string, ingredients: string[]) {
@@ -106,7 +107,6 @@ export async function getChefbookRecipe(id: number) {
     return await ajaxGet<RecipeDetailedChefbook>({
         url: `${RECIPES_API.chefbookItem}/${id}`,
     });
-    // return chefbookResponse;
 }
 
 export async function getChefbookRecipeHistory(id: number) {
@@ -129,7 +129,7 @@ export async function updateChefbookRecipeWithQuery(
 }
 
 export async function setChefbookRecipeMain(id: number, versionId: number) {
-    return await ajaxPost<RecipeDetailedChefbook>({
+    return await ajaxPost<null>({
         url: `${RECIPES_API.chefbookSetMain}/${id}/main/${versionId}`,
     });
 }

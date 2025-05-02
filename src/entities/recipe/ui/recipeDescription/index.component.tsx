@@ -14,7 +14,7 @@ export const RecipeDescription: FunctionComponent<Props> = ({
     healthScore,
 }) => {
     return (
-        <div>
+        <div className='relative z-0'>
             {img && (
                 <div className='relative w-full h-[32vh] mobile:h-[40vh]'>
                     <Image
@@ -25,7 +25,7 @@ export const RecipeDescription: FunctionComponent<Props> = ({
                     />
                 </div>
             )}
-            <div className='px-4 flex flex-col gap-4 mt-4'>
+            <div className={`${img && 'px-4'} flex flex-col gap-4 mt-4`}>
                 <h5>{name}</h5>
                 <div className='text-[16px]'>{description}</div>
                 {healthScore && (

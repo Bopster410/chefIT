@@ -2,10 +2,10 @@
 import { Navbar } from '@/widgets/navbar';
 import { FunctionComponent } from 'react';
 import { Props } from './index.types';
-import Link from 'next/link';
 import { Button } from '@/shared/uikit/button';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
+import { RecipeCard } from '@/entities/recipe';
+import Link from 'next/link';
 
 export const ChefBookPage: FunctionComponent<Props> = ({
     recipes,
@@ -17,35 +17,12 @@ export const ChefBookPage: FunctionComponent<Props> = ({
             {recipes ? (
                 <div className='grid grid-cols-2 gap-4 mt-6'>
                     {recipes.map((recipe) => (
-                        <div
+                        <Link
+                            href={`/chefbook/${recipe.id}`}
                             key={recipe.id}
-                            className='bg-gray-50 rounded-xl p-4 flex flex-col justify-between'
                         >
-                            <div>
-                                <h3 className='text-lg font-semibold mb-2'>
-                                    {recipe.name}
-                                </h3>
-                                <div className='flex items-center text-sm text-gray-500'>
-                                    <AccessTimeIcon
-                                        fontSize='small'
-                                        className='mr-1'
-                                    />
-                                    {recipe.cookingTime} мин
-                                </div>
-                            </div>
-
-                            <Link
-                                href={`/chefbook/${recipe.id}`}
-                                className='mt-4'
-                            >
-                                <Button
-                                    color='saffron'
-                                    className='w-full'
-                                >
-                                    Готовить
-                                </Button>
-                            </Link>
-                        </div>
+                            <RecipeCard {...recipe} />
+                        </Link>
                     ))}
                 </div>
             ) : (

@@ -1,4 +1,4 @@
-import { BACKEND, METHODS } from './config';
+import { BACKEND, BACKEND_DEV, METHODS, MODE } from './config';
 import {
     QueryParams,
     RequestConfig,
@@ -7,10 +7,10 @@ import {
     Body,
 } from './index.types';
 
-export { BACKEND, STATUS } from './config/index.constants';
+export { BACKEND, STATUS } from './config';
 export { throttle } from './throttling';
 
-export * from "./crypto"
+export * from './crypto';
 
 export async function ajax<T>({
     url,
@@ -20,6 +20,7 @@ export async function ajax<T>({
     slugParam,
 }: RequestConfig) {
     let fullUrl = BACKEND + url;
+    if (MODE === 'development') fullUrl = BACKEND_DEV + url;
 
     if (queryParams) {
         const newUrl = new URL(fullUrl);
