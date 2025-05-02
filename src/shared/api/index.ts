@@ -10,8 +10,6 @@ import {
 export { BACKEND, STATUS } from './config/index.constants';
 export { throttle } from './throttling';
 
-export * from "./crypto"
-
 export async function ajax<T>({
     url,
     method,

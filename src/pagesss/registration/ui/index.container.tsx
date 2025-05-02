@@ -5,9 +5,11 @@ import { getUser, userSignUp } from "@/entities/user";
 import { useRouter } from "next/navigation";
 import { useLogin } from "@/app/providers/userProvider";
 import { validateUserField } from "@/entities/user/api";
+import { RegError } from "./index.types";
 
 export const RegistrationPageContainer: FunctionComponent = () => {
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<RegError[] | undefined>(undefined);
+  const [backError, setBackError] = useState("");
   const setUser = useLogin();
   const router = useRouter();
 
@@ -20,51 +22,45 @@ export const RegistrationPageContainer: FunctionComponent = () => {
     const name = formData.get("name") as string;
     const passwordApproval = formData.get("password-approval") as string;
 
-    setError("");
+    const newErrors: RegError[] = [];
 
     let error = validateUserField(name, "name");
-    if (error) {
-      setError(error);
-      return;
-    }
+    if (error) newErrors.push({ type: "name", msg: error });
 
     error = validateUserField(surname, "surname");
-    if (error) {
-      setError(error);
-      return;
-    }
+    if (error) newErrors.push({ type: "surname", msg: error });
 
     error = validateUserField(login, "login");
-    if (error) {
-      setError(error);
-      return;
-    }
+    if (error) newErrors.push({ type: "login", msg: error });
 
     error = validateUserField(password, "password");
-    if (error) {
-      setError(error);
-      return;
-    }
+    if (error) newErrors.push({ type: "password", msg: error });
 
     if (password !== passwordApproval) {
-      setError("Пароли не совпадают!");
+      newErrors.push({ type: "passwordApproval", msg: "Пароли не совпадают" });
+    }
+
+    if (newErrors.length > 0) {
+      setErrors(newErrors);
       return;
+    } else {
+      setErrors([]);
     }
 
     userSignUp(login, password, name, surname)
       .then((res) => {
-        if (res.Status !== 200) throw new Error("Ошибка при регистрации");
+        if (res.Status !== 200) throw new Error(res.MsgRus);
         getUser().then((data) => {
           setUser(data.Data);
           router.push("./");
         });
       })
-      .catch(() => {
-        setError("Ошибка при регистрации");
+      .catch((error:Error) => {
+        setBackError(error.message);
       });
   };
 
   return (
-    <RegistrationPage handleRegistration={handleRegistration} error={error} />
+    <RegistrationPage handleRegistration={handleRegistration} errors={errors} error={backError} />
   );
 };
