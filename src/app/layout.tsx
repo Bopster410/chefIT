@@ -5,7 +5,6 @@ import { ModalStoreProvider } from '@/app/providers/modalProvider';
 import { TimersProviderWrapper } from './providers/timers/index.wrapper';
 import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionProvider';
 import { inter, manrope } from '@/shared/fonts';
-import { SpeechListener } from '@/features/speechListener';
 import './globals.css';
 import { SpeechListener } from '@/features/speechListener';
 
