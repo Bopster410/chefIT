@@ -81,12 +81,13 @@ export const createSpeechRecognitionStore = (
                 set(() => ({
                     isListening: true,
                 }));
-            } catch {}
+            } catch (err) {
+                console.log(err);
+            }
         },
         stop: () => {
             console.log('!a');
             // if (!get().isListening) return;
-            console.log('!a2');
 
             get().speechRecognition.current?.stop();
             set(() => ({
@@ -119,20 +120,14 @@ export const createSpeechRecognitionStore = (
 
             console.log(get().recognizedSpeech);
         },
-        addGrammar: (grammar: string, weight?: number) => {
-            get().speechGrammarList.current?.addFromString(grammar, weight);
-            console.log(get().speechGrammarList);
-        },
-        clearGrammar: () => {
-            // if (typeof window === 'undefined') return;
-            // console.log('clear grammar');
-            // const newGrammarList = new window.webkitSpeechGrammarList();
-            // set(() => ({
-            //     speechGrammarList: {
-            //         current: newGrammarList,
-            //     },
-            // }));
-            // get().speechRecognition.current?.grammars = newGrammarList;
-        },
+    }));
+};
+
+export const createDefaultSpeechRecognitionStore = () => {
+    return createStore<SpeechRecognitionStore>(() => ({
+        ...defaultInitState,
+        start: () => {},
+        stop: () => {},
+        setRecognizedSpeech: () => {},
     }));
 };

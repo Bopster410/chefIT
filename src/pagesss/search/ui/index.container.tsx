@@ -4,6 +4,7 @@ import {
   getRecipesFeed,
   getRecipesSearch,
   getSearchSuggestions,
+  searchMock,
 } from "@/entities/recipe/api";
 import { SearchPage } from "./index.component";
 import { SelectedFilters } from "@/entities/recipe/api/index.types";
@@ -25,9 +26,11 @@ export function SearchPageContainer() {
 
   function searchRecipes(query?: string, filters?: SelectedFilters) {
     if (query === undefined || query === "") {
-      getRecipesFeed(10).then((recipes) => {
-        setRecipes(recipes.Data);
-      });
+      if (filters) setRecipes(searchMock.Data.recipes);
+      else
+        getRecipesFeed(10).then((recipes) => {
+          setRecipes(recipes.Data);
+        });
     } else {
       getRecipesSearch(query, filters ? filters : null)
         .then((recipes) => {

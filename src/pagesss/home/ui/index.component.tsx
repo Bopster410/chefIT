@@ -8,10 +8,6 @@ export const HomePage: FunctionComponent = () => {
       <Navbar />
       <div className="w-full">
         <SearchBarContainer
-          haveSuggestions={false}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          filters={undefined}
           query=""
         />
       </div>

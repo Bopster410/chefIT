@@ -7,6 +7,7 @@ import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionPro
 import { inter, manrope } from '@/shared/fonts';
 import { SpeechListener } from '@/features/speechListener';
 import './globals.css';
+import { SpeechListener } from '@/features/speechListener';
 
 const baseFont = inter;
 const headerFont = manrope;

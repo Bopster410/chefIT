@@ -1,4 +1,3 @@
-import { RecipeCard } from '@/entities/recipe';
 import { SearchBarContainer } from '@/widgets/searchBar';
 import { Props } from './index.types';
 import { FunctionComponent, useState } from 'react';
@@ -8,6 +7,7 @@ import { FiltersSideBarContainer } from '@/widgets/filtersSideBar/ui/index.conta
 import { Button } from '@/shared/uikit/button';
 import { CurrentFiltersChipsContainer } from '@/widgets/currentFiltersChips/ui/index.container';
 import Link from 'next/link';
+import { RecipesFeed } from '@/widgets/recipesFeed';
 
 export const SearchPage: FunctionComponent<Props> = ({
     handleSearch,
@@ -35,7 +35,6 @@ export const SearchPage: FunctionComponent<Props> = ({
                 </Button>
                 <CurrentFiltersChipsContainer />
                 <SearchBarContainer
-                    haveSuggestions={suggestions.length !== 0}
                     handleSearch={handleSearch}
                     query={query}
                 />
@@ -45,6 +44,7 @@ export const SearchPage: FunctionComponent<Props> = ({
                         suggestions={suggestions}
                     />
                 )}
+
                 <div className='flex flex-col space-y-2'>
                     {recipes &&
                         recipes.map((recipe) => (
