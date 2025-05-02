@@ -17,5 +17,5 @@ export const RECIPES_API = {
     chefbookUpdate: 'generate', // + '[id]/modern/[versionID]
     chefbookSetMain: 'generate', // + '[id]/main/[versionID]
     chefbookItem: 'generate', // + '[id]'
-
+    startChefbookRecipe: 'generate', // + '[id]/start'
 };

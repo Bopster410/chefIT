@@ -22,7 +22,6 @@ export const RecipePage: FunctionComponent<Props> = ({
     addTimer,
     healthScore,
     cookingTime,
-    prepTime,
     servings,
 }) => {
     const totalSteps = steps.length;
@@ -115,7 +114,6 @@ export const RecipePage: FunctionComponent<Props> = ({
                         description={description}
                         ingredients={ingredients}
                         healthScore={healthScore}
-                        prepTime={prepTime}
                         cookingTime={cookingTime}
                         servings={servings}
                         steps={steps}

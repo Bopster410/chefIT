@@ -1,4 +1,5 @@
 import { RecipeCard, Recipe } from '@/entities/recipe';
+import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 // TODO: separate recipe props from response json type
@@ -9,13 +10,17 @@ export const RecipesFeed: FunctionComponent<{ recipes: Recipe[] }> = ({
         <div className='grid grid-cols-2 mobile:grid-cols-3 gap-3'>
             {recipes &&
                 recipes.map(({ id, name, description, img }) => (
-                    <RecipeCard
+                    <Link
+                        href={`recipe/${id}`}
                         key={id}
-                        id={id}
-                        name={name}
-                        description={description}
-                        image={img}
-                    />
+                    >
+                        <RecipeCard
+                            id={id}
+                            name={name}
+                            description={description}
+                            image={img}
+                        />
+                    </Link>
                 ))}
         </div>
     );

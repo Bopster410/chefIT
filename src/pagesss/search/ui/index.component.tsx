@@ -6,6 +6,7 @@ import { Navbar } from '@/widgets/navbar';
 import { FiltersSideBarContainer } from '@/widgets/filtersSideBar/ui/index.container';
 import { Button } from '@/shared/uikit/button';
 import { CurrentFiltersChipsContainer } from '@/widgets/currentFiltersChips/ui/index.container';
+import Link from 'next/link';
 import { RecipesFeed } from '@/widgets/recipesFeed';
 
 export const SearchPage: FunctionComponent<Props> = ({
@@ -43,7 +44,18 @@ export const SearchPage: FunctionComponent<Props> = ({
                         suggestions={suggestions}
                     />
                 )}
-                <RecipesFeed recipes={recipes} />
+
+                <div className='flex flex-col space-y-2'>
+                    {recipes &&
+                        recipes.map((recipe) => (
+                            <Link
+                                href={`recipe/${recipe.id}`}
+                                key={recipe.id}
+                            >
+                                <RecipeCard {...recipe} />
+                            </Link>
+                        ))}
+                </div>
             </div>
         </>
     );

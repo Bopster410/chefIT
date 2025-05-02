@@ -3,6 +3,7 @@ export type Recipe = {
     name: string;
     description: string;
     img: string;
+    cookingTime: number;
 };
 
 export type Ingredient = {
@@ -29,23 +30,46 @@ export type RecipeDetailed = {
     img: string;
     name: string;
     healthScore: number;
-    // cookingTime: number;
+    cookingTime: number;
     // prepTime: number;
     servingsNum: number;
     ingredients: Ingredient[];
     steps: Step[];
 };
 
-export type RecipeDetailedChefbook = {
-    versionId: number;
-    description: string;
+export type RecipeChefbook = {
+    id: number;
     name: string;
-    // healthScore: number;
+    description: string;
     cookingTime: number;
-    prepTime: number;
+};
+
+export type RecipeDetailedChefbook = {
+    version: number;
+    name: string;
+    description: string;
+    cookingTimeMinutes: number;
     servingsNum: number;
+    dishTypes: string[];
+    diets: string[];
     ingredients: Ingredient[];
     steps: Step[];
+    query: string;
+    userIngredients: string[];
+};
+
+export type RecipeChefbookHistory = {
+    id: number;
+    version: number;
+    name: string;
+    description: string;
+    cookingTimeMinutes: number;
+    servingsNum: number;
+    dishTypes: string[];
+    diets: string[];
+    steps: Step[];
+    ingredients: Ingredient[]; // TODO сейчас нет
+    query: string;
 };
 
 export interface RecipeFilters {
@@ -67,5 +91,5 @@ export interface UserRecipe {
     id: number;
     name: string;
     description: string;
-    cookingTime: number;
+    cookingTimeInMinutes: number;
 }
