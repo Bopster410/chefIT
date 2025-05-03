@@ -1,7 +1,7 @@
 import { getRecipeData } from '@/entities/recipe/api';
 import { RecipePageContainer } from '@/pagesss/recipe';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
     params,
@@ -9,10 +9,8 @@ export default async function Page({
     params: Promise<{ id: string }>;
 }) {
     const id = parseInt((await params).id);
-    const r = await getRecipeData(id);
-    console.log(r);
-    const recipe = r.Data;
-    return (
+    const { Data: recipe } = await getRecipeData(id);
+    return recipe ? (
         <RecipePageContainer
             id={id}
             img={recipe.img}
@@ -25,5 +23,7 @@ export default async function Page({
             ingredients={recipe.ingredients}
             steps={recipe.steps}
         />
+    ) : (
+        <div>Что-то пошло не так</div>
     );
 }

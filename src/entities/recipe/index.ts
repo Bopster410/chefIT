@@ -5,10 +5,17 @@ export {
     getCurrentCookingRecipe,
     getRecipesSearch,
     getSearchSuggestions,
+    getChefbookRecipe,
     startRecipe,
     endRecipe,
     setNextStep,
     setPrevStep,
     searchMock,
 } from './api';
-export type { RecipeDetailed, Recipe, Ingredient, Step } from './api';
+export type {
+    RecipeDetailed,
+    Recipe,
+    Ingredient,
+    Step,
+    RecipeDetailedChefbook,
+} from './api';

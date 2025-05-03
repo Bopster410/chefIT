@@ -28,13 +28,13 @@ export function SearchPageContainer() {
         if (query === undefined || query === '') {
             if (filters) setRecipes(searchMock.Data.recipes);
             else
-                getRecipesFeed(10).then((recipes) => {
-                    setRecipes(recipes.Data);
+                getRecipesFeed(10).then(({ Data }) => {
+                    if (Data) setRecipes(Data);
                 });
         } else {
             getRecipesSearch(query, filters ? filters : null)
-                .then((recipes) => {
-                    setRecipes(recipes.Data.recipes);
+                .then(({ Data }) => {
+                    if (Data) setRecipes(Data.recipes);
                 })
                 .catch(() => setRecipes([]));
         }
@@ -45,10 +45,10 @@ export function SearchPageContainer() {
             setSuggestions([]);
         } else {
             getSearchSuggestions(query)
-                .then((suggestions) => {
-                    if (!suggestions.Data.suggestions)
+                .then(({ Data }) => {
+                    if (!Data || !Data.suggestions)
                         throw new Error('no suggestions');
-                    setSuggestions(suggestions.Data.suggestions);
+                    setSuggestions(Data.suggestions);
                 })
                 .catch(() => {
                     setSuggestions([]);

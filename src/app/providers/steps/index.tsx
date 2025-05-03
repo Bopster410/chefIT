@@ -52,7 +52,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
     const init = async () => {
         const { Data, Status } = await getCurrentCookingRecipe();
 
-        if (Status !== STATUS.SUCCESS) return;
+        if (Status !== STATUS.SUCCESS || !Data) return;
 
         // const {
         //     Data: { steps },
@@ -81,13 +81,10 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
 
     const startCooking = useCallback(
         async (id: number, newTotalSteps: number, name: string) => {
-            const {
-                Status,
-                Data: { step, length },
-            } = await startRecipe(id);
+            const { Status, Data } = await startRecipe(id);
 
-            if (Status === STATUS.SUCCESS) {
-                initStep(step, newTotalSteps, length?.number);
+            if (Status === STATUS.SUCCESS && Data) {
+                initStep(Data.step, newTotalSteps, Data.length?.number);
                 setId(id);
                 setName(name);
             }
@@ -106,31 +103,29 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
     }, [clear]);
 
     const nextStep = useCallback(async () => {
-        const {
-            Status,
-            Data: { step, length, number },
-        } = await setNextStep();
+        const { Status, Data } = await setNextStep();
 
-        if (Status !== STATUS.SUCCESS) return;
+        if (Status !== STATUS.SUCCESS || !Data) return;
 
         setStep(
-            number,
-            step,
-            length ? timeToSeconds(length?.number, length?.unit) : undefined
+            Data.number,
+            Data.step,
+            Data.length
+                ? timeToSeconds(Data.length?.number, Data.length?.unit)
+                : undefined
         );
     }, [setStep]);
 
     const prevStep = useCallback(async () => {
-        const {
-            Status,
-            Data: { step, length, number },
-        } = await setPrevStep();
+        const { Status, Data } = await setPrevStep();
 
-        if (Status === STATUS.SUCCESS)
+        if (Status === STATUS.SUCCESS && Data)
             setStep(
-                number,
-                step,
-                length ? timeToSeconds(length?.number, length?.unit) : undefined
+                Data.number,
+                Data.step,
+                Data.length
+                    ? timeToSeconds(Data.length?.number, Data.length?.unit)
+                    : undefined
             );
     }, [setStep]);
 
