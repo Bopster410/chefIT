@@ -1,4 +1,5 @@
-export { RecipeCard } from './ui';
+export { RecipeCard, RecipeDescription } from './ui';
+export type { RecipeDescriptionProps } from './ui';
 export {
     getRecipeData,
     getRecipesFeed,

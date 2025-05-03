@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useState } from 'react';
 
 export function useStep() {
@@ -63,3 +65,6 @@ export function useStep() {
         setTotalSteps: (newTotal: number) => setTotalSteps(newTotal),
     };
 }
+
+export { CookingRecipe } from './ui';
+export type { CookingRecipeProps } from './ui';
