@@ -86,9 +86,6 @@ export const createSpeechRecognitionStore = (
             }
         },
         stop: () => {
-            console.log('!a');
-            // if (!get().isListening) return;
-
             get().speechRecognition.current?.stop();
             set(() => ({
                 isListening: false,

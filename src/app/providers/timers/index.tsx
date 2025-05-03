@@ -104,11 +104,11 @@ export const TimersProvider: FunctionComponent<
 
     // Store init
     const init = async () => {
-        const timersResponse = await getAllTimers();
+        const { Status, Data } = await getAllTimers();
 
-        if (timersResponse.Status !== STATUS.SUCCESS) return;
+        if (Status !== STATUS.SUCCESS || !Data) return;
 
-        timersResponse.Data.forEach(({ length: { number }, step, stepNum }) => {
+        Data.forEach(({ length: { number }, step, stepNum }) => {
             setTimers((currentTimers) => {
                 currentTimers[stepNum] = {
                     // TODO change to initial time from server

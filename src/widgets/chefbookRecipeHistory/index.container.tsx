@@ -23,7 +23,7 @@ export const ChefbookRecipeHistoryContainer: FunctionComponent<{
         (version: number, query: string) => {
             updateChefbookRecipeWithQuery(recipeId, version, query).then(
                 ({ Status, Data }) => {
-                    if (Status !== STATUS.SUCCESS) return;
+                    if (!Data || Status !== STATUS.SUCCESS) return;
                     setVersions((curVersions) => {
                         if (curVersions === null) return [Data];
                         return [...curVersions, Data];
@@ -53,7 +53,7 @@ export const ChefbookRecipeHistoryContainer: FunctionComponent<{
 
     useEffect(() => {
         getChefbookRecipeHistory(recipeId).then(({ Status, Data }) => {
-            if (Status !== STATUS.SUCCESS) return;
+            if (!Data || Status !== STATUS.SUCCESS) return;
 
             setVersions(Data);
         });
