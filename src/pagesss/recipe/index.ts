@@ -1,1 +1,1 @@
-export { RecipePage, RecipePageContainer } from './ui';
+export { RecipePage } from './ui';
