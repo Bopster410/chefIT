@@ -29,7 +29,7 @@ export const SelectedFilterPageContainer: FunctionComponent<{
       getRecipesFunction: (
         filter: string,
         page: number
-      ) => Promise<Response<{"recipes":Recipe[]}>>
+      ) => Promise<Response<{ recipes: Recipe[] }>>
     ) => {
       if (isLoading || !hasMore) return;
       setIsLoading(true);
@@ -69,16 +69,15 @@ export const SelectedFilterPageContainer: FunctionComponent<{
 
   useEffect(() => {
     if (!selectedFilter) return;
-
-    type==="diet"?
-    getRecipesByDiet(selectedFilter, 1).then((res) =>
-      setRecipes(res.Data?.recipes || [])
-    ):
-    getRecipesByType(selectedFilter, 1).then((res) =>
-      setRecipes(res.Data?.recipes || [])
-    );
-
-  }, [selectedFilter]);
+    if (type === "diet")
+      getRecipesByDiet(selectedFilter, 1).then((res) =>
+        setRecipes(res.Data?.recipes || [])
+      );
+    else
+      getRecipesByType(selectedFilter, 1).then((res) =>
+        setRecipes(res.Data?.recipes || [])
+      );
+  }, [selectedFilter, type]);
 
   return (
     <SelectedFilterPage
