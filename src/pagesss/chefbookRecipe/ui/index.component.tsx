@@ -3,7 +3,6 @@
 import { Button } from '@/shared/uikit/button';
 import { FunctionComponent, useState } from 'react';
 import { Props } from './index.types';
-import { RecipeDescription } from '@/entities/recipe/ui';
 // import { BottomSheet } from '@/shared/uikit/bottomSheet';
 import { ChefbookRecipeHistoryContainer } from '@/widgets/chefbookRecipeHistory';
 import { BottomSheet } from '@/shared/uikit/bottomSheet';
@@ -12,6 +11,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { BackButton } from '@/features/backButton';
 import { ErrorBoundary } from 'react-error-boundary';
+import { RecipeWithCookingStoreGeneratedContainer } from '@/widgets/recipe/ui/index.container.store.generated';
 
 export const ChefbookRecipe: FunctionComponent<Props> = ({
     recipe: { name, description, cookingTime, servingsNum, ingredients, steps },
@@ -63,7 +63,8 @@ export const ChefbookRecipe: FunctionComponent<Props> = ({
                     //     setWithError(false);
                     // }}
                 >
-                    <RecipeDescription
+                    <RecipeWithCookingStoreGeneratedContainer
+                        id={recipeId}
                         name={curname}
                         description={curdescription}
                         cookingTime={curcookingTime}

@@ -23,7 +23,7 @@ export const RecipeWithCooking: FunctionComponent<Props> = ({
     servings,
 }) => {
     return (
-        <div className='bg-white h-full '>
+        <div className='bg-white'>
             {cookingState === 'cooking' && currentStep ? (
                 <CookingRecipe
                     steps={steps}
