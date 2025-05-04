@@ -23,6 +23,7 @@
         "next": "15.2.2",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "react-error-boundary": "^5.0.0",
         "react-timer-hook": "^4.0.5",
         "scheduler": "^0.26.0",
         "use-context-selector": "^2.0.0",

@@ -30,9 +30,10 @@ export const NewRecipeModalContainer = () => {
 
     const createRecept = () => {
         setLoading(true);
-        generateRecipe(query, ingredients).then((recipe) => {
+        generateRecipe(query, ingredients).then(({ Data }) => {
             if (closeModal) closeModal();
-            router.push(`/chefbook/${recipe.Data.id.toString()}`);
+            if (!Data) return;
+            router.push(`/chefbook/${Data.id.toString()}`);
         });
     };
 

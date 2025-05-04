@@ -8,6 +8,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { TextArea } from '@/shared/uikit/textArea';
+import { ErrorBoundary } from 'react-error-boundary';
 
 interface Props {
     versions: RecipeDetailedChefbook[];
@@ -23,57 +24,78 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
     onNewVersion,
 }) => {
     const [currentVersionInd, setCurrentVersionInd] = useState(0);
+    const [withError, setWithError] = useState(false);
     const ref = useRef<HTMLFormElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const currentVersion = versions[currentVersionInd];
 
     useEffect(() => {
-        ref.current?.addEventListener('submit', (event) => {
+        const handleSubmit = (event: Event) => {
             event.preventDefault();
             const value = inputRef.current?.value;
 
             if (!value) return;
             onNewVersion(currentVersion.version, value);
-        });
-    });
+        };
+        const formCurrent = ref.current;
+
+        formCurrent?.addEventListener('submit', handleSubmit);
+
+        return () => formCurrent?.removeEventListener('submit', handleSubmit);
+    }, [currentVersion.version, onNewVersion]);
 
     return !currentVersion ? (
         <div>Что-то пошло не так</div>
     ) : (
         <div className='relative'>
-            <div className='border-2 border-gray-500 rounded-lg bg-gray-100 p-1.5 mobile:px-2.5 mobile:py-2 sticky top-0 z-10'>
-                «{currentVersion.query}»
-            </div>
+            {currentVersion.query && (
+                <div className='border-2 border-gray-500 rounded-lg bg-gray-100 p-1.5 mobile:px-2.5 mobile:py-2 sticky top-0 z-10'>
+                    «{currentVersion.query}»
+                </div>
+            )}
             <div className='px-4 mobile:px-8'>
-                <RecipeDescription
-                    name={currentVersion.name}
-                    description={currentVersion.description}
-                    cookingTime={currentVersion.cookingTimeMinutes}
-                    servings={currentVersion.servingsNum}
-                    ingredients={currentVersion.ingredients}
-                    steps={currentVersion.steps}
-                />
+                <ErrorBoundary
+                    resetKeys={[currentVersionInd]}
+                    fallback={<div>Что-то пошло не так</div>}
+                    onError={() => {
+                        setWithError(true);
+                    }}
+                    onReset={() => {
+                        setWithError(false);
+                    }}
+                >
+                    <RecipeDescription
+                        name={currentVersion.name}
+                        description={currentVersion.description}
+                        cookingTime={currentVersion.cookingTimeMinutes}
+                        servings={currentVersion.servingsNum}
+                        ingredients={currentVersion.ingredients}
+                        steps={currentVersion.steps}
+                    />
+                </ErrorBoundary>
             </div>
             <div className='sticky w-full bottom-0 bg-white mt-3'>
                 <form
                     ref={ref}
                     className='flex-1'
                 >
-                    <div className='flex rounded-lg mb-3 p-2.5 bg-gray-100'>
-                        <TextArea
-                            className='w-full outline-0'
-                            inputRef={inputRef}
-                            placeholder='Добавь в рецепт...'
-                            minRows={2}
-                            maxRows={4}
-                        />
-                        <Button
-                            size='sm'
-                            type='submit'
-                        >
-                            <KeyboardReturnIcon sx={{ height: '20px' }} />
-                        </Button>
-                    </div>
+                    {!withError && (
+                        <div className='flex rounded-lg mb-3 p-2.5 bg-gray-100'>
+                            <TextArea
+                                className='w-full outline-0'
+                                inputRef={inputRef}
+                                placeholder='Добавь в рецепт...'
+                                minRows={2}
+                                maxRows={4}
+                            />
+                            <Button
+                                size='sm'
+                                type='submit'
+                            >
+                                <KeyboardReturnIcon sx={{ height: '20px' }} />
+                            </Button>
+                        </div>
+                    )}
                 </form>
                 <div className='flex gap-1'>
                     {currentVersionInd > 0 && (
@@ -89,9 +111,11 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
                     <Button
                         color='saffron'
                         className='w-full'
-                        disabled={mainVersion === currentVersion.version}
+                        disabled={
+                            mainVersion === currentVersion.version || withError
+                        }
                         onClick={() => {
-                            setMain(currentVersionInd);
+                            setMain(currentVersion.version);
                         }}
                     >
                         Выбрать главной

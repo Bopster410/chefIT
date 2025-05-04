@@ -11,6 +11,7 @@ import { Container } from '@/shared/uikit/container';
 import HistoryIcon from '@mui/icons-material/History';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { BackButton } from '@/features/backButton';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export const ChefbookRecipe: FunctionComponent<Props> = ({
     recipe: { name, description, cookingTime, servingsNum, ingredients, steps },
@@ -26,6 +27,7 @@ export const ChefbookRecipe: FunctionComponent<Props> = ({
     const [curingredients, setIngredients] = useState(ingredients);
     const [cursteps, setSteps] = useState(steps);
     const [curversion, setVersion] = useState(version);
+    // const [withError, setWithError] = useState(false);
 
     return (
         <div className='bg-white rounded-t-4xl h-full pb-4 px-4 mobile:px-8'>
@@ -43,7 +45,7 @@ export const ChefbookRecipe: FunctionComponent<Props> = ({
                         <div>Рецепт из: {userIngredients.join(', ')}</div>
                     )}
                     {query && <div>{`«${query}»`}</div>}
-                    <BottomSheet.Trigger>
+                    <BottomSheet.Trigger asChild>
                         <Button color='gray'>
                             <div className='flex items-center gap-0.5'>
                                 История <HistoryIcon />
@@ -51,14 +53,25 @@ export const ChefbookRecipe: FunctionComponent<Props> = ({
                         </Button>
                     </BottomSheet.Trigger>
                 </div>
-                <RecipeDescription
-                    name={curname}
-                    description={curdescription}
-                    cookingTime={curcookingTime}
-                    servings={curservingsNum}
-                    ingredients={curingredients}
-                    steps={cursteps}
-                />
+                <ErrorBoundary
+                    resetKeys={[recipeId, version]}
+                    fallback={<div>Что-то пошло не так</div>}
+                    // onError={() => {
+                    //     setWithError(true);
+                    // }}
+                    // onReset={() => {
+                    //     setWithError(false);
+                    // }}
+                >
+                    <RecipeDescription
+                        name={curname}
+                        description={curdescription}
+                        cookingTime={curcookingTime}
+                        servings={curservingsNum}
+                        ingredients={curingredients}
+                        steps={cursteps}
+                    />
+                </ErrorBoundary>
 
                 <BottomSheet.Portal>
                     <BottomSheet.Overlay />

@@ -2,10 +2,11 @@ import { useLogin, useUser } from "@/app/providers/userProvider";
 import { useEffect, useState } from "react";
 import { getUser } from ".";
 import {
-  useChangeRequired,
-  useLoginRequired,
-} from "@/app/providers/userProvider/index.store";
-import { useRouter } from "next/navigation";
+    useChangeRequired,
+    useLoginRequired,
+} from '@/app/providers/userProvider/index.store';
+import { useRouter } from 'next/navigation';
+import { STATUS } from '@/shared/api';
 
 export const useUserWithFetch = () => {
   const user = useUser();
@@ -21,9 +22,9 @@ export const useUserWithFetch = () => {
     }
 
     getUser()
-      .then((res) => {
-        if (res.Status === 200) {
-          login(res.Data);
+      .then(({ Status, Data }) => {
+        if (Status === STATUS.SUCCESS && Data) {
+          login(Data);
           changeRequired(false);
         } else {
           changeRequired(true);
