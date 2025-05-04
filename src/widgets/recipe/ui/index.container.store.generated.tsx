@@ -4,16 +4,13 @@ import { StepsContext } from '@/app/providers/steps';
 import { FunctionComponent } from 'react';
 import { useContext } from 'use-context-selector';
 import { ContainerProps } from './index.types';
-import { RecipePage } from './index.component';
 import { TimersContext } from '@/app/providers/timers';
+import { RecipeWithCooking } from './index.component';
+import { startChefbookRecipe } from '@/entities/recipe/api';
 
-export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
-    id,
-    steps,
-    name,
-    img,
-    ...props
-}) => {
+export const RecipeWithCookingStoreGeneratedContainer: FunctionComponent<
+    ContainerProps
+> = ({ id, steps, name, img, ...props }) => {
     const {
         currentStep,
         startCooking,
@@ -26,15 +23,18 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
 
     const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
 
+    if (currentStep === null) return;
+
     return (
-        <RecipePage
+        <RecipeWithCooking
             id={id}
             name={name}
             steps={steps}
             img={img}
             {...props}
             startCooking={() => {
-                if (startCooking) startCooking(id, steps.length, name);
+                if (startCooking)
+                    startCooking(id, steps.length, name, startChefbookRecipe);
             }}
             nextStep={() => {
                 if (nextStep) nextStep();
@@ -55,19 +55,14 @@ export const RecipePageContainer: FunctionComponent<ContainerProps> = ({
                     ? timers[currentStep.number].number
                     : undefined)
             }
-            currentStep={
-                !!currentStep
-                    ? {
-                          number: currentStep.number ?? 0,
-                          step: currentStep.description ?? '',
-                          ingredients:
-                              steps[(currentStep.number ?? 1) - 1].ingredients,
-                          length: !!currentStep.time
-                              ? { number: currentStep.time, unit: 's' }
-                              : null,
-                      }
-                    : null
-            }
+            currentStep={{
+                number: currentStep.number ?? 0,
+                step: currentStep.description ?? '',
+                ingredients: steps[(currentStep.number ?? 1) - 1].ingredients,
+                length: !!currentStep.time
+                    ? { number: currentStep.time, unit: 's' }
+                    : null,
+            }}
             cookingState={
                 !!isCooking && isCooking()
                     ? recipeId === id

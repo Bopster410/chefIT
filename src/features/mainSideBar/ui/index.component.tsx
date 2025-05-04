@@ -43,7 +43,7 @@ export const MainSideBar: FunctionComponent<Props> = ({
                             <h6>Мои рецепты</h6>
                         </Link>
                         <Link
-                            href='/'
+                            href='/favorites'
                             className=''
                         >
                             <h6>Избранное</h6>

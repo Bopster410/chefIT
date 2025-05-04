@@ -1,14 +1,22 @@
-export { RecipeCard } from './ui';
+export { RecipeCard, RecipeDescription } from './ui';
+export type { RecipeDescriptionProps } from './ui';
 export {
     getRecipeData,
     getRecipesFeed,
     getCurrentCookingRecipe,
     getRecipesSearch,
     getSearchSuggestions,
+    getChefbookRecipe,
     startRecipe,
     endRecipe,
     setNextStep,
     setPrevStep,
     searchMock,
 } from './api';
-export type { RecipeDetailed, Recipe, Ingredient, Step } from './api';
+export type {
+    RecipeDetailed,
+    Recipe,
+    Ingredient,
+    Step,
+    RecipeDetailedChefbook,
+} from './api';

@@ -73,7 +73,12 @@ export const SpeechListener = () => {
         }
 
         if (isOpened && recognizedSpeech && !isPending) {
-            switch (recognizedSpeech.trim().replace(/[\s.,%]/g, '').toLocaleLowerCase()) {
+            switch (
+                recognizedSpeech
+                    .trim()
+                    .replace(/[\s.,%]/g, '')
+                    .toLocaleLowerCase()
+            ) {
                 case 'вперёд':
                     if (nextStep) nextStep();
                     setIsOpened(false);
@@ -123,7 +128,7 @@ export const SpeechListener = () => {
                         console.log(Data);
                         console.log(Status);
                         setIsPending(false);
-                        if (!(Data in COMMAND_ID)) return;
+                        if (!Data || !(Data in COMMAND_ID)) return;
                         setRecognizedSpeech(COMMAND_ID[Data]);
                     });
             }

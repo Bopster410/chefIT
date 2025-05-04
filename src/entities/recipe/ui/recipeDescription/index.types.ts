@@ -6,7 +6,6 @@ export interface Props {
     description: string;
     healthScore?: number;
     cookingTime: number;
-    prepTime: number;
     servings: number;
     ingredients: Ingredient[];
     steps: Step[];

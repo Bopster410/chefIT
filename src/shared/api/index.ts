@@ -7,7 +7,7 @@ import {
     Body,
 } from './index.types';
 
-export { BACKEND, STATUS } from './config/index.constants';
+export { BACKEND, STATUS } from './config';
 export { throttle } from './throttling';
 
 export async function ajax<T>({
@@ -18,6 +18,7 @@ export async function ajax<T>({
     slugParam,
 }: RequestConfig) {
     let fullUrl = BACKEND + url;
+    // if (MODE === 'development') fullUrl = BACKEND_DEV + url;
 
     if (queryParams) {
         const newUrl = new URL(fullUrl);

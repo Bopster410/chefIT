@@ -55,9 +55,15 @@ export const SpeechRecognitionWrapper: FunctionComponent<PropsWithChildren> = ({
     const start = useSpeechRecognitionStore((state) => state.start);
 
     useEffect(() => {
-        recognition.current?.addEventListener('result', (event) => {
+        const currentRecognition = recognition.current;
+        const handleResult = (event: SpeechRecognitionEvent) => {
             setRecognizedSpeech(event.results);
-        });
+        };
+
+        currentRecognition?.addEventListener('result', handleResult);
+
+        return () =>
+            currentRecognition?.removeEventListener('result', handleResult);
     }, [recognition, setRecognizedSpeech]);
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export const Navbar = () => {
     const { timers } = useContext(TimersContext);
     const [sideBarOpened, setSideBarOpened] = useState(false);
 
-    const user = useUserWithFetch();
+    const {user,} = useUserWithFetch();
     const logout = useLogout();   
 
     const handleLogout = () => {

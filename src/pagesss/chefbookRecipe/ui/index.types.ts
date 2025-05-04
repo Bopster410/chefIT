@@ -18,15 +18,14 @@ type Step = {
 };
 
 export interface Props {
-    versionId: number;
-    neededIngredients: string[];
+    recipeId: number;
+    version: number;
+    userIngredients: string[];
     query?: string;
     recipe: {
         description: string;
         name: string;
-        // healthScore: number;
         cookingTime: number;
-        prepTime: number;
         servingsNum: number;
         ingredients: Ingredient[];
         steps: Step[];

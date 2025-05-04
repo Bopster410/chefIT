@@ -8,6 +8,7 @@ import {
     SelectedFilters,
 } from '@/entities/recipe/api/index.types';
 import { useSearchStore } from '@/app/providers/searchProvider/index.store';
+import { STATUS } from '@/shared/api';
 
 export function FiltersSideBarContainer({
     isOpen,
@@ -23,8 +24,8 @@ export function FiltersSideBarContainer({
     >(undefined);
 
     useEffect(() => {
-        getSearchFilters().then((response) => {
-            if (response.Status == 200) setFilters(response.Data);
+        getSearchFilters().then(({ Data, Status }) => {
+            if (Status === STATUS.SUCCESS && Data) setFilters(Data);
         });
     }, []);
 
