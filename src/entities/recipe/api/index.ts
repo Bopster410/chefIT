@@ -140,6 +140,27 @@ export async function startChefbookRecipe(id: number) {
     });
 }
 
+export async function addFavorite(id:number) {
+    return await ajaxPost<null>({
+        url: RECIPES_API.addFavorite,
+        slugParam: id,
+    })
+}
+
+export async function removeFavorite(id:number) {
+    return await ajaxPost<null>({
+        url: RECIPES_API.removeFavorite,
+        slugParam: id,
+    })
+}
+
+export async function getFavorites(page:number) {
+    return await ajaxGet<Recipe[]>({
+        url: RECIPES_API.getFavorites,
+        queryParams: {page:page},
+    })
+}
+
 export const filtersMock: {
     Status: number;
     Data: RecipeFilters;

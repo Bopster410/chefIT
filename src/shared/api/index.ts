@@ -1,4 +1,4 @@
-import { BACKEND, BACKEND_DEV, METHODS, MODE } from './config';
+import { BACKEND, METHODS } from './config';
 import {
     QueryParams,
     RequestConfig,
@@ -18,7 +18,7 @@ export async function ajax<T>({
     slugParam,
 }: RequestConfig) {
     let fullUrl = BACKEND + url;
-    if (MODE === 'development') fullUrl = BACKEND_DEV + url;
+    // if (MODE === 'development') fullUrl = BACKEND_DEV + url;
 
     if (queryParams) {
         const newUrl = new URL(fullUrl);

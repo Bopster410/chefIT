@@ -13,5 +13,5 @@ export const STATUS = {
     SUCCESS: 200,
 };
 
-export const MODE = process.env.NODE_ENV;
-console.log(MODE);
+// export const MODE = process.env.NODE_ENV;
+export const MODE = 'production';

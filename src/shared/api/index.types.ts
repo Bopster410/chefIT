@@ -1,7 +1,7 @@
 import { AllowedMethods } from './config';
 
 export interface Response<T> {
-    Data: T;
+    Data?: T;
     Status: number;
     Msg?: string;
     MsgRus?: string;

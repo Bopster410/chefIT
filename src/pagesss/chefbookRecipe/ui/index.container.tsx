@@ -1,37 +1,46 @@
-import { getChefbookRecipe } from '@/entities/recipe/api';
-import { FunctionComponent } from 'react';
+'use client';
+
+import { getChefbookRecipe, RecipeDetailedChefbook } from '@/entities/recipe';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { ChefbookRecipe } from './index.component';
+import { STATUS } from '@/shared/api';
+import { CircularProgress } from '@mui/material';
 export const ChefbookRecipeContainer: FunctionComponent<{
     id: number;
-}> = async ({ id }) => {
-    const response = await getChefbookRecipe(id);
-    const {
-        version,
-        name,
-        description,
-        cookingTimeMinutes,
-        servingsNum,
-        // dishTypes,
-        ingredients,
-        steps,
-        query,
-        userIngredients,
-    } = response.Data;
+}> = ({ id }) => {
+    const [response, setResponse] = useState<RecipeDetailedChefbook | null>();
+    const [isCorrect, setIsCorrect] = useState(true);
 
-    return (
+    useEffect(() => {
+        getChefbookRecipe(id).then(({ Status, Data }) => {
+            if (Status !== STATUS.SUCCESS || !Data) {
+                setIsCorrect(false);
+                return;
+            }
+
+            setResponse(Data);
+        });
+    }, [id]);
+    console.log(response);
+
+    return response && isCorrect ? (
         <ChefbookRecipe
             recipeId={id}
-            version={version}
-            userIngredients={userIngredients}
-            query={query}
+            version={response.version}
+            userIngredients={response.userIngredients}
+            query={response.query}
             recipe={{
-                description: description,
-                name: name,
-                cookingTime: cookingTimeMinutes,
-                servingsNum: servingsNum,
-                ingredients: ingredients,
-                steps: steps,
+                description: response.description,
+                name: response.name,
+                cookingTime: response.cookingTimeMinutes,
+                servingsNum: response.servingsNum,
+                ingredients: response.ingredients,
+                steps: response.steps,
             }}
         />
+    ) : !isCorrect ? (
+        <div>Что-топошло не так</div>
+    ) : (
+        <CircularProgress />
     );
 };
