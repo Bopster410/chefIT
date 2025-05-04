@@ -10,7 +10,7 @@ import {
 } from '@/entities/recipe';
 import { useStep } from '@/features/recipeSteps';
 import { STATUS } from '@/shared/api';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createContext } from 'use-context-selector';
 import { FunctionComponent, PropsWithChildren } from 'react';
 import { timeToSeconds } from '@/entities/timer';
@@ -35,6 +35,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
 }) => {
     const [id, setId] = useState<number | null>(null);
     const [name, setName] = useState<string | null>(null);
+    const wasInited = useRef<boolean>(false);
 
     const {
         number,
@@ -49,17 +50,12 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
         isLast,
     } = useStep();
 
-    const init = async () => {
+    const init = useCallback(async () => {
         const { Data, Status } = await getCurrentCookingRecipe();
 
         if (Status !== STATUS.SUCCESS || !Data) return;
 
-        // const {
-        //     Data: { steps },
-        // } = await getRecipeData(Data.id);
-
-        // setTotalSteps(steps.length);
-        setTotalSteps(10);
+        setTotalSteps(Data.totalSteps);
         setStep(
             Data.currentStep.number,
             Data.currentStep.step,
@@ -72,16 +68,25 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
         );
         setId(Data.id);
         setName(Data.name);
-    };
+    }, [setStep, setTotalSteps]);
 
     useEffect(() => {
+        if (wasInited.current) return;
+
         init();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        wasInited.current = true;
+    }, [init]);
 
     const startCooking = useCallback(
-        async (id: number, newTotalSteps: number, name: string) => {
-            const { Status, Data } = await startRecipe(id);
+        async (
+            id: number,
+            newTotalSteps: number,
+            name: string,
+            request?: typeof startRecipe
+        ) => {
+            const { Status, Data } = await (request
+                ? request(id)
+                : startRecipe(id));
 
             if (Status === STATUS.SUCCESS && Data) {
                 initStep(Data.step, newTotalSteps, Data.length?.number);

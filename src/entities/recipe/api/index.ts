@@ -26,7 +26,12 @@ export async function getRecipesFeed(num: number) {
 }
 
 export async function getCurrentCookingRecipe() {
-    return await ajaxGet<{ id: number; name: string; currentStep: Step }>({
+    return await ajaxGet<{
+        id: number;
+        name: string;
+        totalSteps: number;
+        currentStep: Step;
+    }>({
         url: RECIPES_API.getCookingRecipe,
     });
 }
@@ -136,29 +141,29 @@ export async function setChefbookRecipeMain(id: number, versionId: number) {
 
 export async function startChefbookRecipe(id: number) {
     return await ajaxPost<Step>({
-        url: RECIPES_API.startChefbookRecipe + `${id}/start`,
+        url: RECIPES_API.startChefbookRecipe + `/${id}/start`,
     });
 }
 
-export async function addFavorite(id:number) {
+export async function addFavorite(id: number) {
     return await ajaxPost<null>({
         url: RECIPES_API.addFavorite,
         slugParam: id,
-    })
+    });
 }
 
-export async function removeFavorite(id:number) {
+export async function removeFavorite(id: number) {
     return await ajaxPost<null>({
         url: RECIPES_API.removeFavorite,
         slugParam: id,
-    })
+    });
 }
 
-export async function getFavorites(page:number) {
+export async function getFavorites(page: number) {
     return await ajaxGet<Recipe[]>({
         url: RECIPES_API.getFavorites,
-        queryParams: {page:page},
-    })
+        queryParams: { page: page },
+    });
 }
 
 export const filtersMock: {
