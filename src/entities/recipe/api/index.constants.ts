@@ -21,6 +21,9 @@ export const RECIPES_API = {
     chefbookItem: 'generate', // + '[id]'
     startChefbookRecipe: 'generate', // + '[id]/start'
 
+    getRecipesByType: 'main/recipe/types',
+    getRecipesByDiet: 'main/recipe/diet',
+
     addFavorite: 'favorite/add', // + '[id]'
     removeFavorite: 'favorite/delete', // + '[id]'
     getFavorites: 'favorite/all',
