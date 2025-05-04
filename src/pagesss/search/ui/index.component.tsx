@@ -6,8 +6,6 @@ import { Navbar } from "@/widgets/navbar";
 import { FiltersSideBarContainer } from "@/widgets/filtersSideBar/ui/index.container";
 import { Button } from "@/shared/uikit/button";
 import { CurrentFiltersChipsContainer } from "@/widgets/currentFiltersChips/ui/index.container";
-import Link from "next/link";
-import { RecipeCard } from "@/entities/recipe";
 import { RecipesFeed } from "@/widgets/recipesFeed";
 
 export const SearchPage: FunctionComponent<Props> = ({

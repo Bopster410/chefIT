@@ -1,4 +1,4 @@
-import { RecipeCard, Recipe } from "@/entities/recipe";
+import { RecipeCard } from "@/entities/recipe";
 import { FavoriteWrapper } from "@/features/favoriteWrapper";
 import Link from "next/link";
 import { FunctionComponent } from "react";

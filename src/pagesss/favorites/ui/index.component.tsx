@@ -1,5 +1,4 @@
 import { Navbar } from "@/widgets/navbar";
-import { RecipesFeed } from "@/widgets/recipesFeed";
 import { FunctionComponent } from "react";
 import { Props } from "./index.types";
 import { Snackbar } from "@mui/material";

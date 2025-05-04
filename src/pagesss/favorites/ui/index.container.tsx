@@ -19,16 +19,16 @@ export function FavoritesPageContainer() {
   const pageRef = useRef(2);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const updateRecipes = async () => {
+  const updateRecipes = useCallback(async () => {
     if (isLoading || !hasMore) return;
     setIsLoading(true);
-
+  
     try {
       const res = await getFavorites(pageRef.current);
       if (res.Status !== STATUS.SUCCESS) {
         setHasMore(false);
       } else {
-        setRecipes((prev) => [...prev, ...res.Data]);
+        setRecipes((prev) => [...prev, ...(res.Data || [])]);
         pageRef.current += 1;
       }
     } catch (error) {
@@ -36,7 +36,8 @@ export function FavoritesPageContainer() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isLoading, hasMore]);
+  
 
   const lastRecipeRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -51,7 +52,7 @@ export function FavoritesPageContainer() {
 
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasMore]
+    [isLoading, hasMore, updateRecipes]
   );
 
   const handleRemove = (id?: number) => {
@@ -80,6 +81,7 @@ export function FavoritesPageContainer() {
   useEffect(() => {
     if (user) {
       getFavorites(1).then((res) => {
+        if (!res.Data) return;
         setRecipes(res.Data);
       });
     }
