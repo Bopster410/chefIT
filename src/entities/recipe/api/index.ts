@@ -98,7 +98,21 @@ export async function getUserRecipes() {
     return result;
 }
 
-export async function generateRecipe(query: string, ingredients: string[]) {
+export async function getRecipesByType(type:string, page:number) {
+    return await ajaxGet<{"recipes":Recipe[]}>({
+        url: RECIPES_API.getRecipesByType,
+        queryParams: {page: page, dishType:type},
+    })
+}
+
+export async function getRecipesByDiet(diet:string, page:number) {
+    return await ajaxGet<{"recipes":Recipe[]}>({
+        url: RECIPES_API.getRecipesByDiet,
+        queryParams: {page: page, diet:diet},
+    })
+}
+
+export async function generateRecipe(query: string, ingredients: string[]){
     return await ajaxPost<UserRecipe>({
         url: RECIPES_API.generateNewRecipe,
         body: {
