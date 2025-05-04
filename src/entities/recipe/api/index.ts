@@ -99,18 +99,16 @@ export async function getUserRecipes() {
 }
 
 export async function getRecipesByType(type:string, page:number) {
-    return await ajaxGet<{Recipes:Recipe[], lastPageNum:number}>({
+    return await ajaxGet<{"recipes":Recipe[]}>({
         url: RECIPES_API.getRecipesByType,
-        body: {type: type},
-        queryParams: {page: page},
+        queryParams: {page: page, dishType:type},
     })
 }
 
 export async function getRecipesByDiet(diet:string, page:number) {
-    return await ajaxGet<{Recipes:Recipe[], lastPageNum:number}>({
+    return await ajaxGet<{"recipes":Recipe[]}>({
         url: RECIPES_API.getRecipesByDiet,
-        body: {type: diet},
-        queryParams: {page: page},
+        queryParams: {page: page, diet:diet},
     })
 }
 

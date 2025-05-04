@@ -29,7 +29,7 @@ export const SelectedFilterPageContainer: FunctionComponent<{
       getRecipesFunction: (
         filter: string,
         page: number
-      ) => Promise<Response<{ Recipes: Recipe[]; lastPageNum: number }>>
+      ) => Promise<Response<{"recipes":Recipe[]}>>
     ) => {
       if (isLoading || !hasMore) return;
       setIsLoading(true);
@@ -39,7 +39,7 @@ export const SelectedFilterPageContainer: FunctionComponent<{
         if (res.Status !== STATUS.SUCCESS) {
           setHasMore(false);
         } else {
-          setRecipes((prev) => [...prev, ...res.Data.Recipes]);
+          setRecipes((prev) => [...prev, ...(res.Data?.recipes || [])]);
           pageRef.current += 1;
         }
       } catch (error) {
@@ -48,7 +48,7 @@ export const SelectedFilterPageContainer: FunctionComponent<{
         setIsLoading(false);
       }
     },
-    [isLoading, hasMore]
+    [isLoading, hasMore, selectedFilter]
   );
 
   const lastRecipeRef = useCallback(
@@ -68,13 +68,21 @@ export const SelectedFilterPageContainer: FunctionComponent<{
   );
 
   useEffect(() => {
-    if (type) {
-    }
-  }, [type]);
+    if (!selectedFilter) return;
+
+    type==="diet"?
+    getRecipesByDiet(selectedFilter, 1).then((res) =>
+      setRecipes(res.Data?.recipes || [])
+    ):
+    getRecipesByType(selectedFilter, 1).then((res) =>
+      setRecipes(res.Data?.recipes || [])
+    );
+
+  }, [selectedFilter]);
 
   return (
     <SelectedFilterPage
-      label={type}
+      label={selectedFilter}
       lastRecipeRef={lastRecipeRef}
       recipes={recipes}
     />

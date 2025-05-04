@@ -17,7 +17,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
         <h4 className="mb-5">{label}</h4>
 
         <div className="grid grid-cols-2 mobile:grid-cols-3 gap-3">
-          {recipes &&
+          {recipes.length > 0 &&
             recipes.map(({ id, name, description, img }, i) => (
               <FavoriteWrapper key={id} id={id}>
                 <Link href={`recipe/${id}`}>
