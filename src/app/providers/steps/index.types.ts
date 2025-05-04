@@ -1,3 +1,5 @@
+import { startRecipe } from '@/entities/recipe';
+
 export interface StepsStore {
     recipeId: number | null;
     recipeName: string | null;
@@ -10,7 +12,12 @@ export interface StepsStore {
     nextStep: (() => void) | null;
     prevStep: (() => void) | null;
     startCooking:
-        | ((id: number, newTotalSteps: number, name: string) => void)
+        | ((
+              id: number,
+              newTotalSteps: number,
+              name: string,
+              request?: typeof startRecipe
+          ) => void)
         | null;
     endCooking: (() => void) | null;
     isCooking: (() => boolean) | null;
