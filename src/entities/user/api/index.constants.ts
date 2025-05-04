@@ -1,12 +1,12 @@
 export const USER_API = {
-  getUser: "auth/profile",
+  getUser: "profile",
   login: "auth/login",
   signUp: "auth/signup",
   logout: "auth/logout",
-  editLogin: "auth/profile/edit/login",
-  editName: "auth/profile/edit/name",
-  editSurname: "auth/profile/edit/surname",
-  editPassword: "auth/profile/edit/password",
+  editLogin: "profile/edit/login",
+  editName: "profile/edit/name",
+  editSurname: "profile/edit/surname",
+  editPassword: "profile/edit/password",
 
   loginVK: "auth/login/vk"
 };
