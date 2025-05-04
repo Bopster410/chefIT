@@ -2,13 +2,15 @@ export const RECIPES_API = {
     getAll: 'recipe/all',
     getById: 'recipe',
     getCookingRecipe: 'recipe',
-    search: 'search',
-    getSuggestions: 'search/suggest',
+
     startRecipe: 'recipe/start',
     endRecipe: 'recipe/end',
     nextStep: 'recipe/next',
     prevStep: 'recipe/prev',
+
     getFilters: 'search/filters',
+    search: 'search',
+    getSuggestions: 'search/suggest',
 
     getUserRecipes: 'generate/all',
     generateNewRecipe: 'generate/make',
@@ -18,4 +20,8 @@ export const RECIPES_API = {
     chefbookSetMain: 'generate', // + '[id]/main/[versionID]
     chefbookItem: 'generate', // + '[id]'
     startChefbookRecipe: 'generate', // + '[id]/start'
+
+    addFavorite: 'favorite/add', // + '[id]'
+    removeFavorite: 'favorite/delete', // + '[id]'
+    getFavorites: 'favorite/all',
 };
