@@ -51,7 +51,7 @@ export function FavoritesPageContainer() {
 
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasMore]
+    [isLoading, hasMore, updateRecipes]
   );
 
   const handleRemove = (id?: number) => {
