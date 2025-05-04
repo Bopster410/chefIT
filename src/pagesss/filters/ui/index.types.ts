@@ -1,3 +1,3 @@
 export interface Props {
-  diets: string[];
+  filters: string[];
 }

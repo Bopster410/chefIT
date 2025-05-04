@@ -18,4 +18,6 @@ export const RECIPES_API = {
     chefbookSetMain: 'generate', // + '[id]/main/[versionID]
     chefbookItem: 'generate', // + '[id]'
 
+    getRecipesByType: 'main/recipe/types',
+    getRecipesByDiet: 'main/recipe/diet',
 };
