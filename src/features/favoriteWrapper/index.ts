@@ -1,0 +1,1 @@
+export { RecipeWithFavorite } from './ui';

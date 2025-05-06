@@ -1,34 +1,12 @@
-import { getRecipeData } from '@/entities/recipe/api';
-import { RecipePage } from '@/pages/recipe/ui';
+import { RecipePage } from '@/pagesss/recipe';
 
-export default async function Recipe({
+export const dynamic = 'force-dynamic';
+
+export default async function Page({
     params,
 }: {
-    params: Promise<{ id: number }>;
+    params: Promise<{ id: string }>;
 }) {
-    const { id } = await params;
-    const {
-        name,
-        description,
-        img,
-        prepTime,
-        cookingTime,
-        servingsNum,
-        ingredients,
-        steps,
-    } = getRecipeData(id);
-    return (
-        <div className='bg-white rounded-t-4xl h-full pt-4 px-4'>
-            <RecipePage
-                header={name}
-                description={description}
-                img={img}
-                prepTime={prepTime}
-                cookingTime={cookingTime}
-                servings={servingsNum}
-                ingredients={ingredients}
-                steps={steps}
-            />
-        </div>
-    );
+    const id = parseInt((await params).id);
+    return <RecipePage id={id} />;
 }
