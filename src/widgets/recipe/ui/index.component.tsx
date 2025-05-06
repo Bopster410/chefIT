@@ -3,6 +3,7 @@ import { Props } from './index.types';
 import { Button } from '@/shared/uikit/button';
 import { RecipeDescription } from '@/entities/recipe';
 import { CookingRecipe } from '@/features/recipeSteps';
+import clsx from 'clsx';
 
 export const RecipeWithCooking: FunctionComponent<Props> = ({
     name,
@@ -23,7 +24,7 @@ export const RecipeWithCooking: FunctionComponent<Props> = ({
     servings,
 }) => {
     return (
-        <div className='bg-white'>
+        <div className={clsx('bg-white', cookingState === 'cooking' && 'px-4')}>
             {cookingState === 'cooking' && currentStep ? (
                 <CookingRecipe
                     steps={steps}

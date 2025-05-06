@@ -1,1 +1,1 @@
-export { FavoriteWrapper } from "./ui";
+export { RecipeWithFavorite } from './ui';

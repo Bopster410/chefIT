@@ -1,44 +1,43 @@
-"use client";
+'use client';
 
-import { HeartButton } from "@/shared/uikit/heartButton";
-import { FunctionComponent, PropsWithChildren, useState } from "react";
-import { Props } from "./index.types";
-import { addFavorite, removeFavorite } from "@/entities/recipe/api";
+import { HeartButton } from '@/shared/uikit/heartButton';
+import { FunctionComponent, useState } from 'react';
+import { Props } from './index.types';
+import { addFavorite, removeFavorite } from '@/entities/recipe/api';
+import { RecipeCard } from '@/entities/recipe';
+import { STATUS } from '@/shared/api';
 
-export const FavoriteWrapper: FunctionComponent<PropsWithChildren<Props>> = ({
-  isLiked,
-  id,
-  children,
-  onAddFavorite,
-  onRemoveFavorite,
-}) => {
-  const [liked, setLiked] = useState(isLiked || false);
+export const RecipeWithFavorite: FunctionComponent<Props> = (props) => {
+    const [liked, setLiked] = useState(false);
 
-  const addOrRemove = () => {
-    if (liked) {
-      removeFavorite(id).then(() => {
-        onRemoveFavorite?.(id);
-      });
-    } else {
-      addFavorite(id).then(() => {
-        onAddFavorite?.();
-      });
-    }
-    setLiked(!liked);
-  }
+    const addOrRemove = () => {
+        if (liked) {
+            removeFavorite(props.id).then(({ Status }) => {
+                if (Status !== STATUS.SUCCESS) return;
+                setLiked(false);
+            });
+        } else {
+            addFavorite(props.id).then(({ Status }) => {
+                if (Status !== STATUS.SUCCESS) return;
+                setLiked(true);
+            });
+        }
+        setLiked(!liked);
+    };
 
-  const onHeartClick = () => {
-    addOrRemove();
-  };
-
-  return (
-    <>
-      <div className="relative group">
-        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <HeartButton isLiked={liked} onClick={onHeartClick} />
-        </div>
-        {children}
-      </div>
-    </>
-  );
+    return (
+        <RecipeCard
+            slots={{
+                favoriteButton: (
+                    <>
+                        <HeartButton
+                            isLiked={liked}
+                            onClick={addOrRemove}
+                        />
+                    </>
+                ),
+            }}
+            {...props}
+        />
+    );
 };

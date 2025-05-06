@@ -1,6 +1,3 @@
-export interface Props {
-  isLiked?: boolean;
-  id: number;
-  onAddFavorite?: (id?:number) => void;
-  onRemoveFavorite?: (id?:number) => void;
-}
+import { RecipeProps } from '@/entities/recipe/ui/recipeCard';
+
+export type Props = RecipeProps;

@@ -7,6 +7,7 @@ import { SpeechRecognitionStoreProvider } from './providers/speechRecognitionPro
 import { inter, manrope } from '@/shared/fonts';
 import './globals.css';
 import { SpeechListener } from '@/features/speechListener';
+import { LoadingStoreProvider } from './providers/loadingProvider/index.provider';
 
 const baseFont = inter;
 const headerFont = manrope;
@@ -28,15 +29,17 @@ export default function RootLayout({
             >
                 <div className='w-full min-h-screen mobile:w-(--breakpoint-mobile)'>
                     <ModalStoreProvider>
-                        <TimersProviderWrapper>
-                            <StepsProvider>
-                                <SpeechRecognitionStoreProvider>
-                                    <SpeechListener />
-                                    {children}
-                                </SpeechRecognitionStoreProvider>
-                                <ModalContainer />
-                            </StepsProvider>
-                        </TimersProviderWrapper>
+                        <LoadingStoreProvider>
+                            <TimersProviderWrapper>
+                                <StepsProvider>
+                                    <SpeechRecognitionStoreProvider>
+                                        <SpeechListener />
+                                        {children}
+                                    </SpeechRecognitionStoreProvider>
+                                    <ModalContainer />
+                                </StepsProvider>
+                            </TimersProviderWrapper>
+                        </LoadingStoreProvider>
                     </ModalStoreProvider>
                 </div>
             </body>

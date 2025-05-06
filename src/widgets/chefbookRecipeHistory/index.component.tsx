@@ -3,18 +3,28 @@
 import { RecipeDetailedChefbook } from '@/entities/recipe/api/index.types';
 import { RecipeDescription } from '@/entities/recipe/ui';
 import { Button } from '@/shared/uikit/button';
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import {
+    FunctionComponent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { TextArea } from '@/shared/uikit/textArea';
+import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 import { ErrorBoundary } from 'react-error-boundary';
+import { WithLoader } from '@/shared/uikit/withLoader/ui/index.component';
+import { QueryTextArea } from './queryTextArea';
+import { Blockquote } from '@/shared/uikit/blockquote';
+import { useDrag } from '@use-gesture/react';
 
 interface Props {
     versions: RecipeDetailedChefbook[];
     mainVersion: number;
     setMain: (id: number) => void;
     onNewVersion: (id: number, query: string) => void;
+    isLoading?: boolean;
 }
 
 export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
@@ -22,6 +32,7 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
     setMain,
     mainVersion,
     onNewVersion,
+    isLoading,
 }) => {
     const [currentVersionInd, setCurrentVersionInd] = useState(0);
     const [withError, setWithError] = useState(false);
@@ -44,94 +55,141 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
         return () => formCurrent?.removeEventListener('submit', handleSubmit);
     }, [currentVersion.version, onNewVersion]);
 
+    const setNext = useCallback(() => {
+        if (currentVersionInd === versions.length - 1) return;
+        setCurrentVersionInd((value) => value + 1);
+    }, [currentVersionInd, versions.length]);
+
+    const setPrev = useCallback(() => {
+        if (currentVersionInd === 0) return;
+        setCurrentVersionInd((value) => value - 1);
+    }, [currentVersionInd]);
+
+    const bind = useDrag(({ swipe: [xSwipe] }) => {
+        console.log(xSwipe);
+        if (xSwipe > 0) setPrev();
+        if (xSwipe < 0) setNext();
+    });
+
     return !currentVersion ? (
         <div>Что-то пошло не так</div>
     ) : (
-        <div className='relative'>
-            {currentVersion.query && (
-                <div className='border-2 border-gray-500 rounded-lg bg-gray-100 p-1.5 mobile:px-2.5 mobile:py-2 sticky top-0 z-10'>
-                    «{currentVersion.query}»
+        <div className='relative px-2.5'>
+            <div className='mb-8 relative'>
+                {currentVersionInd > 0 && (
+                    <div className='absolute not-mobile:hidden left-0 top-0 bottom-0 w-8 z-10'>
+                        <div
+                            onClick={setPrev}
+                            className='h-full hover:bg-radial-[at_0%_50%] from-gray-200 to-[#FFFFFF00] to-50% flex items-center justify-end text-gray-500 hover:text-gray-600 hover:cursor-pointer'
+                        >
+                            <ArrowBackIosNewIcon fontSize='small' />
+                        </div>
+                    </div>
+                )}
+                {currentVersionInd < versions.length - 1 && (
+                    <div className='absolute not-mobile:hidden right-0 top-0 bottom-0 z-10 w-8'>
+                        <div
+                            onClick={setNext}
+                            className='h-full hover:bg-radial-[at_100%_50%] from-gray-200 to-[#FFFFFF00] to-50% flex items-center text-gray-500 hover:text-gray-600 hover:cursor-pointer'
+                        >
+                            <ArrowForwardIosIcon fontSize='small' />
+                        </div>
+                    </div>
+                )}
+                <div
+                    className='px-2 mobile:px-10'
+                    style={{ touchAction: 'none' }}
+                    {...bind()}
+                >
+                    <ErrorBoundary
+                        resetKeys={[currentVersionInd]}
+                        fallback={<div>Что-то пошло не так</div>}
+                        onError={() => {
+                            setWithError(true);
+                        }}
+                        onReset={() => {
+                            setWithError(false);
+                        }}
+                    >
+                        <RecipeDescription
+                            name={currentVersion.name}
+                            description={currentVersion.description}
+                            cookingTime={currentVersion.cookingTimeMinutes}
+                            servings={currentVersion.servingsNum}
+                            ingredients={currentVersion.ingredients}
+                            steps={currentVersion.steps}
+                        />
+                    </ErrorBoundary>
                 </div>
-            )}
-            <div className='px-4 mobile:px-8'>
-                <ErrorBoundary
-                    resetKeys={[currentVersionInd]}
-                    fallback={<div>Что-то пошло не так</div>}
-                    onError={() => {
-                        setWithError(true);
-                    }}
-                    onReset={() => {
-                        setWithError(false);
+            </div>
+            <div className='px-2.5'>
+                {currentVersion.query && (
+                    <Blockquote>«{currentVersion.query}»</Blockquote>
+                )}
+                <Button
+                    size='sm'
+                    type='submit'
+                    variant={
+                        mainVersion === currentVersion.version
+                            ? 'normal'
+                            : 'outline'
+                    }
+                    color={
+                        mainVersion === currentVersion.version
+                            ? 'saffron'
+                            : 'gray'
+                    }
+                    disabled={
+                        mainVersion === currentVersion.version || withError
+                    }
+                    onClick={() => {
+                        setMain(currentVersion.version);
                     }}
                 >
-                    <RecipeDescription
-                        name={currentVersion.name}
-                        description={currentVersion.description}
-                        cookingTime={currentVersion.cookingTimeMinutes}
-                        servings={currentVersion.servingsNum}
-                        ingredients={currentVersion.ingredients}
-                        steps={currentVersion.steps}
-                    />
-                </ErrorBoundary>
+                    <div className='flex gap-0.5 text-sm items-center'>
+                        {mainVersion === currentVersion.version ? (
+                            <>
+                                <StarOutlineOutlinedIcon fontSize='small' />{' '}
+                                Основная версия
+                            </>
+                        ) : (
+                            <>
+                                <StarOutlineOutlinedIcon fontSize='small' />{' '}
+                                Сделать основной
+                            </>
+                        )}
+                    </div>
+                </Button>
             </div>
-            <div className='sticky w-full bottom-0 bg-white mt-3'>
+            <div className='sticky w-full bottom-0 bg-white mt-3 p-2.5'>
                 <form
                     ref={ref}
-                    className='flex-1'
+                    className='flex-1 mb-0.5'
                 >
                     {!withError && (
-                        <div className='flex rounded-lg mb-3 p-2.5 bg-gray-100'>
-                            <TextArea
-                                className='w-full outline-0'
-                                inputRef={inputRef}
-                                placeholder='Добавь в рецепт...'
-                                minRows={2}
-                                maxRows={4}
-                            />
-                            <Button
-                                size='sm'
-                                type='submit'
+                        <div className='flex rounded-lg'>
+                            <WithLoader
+                                isLoading={isLoading ?? false}
+                                loader={
+                                    <QueryTextArea
+                                        className='w-full'
+                                        value={inputRef.current?.value}
+                                        disabled
+                                        isLoading
+                                        maxRows={4}
+                                    />
+                                }
                             >
-                                <KeyboardReturnIcon sx={{ height: '20px' }} />
-                            </Button>
+                                <QueryTextArea
+                                    className='w-full outline-0'
+                                    inputRef={inputRef}
+                                    placeholder='Добавь в рецепт...'
+                                    maxRows={4}
+                                />
+                            </WithLoader>
                         </div>
                     )}
                 </form>
-                <div className='flex gap-1'>
-                    {currentVersionInd > 0 && (
-                        <Button
-                            onClick={() => {
-                                if (currentVersionInd === 0) return;
-                                setCurrentVersionInd((value) => value - 1);
-                            }}
-                        >
-                            <ArrowBackIosNewIcon />
-                        </Button>
-                    )}
-                    <Button
-                        color='saffron'
-                        className='w-full'
-                        disabled={
-                            mainVersion === currentVersion.version || withError
-                        }
-                        onClick={() => {
-                            setMain(currentVersion.version);
-                        }}
-                    >
-                        Выбрать главной
-                    </Button>
-                    {currentVersionInd < versions.length - 1 && (
-                        <Button
-                            onClick={() => {
-                                if (currentVersionInd === versions.length - 1)
-                                    return;
-                                setCurrentVersionInd((value) => value + 1);
-                            }}
-                        >
-                            <ArrowForwardIosIcon />
-                        </Button>
-                    )}
-                </div>
             </div>
         </div>
     );

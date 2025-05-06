@@ -17,7 +17,7 @@ export const CookingRecipe: FunctionComponent<Props> = ({
     const totalSteps = steps.length;
 
     return (
-        <div className='flex w-full gap-2 mt-6'>
+        <div className='flex w-full gap-2'>
             <div className='flex gap-4 w-full flex-col mobile:flex-row'>
                 <div>
                     <div className='font-bold border-2 rounded-full size-16 flex justify-center items-center text-4xl'>

@@ -55,7 +55,7 @@ export const TimersBottomSheet: FunctionComponent<{
                 </BottomSheet.Content>
             </BottomSheet.Portal>
             <BottomSheet.Trigger asChild>
-                <Button color='gray'>
+                <Button color='white'>
                     <AccessTimeFilledOutlinedIcon />
                 </Button>
             </BottomSheet.Trigger>

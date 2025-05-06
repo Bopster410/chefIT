@@ -18,18 +18,22 @@ export const ChefbookRecipeHistoryContainer: FunctionComponent<{
     const [versions, setVersions] = useState<RecipeDetailedChefbook[] | null>(
         null
     );
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleNewVerion = useCallback(
         (version: number, query: string) => {
-            updateChefbookRecipeWithQuery(recipeId, version, query).then(
-                ({ Status, Data }) => {
+            setIsLoading(true);
+            updateChefbookRecipeWithQuery(recipeId, version, query)
+                .then(({ Status, Data }) => {
                     if (!Data || Status !== STATUS.SUCCESS) return;
                     setVersions((curVersions) => {
                         if (curVersions === null) return [Data];
                         return [...curVersions, Data];
                     });
-                }
-            );
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
         },
         [recipeId]
     );
@@ -66,6 +70,7 @@ export const ChefbookRecipeHistoryContainer: FunctionComponent<{
                 versions={versions}
                 setMain={handleNewMain}
                 mainVersion={mainVersion}
+                isLoading={isLoading}
             />
         )
     );

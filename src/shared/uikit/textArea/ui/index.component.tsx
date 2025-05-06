@@ -1,33 +1,47 @@
-import {
-    TextField,
-    TextFieldProps,
-    TextFieldVariants,
-    useTheme,
-} from '@mui/material';
+'use client';
 
-export const TextArea = <Variant extends TextFieldVariants>(
-    props: {
-        variant?: Variant;
-    } & Omit<TextFieldProps, 'variant'>
-) => {
-    const theme = useTheme();
+import { TextField } from '@mui/material';
+import { Props } from './index.types';
+import { ChangeEventHandler, useCallback, useState } from 'react';
+
+const MAX_LENGTH = 1024;
+const DEFAULT_MAX_LENGTH = 512;
+
+export const TextArea = ({
+    maxLength = DEFAULT_MAX_LENGTH,
+    ...props
+}: Props) => {
+    const [value, setValue] = useState<string | null>(null);
+    maxLength =
+        maxLength <= 0 || maxLength > MAX_LENGTH
+            ? DEFAULT_MAX_LENGTH
+            : maxLength;
+
+    const handleInput: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
+        (event) => {
+            setValue(event.target.value.slice(0, maxLength));
+        },
+        [maxLength]
+    );
 
     return (
         <TextField
             {...props}
+            value={value}
+            onChange={handleInput}
             sx={{
                 '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                        borderColor: theme.palette.grey[400],
+                        border: 'none',
                     },
                     '&:hover fieldset': {
-                        borderColor: theme.palette.grey[400],
+                        border: 'none',
                     },
                     '&.Mui-focused fieldset': {
-                        borderColor: theme.palette.grey[400],
+                        border: 'none',
                     },
                     '&.Mui-focused': {
-                        boxShadow: 'none', // отключаем вспышку
+                        boxShadow: 'none',
                     },
                 },
             }}

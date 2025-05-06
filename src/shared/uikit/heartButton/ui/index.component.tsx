@@ -1,21 +1,31 @@
-"use client";
+'use client';
 
-import { FunctionComponent } from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Props } from "./index.types";
+import { FunctionComponent } from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Props } from './index.types';
+import { Button } from '../../button';
 
 export const HeartButton: FunctionComponent<Props> = ({ isLiked, onClick }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="p-1 mobile:p-2 rounded-full bg-gray-200"
-    >
-      {isLiked ? (
-        <FavoriteIcon className="text-saffron-500" />
-      ) : (
-        <FavoriteBorderIcon className="text-gray-500" />
-      )}
-    </button>
-  );
+    return (
+        <Button
+            onClick={onClick}
+            size='sm'
+            color='gray'
+            circle
+            className='text-lg z-50'
+        >
+            {isLiked ? (
+                <FavoriteIcon
+                    fontSize='inherit'
+                    className='text-saffron-500'
+                />
+            ) : (
+                <FavoriteBorderIcon
+                    fontSize='inherit'
+                    className='text-gray-500'
+                />
+            )}
+        </Button>
+    );
 };

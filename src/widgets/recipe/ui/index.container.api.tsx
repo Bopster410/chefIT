@@ -20,6 +20,4 @@ export const RecipeWithCookingApiContainer: FunctionComponent<{
     ) : (
         <div>Что-то пошло не так</div>
     );
-
-    return;
 };

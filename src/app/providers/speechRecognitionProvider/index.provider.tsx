@@ -76,11 +76,6 @@ export const SpeechRecognitionWrapper: FunctionComponent<PropsWithChildren> = ({
 
         currentRecognition?.addEventListener('end', handleEnd);
 
-        // recognition.current?.addEventListener('speechend', (event) => {
-        //     event.preventDefault();
-        //     setRecognizedSpeech();
-        //     start();
-        // });
         return () => {
             currentRecognition?.removeEventListener('end', handleEnd);
         };
