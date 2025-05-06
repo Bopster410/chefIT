@@ -15,13 +15,13 @@ export const Navbar = () => {
     const { timers } = useContext(TimersContext);
     const [sideBarOpened, setSideBarOpened] = useState(false);
 
-    const {user,} = useUserWithFetch();
-    const logout = useLogout();   
+    const { user } = useUserWithFetch();
+    const logout = useLogout();
 
     const handleLogout = () => {
         logout();
         userLogout();
-      }
+    };
 
     return (
         <>
@@ -33,7 +33,7 @@ export const Navbar = () => {
             ></MainSideBar>
             <nav className='h-navbar-height flex justify-between items-center bg-white mb-2 w-full'>
                 <Button
-                    color='gray'
+                    color='white'
                     onClick={() => setSideBarOpened((opened) => !opened)}
                 >
                     <DensityMediumIcon />

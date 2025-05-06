@@ -1,1 +1,1 @@
-export { FavoriteWrapper } from "./index.component";
+export { RecipeWithFavorite } from './index.component';

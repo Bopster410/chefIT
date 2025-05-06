@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import Link from 'next/link';
 
 export const ImagePlaceholder = () => {
     return (
@@ -38,17 +39,36 @@ export const ImagePlaceholder = () => {
     );
 };
 
-export const RecipeCard: FunctionComponent<{
+export interface RecipeProps {
     id: number;
     name: string;
     description: string;
+    cookingTime: number;
     image?: string;
-}> = ({ name, image }) => {
+    link?: string;
+    slots?: {
+        favoriteButton?: ReactNode;
+    };
+}
+
+export const RecipeCard: FunctionComponent<RecipeProps> = ({
+    name,
+    image,
+    cookingTime,
+    slots,
+    link,
+}) => {
     return (
         <div
-            className={`relative bg-gray-100 flex flex-col gap-1.5 rounded-lg p-1.5 mobile:p-2.5 aspect-7/10`}
+            className={`relative bg-gray-100 flex flex-col gap-1.5 rounded-lg p-1.5 mobile:p-2.5 aspect-7/10 z-0`}
         >
-            <div className='relative aspect-square rounded-lg'>
+            {link && (
+                <Link
+                    className='absolute top-0 left-0 right-0 bottom-0 z-10'
+                    href={link}
+                />
+            )}
+            <div className='relative aspect-square rounded-lg z-0'>
                 {image ? (
                     <Image
                         className='rounded-lg'
@@ -63,12 +83,12 @@ export const RecipeCard: FunctionComponent<{
             <div className='px-2 line-clamp-2 recipe-clamp mobile:text-[1rem]'>
                 {name}
             </div>
-            <div className='ps-2 flex-1 items-end flex'>
+            <div className='ps-2 flex-1 items-end flex justify-between'>
                 <div className='flex items-center gap-0.5 text-gray-400 recipe-clamp-sm mobile:text-[0.875rem]'>
                     <AccessTimeFilledOutlinedIcon fontSize='inherit' />
-                    <span>10</span>
-                    <span>мин</span>
+                    {`${cookingTime} мин`}
                 </div>
+                <div className='z-20'>{slots?.favoriteButton}</div>
             </div>
         </div>
     );

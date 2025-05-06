@@ -12,6 +12,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { BackButton } from '@/features/backButton';
 import { ErrorBoundary } from 'react-error-boundary';
 import { RecipeWithCookingStoreGeneratedContainer } from '@/widgets/recipe/ui/index.container.store.generated';
+import { Blockquote } from '@/shared/uikit/blockquote';
 
 export const ChefbookRecipe: FunctionComponent<Props> = ({
     recipe: { name, description, cookingTime, servingsNum, ingredients, steps },
@@ -31,27 +32,31 @@ export const ChefbookRecipe: FunctionComponent<Props> = ({
 
     return (
         <div className='bg-white rounded-t-4xl h-full pb-4 px-4 mobile:px-8'>
-            <div className='py-4'>
-                <BackButton
-                    color='white'
-                    size='sm'
-                >
-                    <ArrowBackIcon />
-                </BackButton>
-            </div>
             <BottomSheet.Root handleOnly>
-                <div className='text-xl font-bold'>
-                    {userIngredients && (
-                        <div>Рецепт из: {userIngredients.join(', ')}</div>
-                    )}
-                    {query && <div>{`«${query}»`}</div>}
+                <div className='flex justify-between py-4 sticky top-0 bg-white'>
+                    {/* TODO перенести в лэйаут как-то */}
+                    <BackButton
+                        color='white'
+                        size='sm'
+                    >
+                        <ArrowBackIcon />
+                    </BackButton>
                     <BottomSheet.Trigger asChild>
-                        <Button color='gray'>
-                            <div className='flex items-center gap-0.5'>
-                                История <HistoryIcon />
-                            </div>
+                        <Button
+                            color='white'
+                            size='sm'
+                        >
+                            <HistoryIcon />
                         </Button>
                     </BottomSheet.Trigger>
+                </div>
+                <div className='mb-8'>
+                    <Blockquote>
+                        {userIngredients && (
+                            <div>Рецепт из: {userIngredients.join(', ')}</div>
+                        )}
+                        {query && <div>{`«${query}»`}</div>}
+                    </Blockquote>
                 </div>
                 <ErrorBoundary
                     resetKeys={[recipeId, version]}

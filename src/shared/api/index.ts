@@ -9,6 +9,7 @@ import {
 
 export { BACKEND, STATUS } from './config';
 export { throttle } from './throttling';
+export type { Response } from './index.types';
 
 export async function ajax<T>({
     url,

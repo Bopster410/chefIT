@@ -3,7 +3,7 @@ export type Recipe = {
     name: string;
     description: string;
     img: string;
-    cookingTime: number;
+    cookingTimeMinutes: number;
 };
 
 export type Ingredient = {
@@ -91,5 +91,5 @@ export interface UserRecipe {
     id: number;
     name: string;
     description: string;
-    cookingTimeInMinutes: number;
+    cookingTimeMinutes: number;
 }
