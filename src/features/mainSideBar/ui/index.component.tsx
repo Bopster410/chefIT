@@ -37,6 +37,12 @@ export const MainSideBar: FunctionComponent<Props> = ({
                     </SideBar.Title>
                     <nav className='flex flex-col gap-4 mt-6'>
                         <Link
+                            href='/'
+                            className=''
+                        >
+                            <h6>Главная</h6>
+                        </Link>
+                        <Link
                             href='/chefbook'
                             className=''
                         >
