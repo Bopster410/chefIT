@@ -24,6 +24,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                                     description,
                                     img,
                                     cookingTimeMinutes,
+                                    isFavorite,
                                 },
                                 i
                             ) => (
@@ -31,6 +32,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                                     <RecipeWithFavorite
                                         id={id}
                                         name={name}
+                                        likedByDefault={isFavorite}
                                         description={description}
                                         image={img}
                                         link={`recipe/${id}`}
