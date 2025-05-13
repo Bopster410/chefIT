@@ -114,8 +114,6 @@ export function ProfileEditPageContainer() {
                 userEditPassword(oldPassword, password)
                     .then((res) => {
                         if (res.Status !== 200) throw new Error(res.MsgRus);
-                        logout();
-                        router.replace('/login');
                     })
                     .catch((err: Error) => {
                         addError({ type: 'password', msg: err.message });
