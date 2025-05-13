@@ -28,7 +28,6 @@ export const UserInfoField: FunctionComponent<Props> = ({
           id={name || type}
           name={name || type}
           {...(required ? { required } : {})}
-          {...(isPassword ? { minLength: 8 } : { minLength: 2 })}
           maxLength={25}
           className={`mt-1 block w-full px-3 py-2 border rounded-md ${
             error ? "border-red-500 focus:ring-red-500" : "border-gray-300"
@@ -50,17 +49,17 @@ export const UserInfoField: FunctionComponent<Props> = ({
 
         {msgError && (
           <Tooltip
-          title={msgError}
-          slotProps={{
-            tooltip: {
-              sx: {
-                fontSize: '1rem',
-                maxWidth: 'none',
-                padding: '8px 12px'
+            title={msgError}
+            slotProps={{
+              tooltip: {
+                sx: {
+                  fontSize: "1rem",
+                  maxWidth: "none",
+                  padding: "8px 12px",
+                },
               },
-            },
-          }}
-        >
+            }}
+          >
             <ErrorOutline className="absolute right-3 top-27/51 transform -translate-y-1/2 text-red-500" />
           </Tooltip>
         )}
