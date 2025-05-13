@@ -8,10 +8,11 @@ export const RecipesFeed: FunctionComponent<Props> = ({ recipes }) => {
         <div className='grid grid-cols-2 mobile:grid-cols-3 gap-3'>
             {recipes &&
                 recipes.map(
-                    ({ id, name, description, img, cookingTimeMinutes }) => (
+                    ({ id, name, description, img, cookingTimeMinutes, isFavorite }) => (
                         <RecipeWithFavorite
                             id={id}
                             key={id}
+                            likedByDefault={isFavorite}
                             link={`recipe/${id}`}
                             name={name}
                             cookingTime={cookingTimeMinutes}

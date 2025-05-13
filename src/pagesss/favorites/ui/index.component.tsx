@@ -10,6 +10,7 @@ export const FavoritesPage: FunctionComponent<Props> = ({
     isSnackbarOpened,
     setIsOpened,
     lastRecipeRef,
+    onRemoveFavorite,
 }) => {
     return (
         <>
@@ -41,6 +42,8 @@ export const FavoritesPage: FunctionComponent<Props> = ({
                                 ) => (
                                     <div key={id}>
                                         <RecipeWithFavorite
+                                            likedByDefault
+                                            onRemove={onRemoveFavorite}
                                             id={id}
                                             name={name}
                                             description={description}

@@ -4,6 +4,7 @@ export type Recipe = {
     description: string;
     img: string;
     cookingTimeMinutes: number;
+    isFavorite?: boolean;
 };
 
 export type Ingredient = {

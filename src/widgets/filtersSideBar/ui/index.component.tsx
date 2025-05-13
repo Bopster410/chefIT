@@ -75,10 +75,10 @@ export const FiltersSideBar: FunctionComponent<Props> = ({
                             {filters.time && (
                                 <div className='mb-4'>
                                     <label>
-                                        Время приготовления{' '}
-                                        {selectedFilters.time
-                                            ? `до ${selectedFilters.time} мин`
-                                            : ''}
+                                        Время приготовления до {' '} 
+                                        <input className='w-8' value={selectedFilters.time} onChange={onChangeRange}>
+                                        </input>
+                                        мин
                                     </label>
                                     <input
                                         value={selectedFilters.time}
