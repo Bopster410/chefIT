@@ -3,13 +3,13 @@
 import { useSpeechRecognitionStore } from '@/app/providers/speechRecognitionProvider/index.provider';
 import { StepsContext } from '@/app/providers/steps';
 import { TimersContext } from '@/app/providers/timers';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useContext } from 'use-context-selector';
 import { useContextSelector } from 'use-context-selector';
 import { AnimatedBlob } from '../../../shared/uikit/animatedBlob/ui/index.component';
 import { animated, useTransition } from '@react-spring/web';
 import { getCommand } from '../api';
-import { TextField } from '@mui/material';
+// import { TextField } from '@mui/material';
 import { sanitizeSpeechInput } from '../lib';
 
 const COMMAND_ID: { [id: number]: string } = {
@@ -21,7 +21,7 @@ const COMMAND_ID: { [id: number]: string } = {
 };
 
 export const SpeechListener = () => {
-    const [isOpened, setIsOpened] = useState(true);
+    const [isOpened, setIsOpened] = useState(false);
     const stop = useSpeechRecognitionStore((state) => state.stop);
     const start = useSpeechRecognitionStore((state) => state.start);
     const setRecognizedSpeech = useSpeechRecognitionStore(
@@ -142,19 +142,19 @@ export const SpeechListener = () => {
         setRecognizedSpeech,
     ]);
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const formRef = useRef<HTMLFormElement>(null);
-    useEffect(() => {
-        const handleInput = (e: Event) => {
-            e.preventDefault();
-            setRecognizedSpeech(inputRef.current?.value);
-        };
-        const currentForm = formRef.current;
-        currentForm?.addEventListener('submit', handleInput);
-        return () => {
-            currentForm?.removeEventListener('submit', handleInput);
-        };
-    });
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const formRef = useRef<HTMLFormElement>(null);
+    // useEffect(() => {
+    //     const handleInput = (e: Event) => {
+    //         e.preventDefault();
+    //         setRecognizedSpeech(inputRef.current?.value);
+    //     };
+    //     const currentForm = formRef.current;
+    //     currentForm?.addEventListener('submit', handleInput);
+    //     return () => {
+    //         currentForm?.removeEventListener('submit', handleInput);
+    //     };
+    // });
 
     return transitions(
         (style, item) =>
@@ -172,7 +172,7 @@ export const SpeechListener = () => {
                     <div className='absolute flex flex-col items-center gap-1 left-1/2 top-2/5 transform -translate-y-1/2 -translate-x-1/2 w-72'>
                         <AnimatedBlob stayCircle={isPending} />
                     </div>
-                    <div>
+                    {/* <div>
                         <form
                             action=''
                             ref={formRef}
@@ -184,7 +184,7 @@ export const SpeechListener = () => {
                                 id=''
                             />
                         </form>
-                    </div>
+                    </div> */}
                 </animated.div>
             )
     );
