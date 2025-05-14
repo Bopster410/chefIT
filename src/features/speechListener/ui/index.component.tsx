@@ -120,13 +120,9 @@ export const SpeechListener = () => {
                     setIsOpened(false);
                     break;
                 default:
-                    console.log('default');
                     const command = getCommand(recognizedSpeech);
-                    console.log(command);
                     setIsPending(true);
-                    command.then(({ Data, Status }) => {
-                        console.log(Data);
-                        console.log(Status);
+                    command.then(({ Data }) => {
                         setIsPending(false);
                         if (!Data || !(Data in COMMAND_ID)) return;
                         setRecognizedSpeech(COMMAND_ID[Data]);

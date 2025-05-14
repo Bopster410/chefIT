@@ -6,9 +6,12 @@ import { useContext } from 'use-context-selector';
 import { BackButton } from '@/features/backButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
+import { TimersBottomSheet } from '@/widgets/navbar/ui/timersBottomSheet';
+import { TimersContext } from '@/app/providers/timers';
 
 export const RecipeHeader: FunctionComponent<{ id: number }> = ({ id }) => {
     const { recipeName, isCooking, recipeId } = useContext(StepsContext);
+    const { timers } = useContext(TimersContext);
 
     const cookingState =
         !!isCooking && isCooking()
@@ -25,7 +28,8 @@ export const RecipeHeader: FunctionComponent<{ id: number }> = ({ id }) => {
             >
                 <ArrowBackIcon />
             </BackButton>
-            <div className='line-clamp-1 font-bold'>{recipeName}</div>
+            <div className='truncate font-bold'>{recipeName}</div>
+            <TimersBottomSheet timers={timers} />
         </div>
     ) : (
         <div className='absolute top-4 right-4 z-10'>
