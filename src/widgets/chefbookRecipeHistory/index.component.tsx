@@ -97,7 +97,7 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
                 )}
                 <div
                     className='px-2 mobile:px-10'
-                    style={{ touchAction: 'none' }}
+                    // style={{ touchAction: 'none' }}
                     {...bind()}
                 >
                     <ErrorBoundary

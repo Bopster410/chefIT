@@ -9,6 +9,8 @@ import { useContextSelector } from 'use-context-selector';
 import { AnimatedBlob } from '../../../shared/uikit/animatedBlob/ui/index.component';
 import { animated, useTransition } from '@react-spring/web';
 import { getCommand } from '../api';
+// import { TextField } from '@mui/material';
+import { sanitizeSpeechInput } from '../lib';
 
 const COMMAND_ID: { [id: number]: string } = {
     1: 'вперёд',
@@ -64,7 +66,7 @@ export const SpeechListener = () => {
     useEffect(() => {
         if (
             recognizedSpeech &&
-            recognizedSpeech.trim().replace(/[\s.,%]/g, '') === 'шеф' &&
+            sanitizeSpeechInput(recognizedSpeech) === 'шеф' &&
             !isOpened
         ) {
             setIsOpened(true);
@@ -73,12 +75,7 @@ export const SpeechListener = () => {
         }
 
         if (isOpened && recognizedSpeech && !isPending) {
-            switch (
-                recognizedSpeech
-                    .trim()
-                    .replace(/[\s.,%]/g, '')
-                    .toLocaleLowerCase()
-            ) {
+            switch (sanitizeSpeechInput(recognizedSpeech)) {
                 case 'вперёд':
                     if (nextStep) nextStep();
                     setIsOpened(false);
@@ -145,6 +142,20 @@ export const SpeechListener = () => {
         setRecognizedSpeech,
     ]);
 
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const formRef = useRef<HTMLFormElement>(null);
+    // useEffect(() => {
+    //     const handleInput = (e: Event) => {
+    //         e.preventDefault();
+    //         setRecognizedSpeech(inputRef.current?.value);
+    //     };
+    //     const currentForm = formRef.current;
+    //     currentForm?.addEventListener('submit', handleInput);
+    //     return () => {
+    //         currentForm?.removeEventListener('submit', handleInput);
+    //     };
+    // });
+
     return transitions(
         (style, item) =>
             item && (
@@ -154,13 +165,26 @@ export const SpeechListener = () => {
                     style={style}
                     className='fixed inset-0 bg-[#00000030] backdrop-blur-xs z-50 w-screen h-screen'
                     onClick={() => {
-                        setIsOpened(false);
-                        setRecognizedSpeech();
+                        // setIsOpened(false);
+                        // setRecognizedSpeech();
                     }}
                 >
                     <div className='absolute flex flex-col items-center gap-1 left-1/2 top-2/5 transform -translate-y-1/2 -translate-x-1/2 w-72'>
                         <AnimatedBlob stayCircle={isPending} />
                     </div>
+                    {/* <div>
+                        <form
+                            action=''
+                            ref={formRef}
+                        >
+                            <TextField
+                                inputRef={inputRef}
+                                type='text'
+                                name=''
+                                id=''
+                            />
+                        </form>
+                    </div> */}
                 </animated.div>
             )
     );

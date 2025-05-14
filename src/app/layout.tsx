@@ -8,7 +8,6 @@ import { inter, manrope } from '@/shared/fonts';
 import './globals.css';
 import { SpeechListener } from '@/features/speechListener';
 import { LoadingStoreProvider } from './providers/loadingProvider/index.provider';
-import { FavoritesStoreProvider } from '@/app/providers/favoritesProvider';
 
 const baseFont = inter;
 const headerFont = manrope;
@@ -34,7 +33,7 @@ export default function RootLayout({
                             <TimersProviderWrapper>
                                 <StepsProvider>
                                     <SpeechRecognitionStoreProvider>
-                                        {/* <SpeechListener /> */}
+                                        <SpeechListener />
                                         {children}
                                     </SpeechRecognitionStoreProvider>
                                     <ModalContainer />
