@@ -98,9 +98,16 @@ export const createSpeechRecognitionStore = (
             if (!recognitionResult) set(() => ({ recognizedSpeech: [] }));
             if (recognitionResult) {
                 if (typeof recognitionResult !== 'string') {
-                    const result = Object.entries(recognitionResult).map(
-                        ([, res]) => res[0].transcript
-                    );
+                    // const result = Object.entries(recognitionResult).map(
+                    //     ([, res]) => res[0].transcript
+                    // );
+                    const recognitionResultAsArray =
+                        Object.entries(recognitionResult);
+                    const result = [
+                        recognitionResultAsArray[
+                            recognitionResultAsArray.length - 1
+                        ][1][0].transcript,
+                    ];
                     console.log(result);
                     set(() => ({
                         recognizedSpeech: result,
