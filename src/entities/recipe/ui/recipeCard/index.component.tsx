@@ -60,7 +60,7 @@ export const RecipeCard: FunctionComponent<RecipeProps> = ({
 }) => {
     return (
         <div
-            className={`relative bg-gray-100 flex flex-col gap-1.5 rounded-lg p-1.5 mobile:p-2.5 aspect-7/10 z-0`}
+            className={`relative bg-gray-100 flex flex-col gap-1.5 rounded-lg p-1.5 mobile:p-2.5 z-0`}
         >
             {link && (
                 <Link

@@ -66,7 +66,6 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
     }, [currentVersionInd]);
 
     const bind = useDrag(({ swipe: [xSwipe] }) => {
-        console.log(xSwipe);
         if (xSwipe > 0) setPrev();
         if (xSwipe < 0) setNext();
     });
