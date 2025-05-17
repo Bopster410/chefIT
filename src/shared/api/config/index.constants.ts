@@ -1,6 +1,6 @@
 import { AllowedMethods } from './index.types';
 
-export const BACKEND = 'https://www.chef-it.online/api/';
+export const BACKEND = 'https://www.chef-it.online/api/v1/';
 export const BACKEND_DEV = 'https://www.chef-it.online/api/';
 
 export const METHODS: { [method: string]: AllowedMethods } = {

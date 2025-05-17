@@ -24,7 +24,8 @@ export const RecipesFeed: FunctionComponent<Props> = ({ recipes }) => {
                             name={name}
                             cookingTime={cookingTimeMinutes}
                             description={description}
-                            image={img}
+                            // TODO вернуть как Саша исправит
+                            // image={img}
                         />
                     )
                 )}
