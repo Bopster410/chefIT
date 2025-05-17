@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: '109.120.191.8',
         port: '8080',
-        pathname: '/api/image/recipe/**',
+        pathname: '/api/v1/image/recipe/**',
         search: '',
       },
     ]
