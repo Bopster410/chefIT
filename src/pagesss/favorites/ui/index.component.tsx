@@ -28,7 +28,7 @@ export const FavoritesPage: FunctionComponent<Props> = ({
                 <div className='w-full'>
                     <h5 className='mb-4 mt-5'>Избранное</h5>
                     <div className='grid grid-cols-2 mobile:grid-cols-3 gap-3'>
-                        {recipes &&
+                        {recipes ?
                             recipes.map(
                                 (
                                     {
@@ -57,7 +57,7 @@ export const FavoritesPage: FunctionComponent<Props> = ({
                                         )}
                                     </div>
                                 )
-                            )}
+                            ):<div ref={lastRecipeRef}></div>}
                     </div>
                 </div>
             </div>
