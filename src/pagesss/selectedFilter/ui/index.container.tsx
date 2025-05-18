@@ -37,7 +37,7 @@ export const SelectedFilterPageContainer: FunctionComponent<{
           setIsLoading(false);
         }
       );
-  },[page,setIsLoading])
+  },[page, setIsLoading, selectedFilter, type])
 
   const infiniteScroll = useInfiniteScroll(getRecipes,!isLoading && hasMore);
 

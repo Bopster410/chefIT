@@ -2,7 +2,7 @@
 
 import { useUserOrToLogin } from "@/entities/user";
 import { FavoritesPage } from "./index.component";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { Recipe } from "@/entities/recipe";
 import { addFavorite, getFavorites } from "@/entities/recipe/api";
 import { Button } from "@/shared/uikit/button";
