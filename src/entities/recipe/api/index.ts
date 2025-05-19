@@ -191,6 +191,22 @@ export async function getFavorites(page: number) {
   });
 }
 
+export async function getAllCollections() {
+    return await ajaxGet<{ id: number; name: string }[]>({
+        url: RECIPES_API.getAllCollections,
+    });
+}
+
+export async function getCollection(id: number, page?: number) {
+    const r = await ajaxGet<{ recipes: Recipe[]; lastPageNum: number }>({
+        url: RECIPES_API.getCollection,
+        slugParam: id,
+        queryParams: { page: page ?? 1 },
+    });
+    console.log(r);
+    return r;
+}
+
 export const filtersMock: {
   Status: number;
   Data: RecipeFilters;

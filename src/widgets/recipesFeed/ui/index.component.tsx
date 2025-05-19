@@ -23,7 +23,8 @@ export const RecipesFeed: FunctionComponent<Props> = ({
                 name={name}
                 cookingTime={cookingTimeMinutes}
                 description={description}
-                image={img}
+                 // TODO вернуть как Саша исправит
+                 // image={img}
               />
               {index === recipes.length - 1 && <div ref={lastRecipeRef}></div>}
             </div>

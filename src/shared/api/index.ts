@@ -20,6 +20,7 @@ export async function ajax<T>({
 }: RequestConfig) {
     let fullUrl = BACKEND + url;
     // if (MODE === 'development') fullUrl = BACKEND_DEV + url;
+    if (slugParam) fullUrl += `/${slugParam}`;
 
     if (queryParams) {
         const newUrl = new URL(fullUrl);
@@ -29,12 +30,11 @@ export async function ajax<T>({
         fullUrl = newUrl.toString();
     }
 
-    if (slugParam) fullUrl += `/${slugParam}`;
-
     const headers = new Headers();
     if (body) {
         headers.set('Content-Type', 'application/json; charset=utf8');
     }
+    console.log(fullUrl);
 
     return fetch(fullUrl, {
         method,
@@ -42,9 +42,11 @@ export async function ajax<T>({
         body: body == null ? null : JSON.stringify(body),
     })
         .then((response) => {
+            console.log(response);
             return response.json();
         })
         .then((data: Response<T>) => {
+            console.log(data);
             return data;
         })
         .catch((error: Response<T>) => {
