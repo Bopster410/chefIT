@@ -2,7 +2,7 @@
 
 import { useUserOrToLogin } from "@/entities/user";
 import { FavoritesPage } from "./index.component";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Recipe } from "@/entities/recipe";
 import { addFavorite, getFavorites } from "@/entities/recipe/api";
 import { Button } from "@/shared/uikit/button";
@@ -15,23 +15,23 @@ export function FavoritesPageContainer() {
   const [removedRecipe, setRemoved] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
 
-  const getRecipes = useCallback(()=>{
-    if(!user) return;
+  const getRecipes = useCallback(() => {
+    if (!user) return;
     setIsLoading(true);
-      getFavorites(page).then((res) =>{
-        if(!res.Data){
-          setHasMore(false);
-          return;
-        } 
-        setPage((prev)=>prev+1);
-        setRecipes((prev) => [...prev, ...(res.Data || [])]);
-        setIsLoading(false);
-      })
-  },[setIsLoading, setHasMore, page, setRecipes, user]);
+    getFavorites(page).then((res) => {
+      if (!res.Data) {
+        setHasMore(false);
+        return;
+      }
+      setPage((prev) => prev + 1);
+      setRecipes((prev) => [...prev, ...(res.Data || [])]);
+      setIsLoading(false);
+    });
+  }, [setIsLoading, setHasMore, page, setRecipes, user]);
 
-  const infiniteScroll = useInfiniteScroll(getRecipes,!isLoading && hasMore);
+  const infiniteScroll = useInfiniteScroll(getRecipes, !isLoading && hasMore);
 
   const handleRemove = (id?: number) => {
     if (!id) return;
@@ -56,6 +56,17 @@ export function FavoritesPageContainer() {
 
   const action = <Button onClick={handleUndo}>Отменить</Button>;
 
+  useEffect(() => {
+    setIsLoading(true);
+    getFavorites(1).then((res) => {
+      if (!res.Data) {
+        setHasMore(false);
+        return;
+      }
+      setRecipes(res.Data || []);
+      setIsLoading(false);
+    });
+  }, [setIsLoading, setHasMore, setRecipes]);
   if (!user) return;
   return (
     <FavoritesPage

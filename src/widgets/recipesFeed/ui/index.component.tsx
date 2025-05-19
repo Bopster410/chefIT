@@ -6,33 +6,35 @@ import { Props } from "./index.types";
 export const RecipesFeed: FunctionComponent<Props> = ({
   recipes,
   lastRecipeRef,
+  onRemoveFavorite,
+  likedByDefault,
 }) => {
   return (
-    <div className="grid grid-cols-2 mobile:grid-cols-3 gap-3 auto-rows-[1fr]">
-      {recipes ? (
-        recipes.map(
-          (
-            { id, name, description, img, cookingTimeMinutes, isFavorite },
-            index,
-          ) => (
-            <div key={id}>
-              <RecipeWithFavorite
-                id={id}
-                likedByDefault={isFavorite}
-                link={`recipe/${id}`}
-                name={name}
-                cookingTime={cookingTimeMinutes}
-                description={description}
-                 // TODO вернуть как Саша исправит
-                 // image={img}
-              />
-              {index === recipes.length - 1 && <div ref={lastRecipeRef}></div>}
-            </div>
-          ),
-        )
-      ) : (
-        <div ref={lastRecipeRef}></div>
-      )}
+    <div className="grid grid-cols-2 mobile:grid-cols-3 gap-3">
+      {recipes
+        ? recipes.map(
+            (
+              { id, name, description, img, cookingTimeMinutes, isFavorite },
+              index,
+            ) => (
+              <div key={id} className="h-full">
+                <RecipeWithFavorite
+                  id={id}
+                  likedByDefault={likedByDefault || isFavorite}
+                  link={`recipe/${id}`}
+                  name={name}
+                  cookingTime={cookingTimeMinutes}
+                  description={description}
+                  image={img}
+                  onRemove={onRemoveFavorite}
+                />
+                {index === recipes.length - 1 && lastRecipeRef && (
+                  <div ref={lastRecipeRef}></div>
+                )}
+              </div>
+            ),
+          )
+        : lastRecipeRef && <div ref={lastRecipeRef}></div>}
     </div>
   );
 };

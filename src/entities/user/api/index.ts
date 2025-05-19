@@ -1,6 +1,7 @@
 import { ajaxGet, ajaxPost } from "@/shared/api";
 import { User } from "./index.types";
 import { USER_API } from "./index.constants";
+import { Recipe } from "@/entities/recipe";
 
 export type { User } from "./index.types";
 
@@ -71,6 +72,13 @@ export async function userLoginVK(
       deviceId: deviceId,
       state: state,
     },
+  });
+}
+
+export async function getHisroty(page: number) {
+  return await ajaxGet<Recipe[]>({
+    url: USER_API.getHistory,
+    queryParams: { page: page },
   });
 }
 
