@@ -6,11 +6,15 @@ import { FunctionComponent } from 'react';
 export const HomePage: FunctionComponent = () => {
     return (
         <>
-            <Navbar />
+            <div className='sticky top-0 z-30 bg-white'>
+                <Navbar />
+            </div>
             <div className='w-full'>
                 <SearchBarContainer query='' />
             </div>
-            <CollectionsSliderContainer />
+            <div className='mb-3'>
+                <CollectionsSliderContainer />
+            </div>
         </>
     );
 };
