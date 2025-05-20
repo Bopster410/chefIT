@@ -3,7 +3,7 @@ import { CookingProgressBarContainer } from '@/widgets/cookingProgressBar/ui/ind
 import { FastFilters } from '@/widgets/fastFilters';
 import { RecipesFeedContainer } from '@/widgets/recipesFeed';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
     return (

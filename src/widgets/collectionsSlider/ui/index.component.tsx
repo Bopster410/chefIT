@@ -3,21 +3,29 @@ import { Props } from './index.types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import { CollectionCard } from '@/entities/recipe/ui/collectionCard';
-import { Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import './styles.css';
+import clsx from 'clsx';
+
+const BG_COLORS = [
+    'bg-blue-300',
+    'bg-emerald-300',
+    'bg-red-300',
+    'bg-amber-300',
+];
 
 export const CollectionSlider: FunctionComponent<Props> = ({ collections }) => {
     return (
         <>
             <Swiper
-                pagination={{ clickable: true }}
-                modules={[Pagination]}
                 slidesPerView={'auto'}
+                navigation={true}
+                modules={[Navigation]}
                 spaceBetween={10}
             >
-                {collections.map(({ id, name }) => (
+                {collections.map(({ id, name }, index) => (
                     <SwiperSlide key={id}>
                         <div className='relative flex'>
                             <Link
@@ -27,6 +35,9 @@ export const CollectionSlider: FunctionComponent<Props> = ({ collections }) => {
                             <CollectionCard
                                 id={id}
                                 name={name}
+                                className={clsx(
+                                    BG_COLORS[index % BG_COLORS.length]
+                                )}
                             />
                         </div>
                     </SwiperSlide>
