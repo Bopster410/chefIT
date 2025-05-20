@@ -17,7 +17,7 @@ export const CollectionPage: FunctionComponent<Props> = async ({ id }) => {
         return <div>Что-то пошло не так</div>;
 
     return (
-        <div>
+        <div className='bg-white h-full'>
             <div className='flex items-center justify-between gap-4 py-4 pe-4 bg-white'>
                 <BackButton
                     color='white'
@@ -31,7 +31,7 @@ export const CollectionPage: FunctionComponent<Props> = async ({ id }) => {
                         CollectionsData.find((v) => v.id === id)?.name}
                 </div>
             </div>
-            <RecipesFeed recipes={CollectionData.recipes} />;
+            <RecipesFeed recipes={CollectionData.recipes} />
         </div>
     );
 };
