@@ -89,7 +89,14 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
                 : startRecipe(id));
 
             if (Status === STATUS.SUCCESS && Data) {
-                initStep(Data.step, newTotalSteps, Data.length?.number);
+                initStep(
+                    Data.step,
+                    newTotalSteps,
+                    timeToSeconds(
+                        Data.length?.number ?? 0,
+                        Data.length?.unit ?? 'seconds'
+                    )
+                );
                 setId(id);
                 setName(name);
             }
