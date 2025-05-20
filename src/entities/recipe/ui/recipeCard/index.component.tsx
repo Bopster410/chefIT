@@ -65,7 +65,7 @@ export const RecipeCard: FunctionComponent<RecipeProps> = ({
         />
       )}
       <div className="relative aspect-square rounded-lg z-0">
-        {image ? (
+        {image && image !== "null" ? (
           <Image className="rounded-lg" fill alt="image" src={image} />
         ) : (
           <ImagePlaceholder />
