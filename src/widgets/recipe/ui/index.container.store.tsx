@@ -36,7 +36,7 @@ export const RecipeWithCookingStoreContainer: FunctionComponent<
             isLoggedIn={user !== undefined}
             {...props}
             startCooking={() => {
-                if (startCooking) startCooking(id, steps.length, name);
+                if (startCooking) startCooking(id, steps.length, name, false);
             }}
             nextStep={() => {
                 if (nextStep) nextStep();

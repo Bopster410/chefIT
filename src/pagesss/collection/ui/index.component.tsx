@@ -13,6 +13,8 @@ export const CollectionPage: FunctionComponent<Props> = async ({ id }) => {
     const { Data: CollectionsData, Status: CollectionsStatus } =
         await getAllCollections();
 
+    console.log(CollectionData, CollectionsData);
+
     if (CollectionStatus !== STATUS.SUCCESS || !CollectionData)
         return <div>Что-то пошло не так</div>;
 

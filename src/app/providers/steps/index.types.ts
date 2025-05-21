@@ -4,6 +4,7 @@ export interface StepsStore {
     recipeId: number | null;
     recipeName: string | null;
     totalSteps: number | null;
+    isGenerated: boolean | null;
     currentStep: {
         number: number | null;
         description: string | null;
@@ -16,6 +17,7 @@ export interface StepsStore {
               id: number,
               newTotalSteps: number,
               name: string,
+              isGenerated: boolean,
               request?: typeof startRecipe
           ) => void)
         | null;
