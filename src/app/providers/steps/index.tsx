@@ -18,6 +18,7 @@ import { StepsStore } from './index.types';
 
 const StepsContext = createContext<StepsStore>({
     currentStep: null,
+    isGenerated: null,
     nextStep: null,
     prevStep: null,
     startCooking: null,
@@ -35,6 +36,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
 }) => {
     const [id, setId] = useState<number | null>(null);
     const [name, setName] = useState<string | null>(null);
+    const [isGenerated, setIsGenerated] = useState<boolean | null>(null);
     const wasInited = useRef<boolean>(false);
 
     const {
@@ -68,6 +70,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
         );
         setId(Data.id);
         setName(Data.name);
+        setIsGenerated(Data.isGenerated);
     }, [setStep, setTotalSteps]);
 
     useEffect(() => {
@@ -82,6 +85,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
             id: number,
             newTotalSteps: number,
             name: string,
+            isGenerated: boolean,
             request?: typeof startRecipe
         ) => {
             const { Status, Data } = await (request
@@ -99,6 +103,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
                 );
                 setId(id);
                 setName(name);
+                setIsGenerated(isGenerated);
             }
         },
         [initStep]
@@ -111,6 +116,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
             clear();
             setId(null);
             setName(null);
+            setIsGenerated(null);
         }
     }, [clear]);
 
@@ -158,6 +164,7 @@ export const StepsProvider: FunctionComponent<PropsWithChildren> = ({
                 isCooking,
                 recipeId: id,
                 recipeName: name,
+                isGenerated,
                 totalSteps,
                 isFristStep: () => isFrist(),
                 isLastStep: () => isLast(),

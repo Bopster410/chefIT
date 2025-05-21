@@ -38,7 +38,13 @@ export const RecipeWithCookingStoreGeneratedContainer: FunctionComponent<
             isLoggedIn={user !== undefined}
             startCooking={() => {
                 if (startCooking)
-                    startCooking(id, steps.length, name, startChefbookRecipe);
+                    startCooking(
+                        id,
+                        steps.length,
+                        name,
+                        true,
+                        startChefbookRecipe
+                    );
             }}
             nextStep={() => {
                 if (nextStep) nextStep();
