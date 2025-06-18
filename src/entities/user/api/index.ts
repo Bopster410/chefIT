@@ -1,6 +1,7 @@
 import { ajaxGet, ajaxPost } from "@/shared/api";
 import { User } from "./index.types";
 import { USER_API } from "./index.constants";
+import { Recipe } from "@/entities/recipe";
 
 export type { User } from "./index.types";
 
@@ -24,7 +25,7 @@ export async function userSignUp(
   login: string,
   password: string,
   name: string,
-  surname: string
+  surname: string,
 ) {
   return await ajaxPost<string>({
     url: USER_API.signUp,
@@ -51,7 +52,7 @@ export async function userEditSurname(newSurname: string) {
 }
 export async function userEditPassword(
   oldPassword: string,
-  newPassword: string
+  newPassword: string,
 ) {
   return await ajaxPost({
     url: USER_API.editPassword,
@@ -62,7 +63,7 @@ export async function userEditPassword(
 export async function userLoginVK(
   code: string,
   deviceId: string,
-  state: string
+  state: string,
 ) {
   return await ajaxPost({
     url: USER_API.loginVK,
@@ -74,12 +75,31 @@ export async function userLoginVK(
   });
 }
 
+export async function getHisroty(page: number) {
+  return await ajaxGet<Recipe[]>({
+    url: USER_API.getHistory,
+    queryParams: { page: page },
+  });
+}
+
 export function validateUserField(
   input: string,
-  type: "name" | "surname" | "password" | "login"
+  type: "name" | "surname" | "password" | "login",
 ): string | null {
   const trimmedInput = input.trim();
   if (trimmedInput == "") return null;
+
+  if (type === "name" || type === "surname") {
+    if (trimmedInput.length < 2) {
+      return "Имя и фамилия должны содержать хотя бы две буквы";
+    }
+  }
+
+  if (type === "login") {
+    if (trimmedInput.length < 2) {
+      return "Логин должен содержать хотя бы две буквы";
+    }
+  }
 
   if (type === "name" || type === "surname") {
     const nameRegex = /^[A-Za-zА-Яа-яЁё]+$/;
@@ -98,13 +118,13 @@ export function validateUserField(
   if (type === "password") {
     const specialChars = /[!@#$&*]/g;
     const specialMatches = trimmedInput.match(specialChars) || [];
-  
-    if (!/[A-Za-zА-Яа-яЁё]/.test(trimmedInput) || !/\d/.test(trimmedInput)) {
-      return "Пароль должен содержать хотя бы одну букву и одну цифру";
-    }
-  
-    if (specialMatches.length < 2) {
-      return "Пароль должен содержать не менее двух спецсимволов (!@#$&*)";
+
+    if (
+      !/[A-Za-zА-Яа-яЁё]/.test(trimmedInput) ||
+      !/\d/.test(trimmedInput) ||
+      specialMatches.length < 2
+    ) {
+      return "Пароль должен содержать хотя бы одну букву и одну цифру, а также не менее двух спецсимволов (!@#$&*)";
     }
   }
 

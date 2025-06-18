@@ -1,7 +1,6 @@
 import { ajaxGet, ajaxPost } from '@/shared/api';
 import { RECIPES_API } from './index.constants';
 import {
-    Ingredient,
     RecipeDetailed,
     Recipe,
     RecipeFilters,
@@ -9,6 +8,17 @@ import {
     Step,
     RecipeDetailedChefbook,
     UserRecipe,
+} from './index.types';
+
+export type {
+    RecipeDetailed,
+    Recipe,
+    RecipeFilters,
+    SelectedFilters,
+    Step,
+    RecipeDetailedChefbook,
+    UserRecipe,
+    Ingredient,
 } from './index.types';
 
 export async function getRecipeData(id: number) {
@@ -26,14 +36,16 @@ export async function getRecipesFeed(num: number) {
 }
 
 export async function getCurrentCookingRecipe() {
-    return await ajaxGet<{
+    const response = await ajaxGet<{
         id: number;
         name: string;
         totalSteps: number;
+        isGenerated: boolean;
         currentStep: Step;
     }>({
         url: RECIPES_API.getCookingRecipe,
     });
+    return response;
 }
 
 export async function getRecipesSearch(
@@ -178,6 +190,22 @@ export async function getFavorites(page: number) {
         url: RECIPES_API.getFavorites,
         queryParams: { page: page },
     });
+}
+
+export async function getAllCollections() {
+    return await ajaxGet<{ id: number; name: string }[]>({
+        url: RECIPES_API.getAllCollections,
+    });
+}
+
+export async function getCollection(id: number, page?: number) {
+    const r = await ajaxGet<{ recipes: Recipe[]; lastPageNum: number }>({
+        url: RECIPES_API.getCollection,
+        slugParam: id,
+        queryParams: { page: page ?? 1 },
+    });
+    console.log(r);
+    return r;
 }
 
 export const filtersMock: {
@@ -359,156 +387,4 @@ export const generatedRecipeMock = {
 //             id: 8,
 //             name: 'Earl Grey Simple Syrup',
 //             description:
-//                 'Простой сироп с ароматом Эрл Грей — идеальная добавка к напиткам и десертам.',
-//             img: 'https://decoratedtreats.com/earl-grey-syrup-tea-flavored-simple-syrup.html',
-//         },
-//         {
-//             id: 9,
-//             name: 'Onion Tarte Tatin',
-//             description:
-//                 'Перевернутый луковый пирог — французская классика с карамелизированным луком.',
-//             img: 'https://tasty.co/recipe/onion-tarte-tatin',
-//         },
-//         {
-//             id: 10,
-//             name: 'Shamrock Shake Latte',
-//             description:
-//                 'Латте со вкусом мятного коктейля — праздничный напиток для Дня Святого Патрика.',
-//             img: 'https://tasty.co/recipe/shamrock-shake-latte',
-//         },
-//         {
-//             id: 11,
-//             name: 'Strawberry Dubai Chocolate Bark',
-//             description:
-//                 'Шоколадная корка с клубникой и фисташками — изысканный десерт с ближневосточным акцентом.',
-//             img: 'https://tasty.co/recipe/strawberry-dubai-chocolate-bark',
-//         },
-//         {
-//             id: 12,
-//             name: 'Soba Noodles',
-//             description:
-//                 'Традиционные японские гречневые лапша, подаваемые в холодном бульоне или с соусом.',
-//             img: 'https://tasty.co/recipe/soba-noodles',
-//         },
-//         {
-//             id: 13,
-//             name: 'Cobb Salad In A Jar',
-//             description:
-//                 'Классический салат Кобб, удобно упакованный в банку для легкого перекуса на ходу.',
-//             img: 'https://tasty.co/recipe/cobb-salad-in-a-jar',
-//         },
-//         {
-//             id: 14,
-//             name: 'Dr Pepper® Blackberry Pulled Pork Sandwiches',
-//             description:
-//                 'Сочные сэндвичи с рваной свининой, приготовленной в соусе Dr Pepper® и ежевикой.',
-//             img: 'https://tasty.co/recipe/dr-pepper-blackberry-pulled-pork-sandwiches',
-//         },
-//         {
-//             id: 15,
-//             name: 'Prosciutto & Goat Cheese Pizza With Balsamic Glaze',
-//             description:
-//                 'Пицца с прошутто и козьим сыром, украшенная бальзамической глазурью.',
-//             img: 'https://tasty.co/recipe/prosciutto-goat-cheese-pizza-with-balsamic-glaze',
-//         },
-//         {
-//             id: 16,
-//             name: 'Creamy Pesto Eggs',
-//             description:
-//                 'Сливочные яйца с песто — быстрый и вкусный завтрак или бранч.',
-//             img: 'https://tasty.co/recipe/creamy-pesto-eggs',
-//         },
-//         {
-//             id: 17,
-//             name: 'Matcha Latte Jelly',
-//             description:
-//                 'Желе на основе матча латте — освежающий десерт для любителей зеленого чая.',
-//             img: 'https://tasty.co/recipe/matcha-latte-jelly',
-//         },
-//         {
-//             id: 18,
-//             name: 'Air-Fried Bourbon Chicken Skewers',
-//             description:
-//                 'Куриные шашлычки в бурбонском маринаде, приготовленные в аэрогриле для сочности и аромата.',
-//             img: 'https://tasty.co/recipe/air-fried-bourbon-chicken-skewers',
-//         },
-//         {
-//             id: 19,
-//             name: 'Sleepy Girl Gummies',
-//             description:
-//                 'Жевательные конфеты с натуральными ингредиентами для улучшения сна.',
-//             img: 'https://tasty.co/recipe/sleepy-girl-gummies',
-//         },
-//         {
-//             id: 20,
-//             name: 'Creamy Pesto Pasta',
-//             description:
-//                 'Сливочная паста с песто — быстрое и вкусное блюдо для будничного ужина.',
-//             img: 'https://tasty.co/recipe/creamy-pesto-pasta',
-//         },
-//     ],
-// };
-
-export type {
-    RecipeDetailed,
-    Recipe,
-    Ingredient,
-    Step,
-    UserRecipe,
-    RecipeDetailedChefbook,
-};
-
-interface SearchResponseRaw {
-    Status: number;
-    Data: {
-        recipes: Recipe[];
-    };
-}
-
-export const searchMock: SearchResponseRaw = {
-    Status: 200,
-    Data: {
-        recipes: [
-            {
-                id: 652417,
-                name: 'Марокканское рагу из нута и чечевицы',
-                description:
-                    'Марокканский рагу из нута и чечевицы можно приготовить примерно за 30 минут. Этот рецепт без молочных продуктов, подходит для лакто-ово-вегетарианцев и веганов, рассчитан на 3 порции и стоит около 126 рублей за порцию. В одной порции этого основного блюда содержится 466 калорий, 20 г белка и 7 г жира. Рецепт понравился 11 кулинарам. Его можно готовить в любое время года, но особенно хорошо он подходит для осени. Рецепт предоставлен командой ChefIT. Если у вас есть оливковое масло, соль, перец, томатная паста и несколько других ингредиентов, вы сможете его приготовить. В целом, мы решили, что этот рецепт заслуживает оценки ChefIT в 97%. Это отличный результат. Если вам понравился этот рецепт, возможно, вас также заинтересуют другие варианты, такие как марроканское рагу из нута и чечевицы, марроканское рагу с тыквой, нутом и чечевицей.',
-                img: 'http://109.120.191.8:8080/api/image/recipe/652417.jpg',
-                cookingTimeMinutes: 10,
-            },
-            {
-                id: 715769,
-                name: 'Брокколини и киноа плов',
-                description:
-                    'Пилаф из киноа с брокколини готовится примерно 30 минут от начала до конца. Порция стоит около 414 рублей, блюдо рассчитано на 2 человек. В одной порции содержится примерно 20 г белка, 31 г жира и всего 625 калорий. Для приготовления понадобятся овощной бульон, лук, оливковое масло и несколько других ингредиентов. Несколько человек уже приготовили этот рецепт, и 94 из них остались довольны. Это довольно дорогой вариант для любителей средиземноморской кухни. Подходит для безглютеновой, безмолочной, лакто-ово-вегетарианской и веганской диеты. Рецепт предоставлен командой ChefIT. С оценкой 98% это блюдо считается отличным. Похожие рецепты: весенние миски с киноа, брокколини и капустой кале, лосось с апельсиново-кунжутным соусом и киноа с брокколини, а также киноа с козьим сыром, мангольдом и запечённой брокколини.',
-                img: 'http://109.120.191.8:8080/api/image/recipe/715769.jpg',
-                cookingTimeMinutes: 10,
-            },
-            {
-                id: 664975,
-                name: 'Лосось в глазури из васаби и меда',
-                description:
-                    'Лосось в глазури из васаби и меда — это основное блюдо на 2 порции. Одна порция содержит примерно 35 г белка, 11 г жира и всего 341 калорию. По цене 508 рублей за порцию этот рецепт покрывает 25% суточной нормы витаминов и минералов. 2 человека уже попробовали и оценили этот рецепт. Смесь корня имбиря, меда, пасты васаби и нескольких других ингредиентов делает это блюдо невероятно вкусным. Рецепт предоставлен командой ChefIT. От подготовки до подачи блюдо готовится примерно 20 минут. Это отличный вариант для тех, кто придерживается безглютеновой, безмолочной и пескетарианской диеты. В целом, рецепт получает хорошую оценку команды ChefIT — 79%. Если вам понравился этот рецепт, обратите внимание на похожие варианты: лосось в глазури из васаби и меда, лосось в глазури из васаби и меда, лосось в глазури из васаби и меда.',
-                img: 'http://109.120.191.8:8080/api/image/recipe/664975.jpg',
-                cookingTimeMinutes: 10,
-            },
-            {
-                id: 665620,
-                name: 'Забайоне с жареными сливами',
-                description:
-                    'Никогда не бывает слишком много рецептов закусок, так что попробуйте Забайоне с жареными сливами. Этот рецепт рассчитан на 4 порции. Следите за фигурой? В этом безглютеновом, безмолочном и лакто-ово-вегетарианском блюде содержится 239 калорий, 4 г белка и 5 г жира на порцию. По цене 129 рублей за порцию этот рецепт покрывает 8% вашей суточной потребности в витаминах и минералах. Если у вас есть сливы, сахар, кошерная соль и несколько других ингредиентов, вы можете его приготовить. Немногие пробовали этот рецепт, но 7 человек сказали, что он удался. От подготовки до подачи блюдо готовится около 20 минут. Рецепт предоставлен командой ChefIT. С учетом всех факторов этот рецепт получает оценку ChefIT 36%, что не так уж впечатляет. Для похожих рецептов попробуйте жареные сливы, сливы в сахаре или сливы с медом.',
-                img: 'http://109.120.191.8:8080/api/image/recipe/665620.jpg',
-                cookingTimeMinutes: 10,
-            },
-            {
-                id: 642346,
-                name: 'Египетский салат из цветной капусты',
-                description:
-                    'Египетский салат из цветной капусты может стать идеальным рецептом для тех, кто ищет блюдо без глютена, молочных продуктов, подходящее для палеодиеты и лакто-ово-вегетарианцев. Этот рецепт рассчитан на 2 порции, каждая из которых содержит 183 калории, 4 г белка и 15 г жира. По цене 151 рубль за порцию этот рецепт покрывает 18% вашей суточной потребности в витаминах и минералах. Рецепт получил высокую оценку от 3 кулинаров. Он отлично подойдет в качестве закуски. Вкус этого блюда достигается благодаря смеси цветной капусты, тмина, петрушки и нескольких других ингредиентов. Рецепт предоставлен командой ChefIT. От подготовки до подачи блюда потребуется примерно 25 минут. С учетом всех факторов мы решили, что этот рецепт заслуживает оценки 93% от команды ChefIT — это отличный результат. Похожие рецепты включают жареную брокколи и цветную капусту, обжаренную говядину с брокколи и грибами шиитаке, а также острый мексиканский салат из черной фасоли и кукурузы.',
-                img: 'http://109.120.191.8:8080/api/image/recipe/642346.jpg',
-                cookingTimeMinutes: 10,
-            },
-        ],
-    },
-};
+//                 'Простой сироп с ароматом Эрл Грей — иде"use client";

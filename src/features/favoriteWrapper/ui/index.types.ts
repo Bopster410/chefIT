@@ -1,3 +1,6 @@
 import { RecipeProps } from '@/entities/recipe/ui/recipeCard';
 
-export type Props = RecipeProps;
+export interface Props extends RecipeProps{
+    likedByDefault?: boolean;
+    onRemove?: (id?:number) => void;
+}

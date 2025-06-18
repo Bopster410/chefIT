@@ -7,6 +7,7 @@ import { ContainerProps } from './index.types';
 import { TimersContext } from '@/app/providers/timers';
 import { RecipeWithCooking } from './index.component';
 import { startChefbookRecipe } from '@/entities/recipe/api';
+import { useUser } from '@/app/providers/userProvider';
 
 export const RecipeWithCookingStoreGeneratedContainer: FunctionComponent<
     ContainerProps
@@ -21,6 +22,8 @@ export const RecipeWithCookingStoreGeneratedContainer: FunctionComponent<
         recipeId,
     } = useContext(StepsContext);
 
+    const user = useUser();
+
     const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
 
     if (currentStep === null) return;
@@ -32,9 +35,16 @@ export const RecipeWithCookingStoreGeneratedContainer: FunctionComponent<
             steps={steps}
             img={img}
             {...props}
+            isLoggedIn={user !== undefined}
             startCooking={() => {
                 if (startCooking)
-                    startCooking(id, steps.length, name, startChefbookRecipe);
+                    startCooking(
+                        id,
+                        steps.length,
+                        name,
+                        true,
+                        startChefbookRecipe
+                    );
             }}
             nextStep={() => {
                 if (nextStep) nextStep();

@@ -21,7 +21,6 @@ export const ChefbookRecipeContainer: FunctionComponent<{
             setResponse(Data);
         });
     }, [id]);
-    console.log(response);
 
     return response && isCorrect ? (
         <ChefbookRecipe

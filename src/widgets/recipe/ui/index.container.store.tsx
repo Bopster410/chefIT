@@ -6,6 +6,7 @@ import { useContext } from 'use-context-selector';
 import { ContainerProps } from './index.types';
 import { TimersContext } from '@/app/providers/timers';
 import { RecipeWithCooking } from './index.component';
+import { useUser } from '@/app/providers/userProvider';
 
 export const RecipeWithCookingStoreContainer: FunctionComponent<
     ContainerProps
@@ -22,6 +23,8 @@ export const RecipeWithCookingStoreContainer: FunctionComponent<
 
     const { addTimer, timers, clearTimersLocally } = useContext(TimersContext);
 
+    const user = useUser();
+
     if (currentStep === null) return;
 
     return (
@@ -30,9 +33,10 @@ export const RecipeWithCookingStoreContainer: FunctionComponent<
             name={name}
             steps={steps}
             img={img}
+            isLoggedIn={user !== undefined}
             {...props}
             startCooking={() => {
-                if (startCooking) startCooking(id, steps.length, name);
+                if (startCooking) startCooking(id, steps.length, name, false);
             }}
             nextStep={() => {
                 if (nextStep) nextStep();

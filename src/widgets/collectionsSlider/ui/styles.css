@@ -1,0 +1,26 @@
+.swiper-slide {
+    display: flex;
+    flex-shrink: 1;
+}
+
+.swiper-button-prev {
+    color: white;
+    height: 24px;
+    left: 0;
+    top: 60%;
+}
+
+.swiper-button-prev::after {
+    font-size: 24px;
+}
+
+.swiper-button-next {
+    color: white;
+    height: 24px;
+    right: 0;
+    top: 60%;
+}
+
+.swiper-button-next::after {
+    font-size: 24px;
+}

@@ -11,6 +11,7 @@ export const CookingProgressBarContainer = () => {
         nextStep,
         prevStep,
         recipeId,
+        isGenerated,
         recipeName,
         currentStep,
         totalSteps,
@@ -44,6 +45,7 @@ export const CookingProgressBarContainer = () => {
             name={recipeName}
             id={recipeId}
             totalSteps={totalSteps}
+            isGenerated={isGenerated ?? false}
             currentStep={{
                 number: currentStep.number,
                 step: currentStep.description,

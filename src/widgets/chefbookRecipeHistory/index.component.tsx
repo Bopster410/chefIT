@@ -66,7 +66,6 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
     }, [currentVersionInd]);
 
     const bind = useDrag(({ swipe: [xSwipe] }) => {
-        console.log(xSwipe);
         if (xSwipe > 0) setPrev();
         if (xSwipe < 0) setNext();
     });
@@ -98,7 +97,7 @@ export const ChefbookRecipeHistory: FunctionComponent<Props> = ({
                 )}
                 <div
                     className='px-2 mobile:px-10'
-                    style={{ touchAction: 'none' }}
+                    // style={{ touchAction: 'none' }}
                     {...bind()}
                 >
                     <ErrorBoundary

@@ -18,6 +18,7 @@ export const CookingProgressBar: FunctionComponent<Props> = ({
     totalSteps,
     endCooking,
     addTimer,
+    isGenerated,
 }) => {
     return (
         <div className='fixed bottom-0 w-[inherit] p-4 bg-white shadow-status-bar flex gap-2 mobile:gap-8 items-center'>
@@ -37,7 +38,7 @@ export const CookingProgressBar: FunctionComponent<Props> = ({
                 </div>
                 <div className='flex flex-col'>
                     <Link
-                        href={`/recipe/${id}`}
+                        href={isGenerated ? `/chefbook/${id}` : `/recipe/${id}`}
                         className='font-bold'
                     >
                         {name}

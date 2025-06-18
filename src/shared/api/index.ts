@@ -20,6 +20,7 @@ export async function ajax<T>({
 }: RequestConfig) {
     let fullUrl = BACKEND + url;
     // if (MODE === 'development') fullUrl = BACKEND_DEV + url;
+    if (slugParam) fullUrl += `/${slugParam}`;
 
     if (queryParams) {
         const newUrl = new URL(fullUrl);
@@ -28,8 +29,6 @@ export async function ajax<T>({
         });
         fullUrl = newUrl.toString();
     }
-
-    if (slugParam) fullUrl += `/${slugParam}`;
 
     const headers = new Headers();
     if (body) {

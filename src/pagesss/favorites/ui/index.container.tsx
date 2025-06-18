@@ -2,11 +2,11 @@
 
 import { useUserOrToLogin } from "@/entities/user";
 import { FavoritesPage } from "./index.component";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Recipe } from "@/entities/recipe";
 import { addFavorite, getFavorites } from "@/entities/recipe/api";
 import { Button } from "@/shared/uikit/button";
-import { STATUS } from "@/shared/api";
+import { useInfiniteScroll } from "@/shared/hooks";
 
 export function FavoritesPageContainer() {
   const user = useUserOrToLogin();
@@ -15,45 +15,23 @@ export function FavoritesPageContainer() {
   const [removedRecipe, setRemoved] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(2);
 
-  const pageRef = useRef(2);
-  const observer = useRef<IntersectionObserver | null>(null);
-
-  const updateRecipes = useCallback(async () => {
-    if (isLoading || !hasMore) return;
+  const getRecipes = useCallback(() => {
+    if (!user) return;
     setIsLoading(true);
-  
-    try {
-      const res = await getFavorites(pageRef.current);
-      if (res.Status !== STATUS.SUCCESS) {
+    getFavorites(page).then((res) => {
+      if (!res.Data) {
         setHasMore(false);
-      } else {
-        setRecipes((prev) => [...prev, ...(res.Data || [])]);
-        pageRef.current += 1;
+        return;
       }
-    } catch (error) {
-      console.error("Ошибка загрузки рецептов:", error);
-    } finally {
+      setPage((prev) => prev + 1);
+      setRecipes((prev) => [...prev, ...(res.Data || [])]);
       setIsLoading(false);
-    }
-  }, [isLoading, hasMore]);
-  
+    });
+  }, [setIsLoading, setHasMore, page, setRecipes, user]);
 
-  const lastRecipeRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (isLoading) return;
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          updateRecipes();
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [isLoading, hasMore, updateRecipes]
-  );
+  const infiniteScroll = useInfiniteScroll(getRecipes, !isLoading && hasMore);
 
   const handleRemove = (id?: number) => {
     if (!id) return;
@@ -79,18 +57,20 @@ export function FavoritesPageContainer() {
   const action = <Button onClick={handleUndo}>Отменить</Button>;
 
   useEffect(() => {
-    if (user) {
-      getFavorites(1).then((res) => {
-        if (!res.Data) return;
-        setRecipes(res.Data);
-      });
-    }
-  }, [user]);
-
+    setIsLoading(true);
+    getFavorites(1).then((res) => {
+      if (!res.Data) {
+        setHasMore(false);
+        return;
+      }
+      setRecipes(res.Data || []);
+      setIsLoading(false);
+    });
+  }, [setIsLoading, setHasMore, setRecipes]);
   if (!user) return;
   return (
     <FavoritesPage
-      lastRecipeRef={lastRecipeRef}
+      lastRecipeRef={infiniteScroll}
       action={action}
       isSnackbarOpened={isSnackbarOpened}
       setIsOpened={setIsOpened}

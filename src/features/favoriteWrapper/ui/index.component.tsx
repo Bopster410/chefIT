@@ -8,13 +8,14 @@ import { RecipeCard } from '@/entities/recipe';
 import { STATUS } from '@/shared/api';
 
 export const RecipeWithFavorite: FunctionComponent<Props> = (props) => {
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(props.likedByDefault || false);
 
     const addOrRemove = () => {
         if (liked) {
             removeFavorite(props.id).then(({ Status }) => {
                 if (Status !== STATUS.SUCCESS) return;
                 setLiked(false);
+                props.onRemove?.(props.id);
             });
         } else {
             addFavorite(props.id).then(({ Status }) => {

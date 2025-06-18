@@ -27,4 +27,7 @@ export const RECIPES_API = {
     addFavorite: 'favorite/add', // + '[id]'
     removeFavorite: 'favorite/delete', // + '[id]'
     getFavorites: 'favorite/all',
+
+    getAllCollections: 'main/collection/all',
+    getCollection: 'main/collection/', // + [id]?page=...
 };

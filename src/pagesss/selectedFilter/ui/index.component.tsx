@@ -15,7 +15,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                 <h4 className='mb-5'>{label}</h4>
 
                 <div className='grid grid-cols-2 mobile:grid-cols-3 gap-3'>
-                    {recipes.length > 0 &&
+                    {recipes.length > 0 ?
                         recipes.map(
                             (
                                 {
@@ -24,6 +24,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                                     description,
                                     img,
                                     cookingTimeMinutes,
+                                    isFavorite,
                                 },
                                 i
                             ) => (
@@ -31,6 +32,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                                     <RecipeWithFavorite
                                         id={id}
                                         name={name}
+                                        likedByDefault={isFavorite}
                                         description={description}
                                         image={img}
                                         link={`recipe/${id}`}
@@ -42,7 +44,7 @@ export const SelectedFilterPage: FunctionComponent<Props> = ({
                                     )}
                                 </div>
                             )
-                        )}
+                        ):<div ref={lastRecipeRef}></div>}
                 </div>
             </div>
         </div>

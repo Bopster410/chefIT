@@ -8,6 +8,7 @@ export interface Props {
     };
     timerSecondsLeft?: number;
     totalSteps: number;
+    isGenerated?: boolean;
     nextStep: () => void;
     prevStep: () => void;
     endCooking: () => void;
